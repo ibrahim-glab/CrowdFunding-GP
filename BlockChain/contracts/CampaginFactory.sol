@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-import "contracts/Campagin.sol";
+import "BlockCahin/contracts/Campagin.sol";
 
 pragma solidity >=0.7.0 <0.9.0;
 contract CapmpaginFactory{
