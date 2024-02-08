@@ -4,11 +4,11 @@ pragma solidity >=0.7.0 <0.9.0;
 contract BaseCampaign {
     address public Owner;
     uint256 public minimumcontribution;
-    uint256 public goal;
+    uint256 immutable public goal;
     mapping(address => uint256) public contributors;
     address[] public contributorsList;
     uint256 public totalContributions;
-    uint256 public campaignEndTime;
+    uint256 immutable public campaignEndTime;
     bool private authorized ; 
     enum CampaignStatus {
         Active,
