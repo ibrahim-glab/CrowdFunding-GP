@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 import "./CampaginFactory.sol";
 import "./BaseCampaign.sol";
 contract UserManagement {
-    // Struct to represent user data
     User private governor;
     struct User {
         address ethAddress;
