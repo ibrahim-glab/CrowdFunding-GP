@@ -22,14 +22,14 @@ contract BaseCampaign {
         uint256 amount,
         string message
     );
-    struct Request {
-        string description;
-        uint256 value;
-        address payable recipient;
-        bool complete;
-        uint256 approvalCount;
-    }
-    Request[] public requests;
+    // struct Request {
+    //     string description;
+    //     uint256 value;
+    //     address payable recipient;
+    //     bool complete;
+    //     uint256 approvalCount;
+    // }
+    // Request[] public requests;
 
     constructor(
         address owner,
@@ -58,6 +58,7 @@ contract BaseCampaign {
 
     function contribute(string memory message) public payable {
         require(block.timestamp < campaignEndTime, "Campaign has ended");
+        require(campaignStatus == CampaignStatus.Active , "Campaign is Not active");
         require(
             msg.value >= minimumcontribution,
             "Contribution amount too low"

@@ -3,7 +3,7 @@ import "./CharityBasedCampaign.sol";
 import "./EquaityBasedCampaign.sol";
 import "./rewardBasedCampaign.sol";
 import "./BaseCampaign.sol";
-
+import "./UserManagement.sol";
 pragma solidity >=0.7.0 <0.9.0;
 
 contract CapmpaginFactory {
@@ -39,7 +39,7 @@ contract CapmpaginFactory {
             deployedProjects.push(newCamp);
         }
        
-        
+    
     }
 
     function getDeployedProjects() public view returns (BaseCampaign[] memory) {
