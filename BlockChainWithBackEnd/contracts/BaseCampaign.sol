@@ -33,7 +33,7 @@ contract BaseCampaign {
     // Request[] public requests;
 
     constructor(
-        address payable owner,
+        address  payable owner,
         uint256 minimumContribution,
         uint256 durationInDays,
         uint256 Goal
