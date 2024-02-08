@@ -2,14 +2,14 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 contract BaseCampaign {
-    address public Owner;
+    address payable public Owner;
     uint256 public minimumcontribution;
-    uint256 immutable public goal;
+    uint256 public immutable goal;
     mapping(address => uint256) public contributors;
     address[] public contributorsList;
     uint256 public totalContributions;
-    uint256 immutable public campaignEndTime;
-    bool private authorized ; 
+    uint256 public immutable campaignEndTime;
+    bool private authorized;
     enum CampaignStatus {
         Active,
         Successful,
@@ -22,6 +22,7 @@ contract BaseCampaign {
         uint256 amount,
         string message
     );
+
     // struct Request {
     //     string description;
     //     uint256 value;
@@ -32,7 +33,7 @@ contract BaseCampaign {
     // Request[] public requests;
 
     constructor(
-        address owner,
+        address payable owner,
         uint256 minimumContribution,
         uint256 durationInDays,
         uint256 Goal
@@ -58,7 +59,11 @@ contract BaseCampaign {
 
     function contribute(string memory message) public payable {
         require(block.timestamp < campaignEndTime, "Campaign has ended");
-        require(campaignStatus == CampaignStatus.Active , "Campaign is Not active");
+        require(
+            campaignStatus == CampaignStatus.Active,
+            "Campaign is Not active"
+        );
+
         require(
             msg.value >= minimumcontribution,
             "Contribution amount too low"
@@ -94,24 +99,47 @@ contract BaseCampaign {
     //     request.approvalCount++;
     // }
 
-    function endCampaign() public restricted {
+    function endCampaign() public virtual restricted {
         require(
             block.timestamp >= campaignEndTime,
             "Campaign has not ended yet"
         );
+        require(address(this).balance > 0, "Contract balance is empty");
+
         if (totalContributions < goal) {
             campaignStatus = CampaignStatus.Failed;
             refundContributors();
         } else if (totalContributions >= goal) {
             campaignStatus = CampaignStatus.Successful;
+            bool send = SendBalance();
+            require(
+                send,
+                "Failed to send The campaign balance to the Owner, please try again later"
+            );
         }
     }
 
     function refundContributors() public {
+        uint256 maxRetries = 5;
         for (uint256 i = 0; i < contributorsList.length; i++) {
-            payable(contributorsList[i]).transfer(
-                contributors[contributorsList[i]]
+            uint256 retries = 0;
+            bool send;
+            do {
+                send = payable(contributorsList[i]).send(
+                    contributors[contributorsList[i]]
+                );
+                retries++;
+            } while (!send && retries < maxRetries);
+
+            require(
+                send,
+                "Failed to send the contribution to the contributor after multiple attempts. Please try again later."
             );
+            contributors[contributorsList[i]] = 0;
         }
+    }
+
+    function SendBalance() internal virtual returns (bool) {
+        return payable(Owner).send(address(this).balance);
     }
 }
