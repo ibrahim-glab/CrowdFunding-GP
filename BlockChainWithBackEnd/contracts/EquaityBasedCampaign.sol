@@ -5,12 +5,12 @@ import "./BaseCampaign.sol";
 pragma solidity >=0.7.0 <0.9.0;
 contract EquaityBasedCampaign is BaseCampaign{
 
-    uint256 totaldonations =0;
+    uint256 totaldonations = 0;
 
-    constructor(address owner, uint256 minimumContribution, uint256 durationInDays , uint256 Goal) BaseCampaign(owner, minimumContribution, durationInDays , Goal) {
+    constructor(address payable owner, uint256 minimumContribution, uint256 durationInDays , uint256 Goal) BaseCampaign(owner, minimumContribution, durationInDays , Goal) {
     }
 
-    function contribute(string memory message) public payable override {
+    function contribute() public payable override  {
         require(block.timestamp < campaignEndTime, "Campaign has ended");
         require(
             campaignStatus == CampaignStatus.Active,
@@ -18,7 +18,7 @@ contract EquaityBasedCampaign is BaseCampaign{
         );
 
         require(
-            msg.value >= minimumcontribution,
+            msg.value >=minimumcontribution,
             "Contribution amount too low"
         );
 
@@ -30,6 +30,5 @@ contract EquaityBasedCampaign is BaseCampaign{
         contributors[msg.sender] += msg.value;
         totalContributions += msg.value;
         contributorsList.push(msg.sender);
-        emit ContributionReceived(msg.sender, msg.value, message);
     }
 }

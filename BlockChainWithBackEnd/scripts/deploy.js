@@ -5,24 +5,39 @@
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
 const hre = require("hardhat");
-
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  
+  const CampignFactory = await hre.ethers.getContractFactory("CampaginFactory");
+  const Contract = await CampignFactory.deploy();
 
-  const lockedAmount = hre.ethers.parseEther("0.001");
+  const add = await Contract.getAddress();
+  console.log("CampaginFactory deployed to:", add);
+  await Contract.createProject(2,10,100000000000,1); 
+  // const fun = await Contract.getFunction("deployedProjects");
+  // const re = fun.staticCallResult();
+  const List = await Contract.getDeployedProjects();
+  const co = await hre.ethers.getContractAt("BaseCampaign",List[0]);
+  console.log("List",List);
+  console.log("List",List.length);
+  console.log("List", await co.Owner());
 
-  const lock = await hre.ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+  const flage = await co.isCampaignActive();
+  console.log("flage", flage);
+  await co.setCampaignActive();
 
-  await lock.waitForDeployment();
+  console.log("Contribution", await co.minimumcontribution());
 
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
+  await co.contribute({value: hre.ethers.parseUnits("2300.0") });
+  console.log("Contribution", await co.totalContributions());
+  console.log("Goal", await co.goal());
+  try {
+    await co.contribute({value: hre.ethers.parseUnits("2300.0") });
+
+    
+  } catch (error) {
+    console.log(error);
+  }
+  console.log("Contribution", await co.totalContributions());
 }
 
 // We recommend this pattern to be able to use async/await everywhere

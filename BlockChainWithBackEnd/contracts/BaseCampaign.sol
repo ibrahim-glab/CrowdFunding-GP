@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
-
+import "hardhat/console.sol";
 contract BaseCampaign {
     address payable public Owner;
+    uint256 public Type;
     uint256 public minimumcontribution;
     uint256 public immutable goal;
     mapping(address => uint256) public contributors;
@@ -19,8 +20,7 @@ contract BaseCampaign {
     CampaignStatus public campaignStatus;
     event ContributionReceived(
         address indexed contributor,
-        uint256 amount,
-        string message
+        uint256 amount
     );
 
     // struct Request {
@@ -43,36 +43,43 @@ contract BaseCampaign {
         campaignEndTime = block.timestamp + (durationInDays * 1 days);
         campaignStatus = CampaignStatus.Pending;
         goal = Goal;
+        console.log(address(this));
     }
 
     modifier restricted() {
         require(msg.sender == Owner, "Only the Owner can call this function");
         _;
     }
-
+     modifier CampaignActice(){
+        require(campaignStatus == CampaignStatus.Active, "Campaign is not active");
+        _;
+     }
+     modifier ContributionMinimun(){
+        require(msg.value >= minimumcontribution, "Contribution amount too low");
+        _;
+     }
     function isCampaignActive() public view returns (bool) {
         if (campaignStatus == CampaignStatus.Active) {
             return true;
         }
         return false;
     }
-
-    function contribute(string memory message) public payable {
-        require(block.timestamp < campaignEndTime, "Campaign has ended");
+    function setCampaignActive() public restricted   {
+        campaignStatus = CampaignStatus.Active;
+       }
+    
+        //update this fun to
+    function contribute() public virtual payable  CampaignActice ContributionMinimun {
+        require(block.timestamp < campaignEndTime, "Campaign has ended");     
         require(
-            campaignStatus == CampaignStatus.Active,
-            "Campaign is Not active"
-        );
-
-        require(
-            msg.value >= minimumcontribution,
+            msg.value>= minimumcontribution,
             "Contribution amount too low"
         );
 
         contributors[msg.sender] += msg.value;
         totalContributions += msg.value;
         contributorsList.push(msg.sender);
-        emit ContributionReceived(msg.sender, msg.value, message);
+        emit ContributionReceived(msg.sender, msg.value);
     }
 
     // function createRequest(

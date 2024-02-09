@@ -1,0 +1,300 @@
+{
+    "contractName": "Admin",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_adminAddress",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        }
+    ],
+    "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_adminAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"c:/Users/Bebo/CrowdFunding/BlockChainWithBackEnd/contracts/Admin.sol\":\"Admin\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"c:/Users/Bebo/CrowdFunding/BlockChainWithBackEnd/contracts/Admin.sol\":{\"keccak256\":\"0x9b7395cb3a3f50d5d69a2c207979da6e7ac64ba6ac9cae9c2a40d3b4519d20aa\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://6c09c8eecf14255f8d707e1b506e87d090bd8948fb1c177ccfd25cc0ec74461a\",\"dweb:/ipfs/QmW88WC72Ledz8oVWSRjqtDRiei9fgUPUhregHoDab4G2K\"]},\"c:/Users/Bebo/CrowdFunding/BlockChainWithBackEnd/node_modules/hardhat/console.sol\":{\"keccak256\":\"0x7434453e6d3b7d0e5d0eb7846ffdbc27f0ccf3b163591263739b628074dc103a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://49355f780520494d1d5a0f01858385e51bb5280ce0ecfb960f16995065dca395\",\"dweb:/ipfs/QmSwJ6C5QLz6xKeQZS8wbwjU1KxRFTYfwbGmtzisd5sRW4\"]}},\"version\":1}",
+    "bytecode": "60a060405234801561001057600080fd5b5060405161019438038061019483398101604081905261002f916100d0565b6001600160a01b03811660808190526100479061004d565b50610100565b6040516001600160a01b03821660248201526100999060440160408051601f198184030181529190526020810180516001600160e01b0390811663161765e160e11b1790915261009c16565b50565b610099816100af60201b6100091760201c565b60006a636f6e736f6c652e6c6f679050600080835160208501845afa505050565b6000602082840312156100e257600080fd5b81516001600160a01b03811681146100f957600080fd5b9392505050565b608051607e61011660003960005050607e6000f3fe6080604052600080fd5b60006a636f6e736f6c652e6c6f679050600080835160208501845afa505050565b60306032565b565b634e487b7160e01b600052605160045260246000fdfea26469706673582212201576bbf078027c12c079082f92438eb45ab577211166e9f81ecd6cd04057d9f664736f6c63430008130033",
+    "deployedBytecode": "6080604052600080fd5b60006a636f6e736f6c652e6c6f679050600080835160208501845afa505050565b60306032565b565b634e487b7160e01b600052605160045260246000fdfea26469706673582212201576bbf078027c12c079082f92438eb45ab577211166e9f81ecd6cd04057d9f664736f6c63430008130033",
+    "sourceMap": "163:181:0:-:0;;;222:119;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;-1:-1:-1;;;;;267:28:0;;;;;;306:25;;:11;:25::i;:::-;222:119;163:181;;6313:116:9;6378:43;;-1:-1:-1;;;;;473:32:10;;6378:43:9;;;455:51:10;6362:60:9;;428:18:10;;6378:43:9;;;-1:-1:-1;;6378:43:9;;;;;;;;;;;;;;-1:-1:-1;;;;;6378:43:9;;;-1:-1:-1;;;6378:43:9;;;;6362:15;:60;:::i;:::-;6313:116;:::o;851:129::-;922:51;965:7;934:29;;;;;922:51;;:::i;180:463::-;265:22;131:42;265:40;;594:1;571;541:7;535:14;510:2;501:7;497:16;461:14;434:5;402:211;381:246;367:270;180:463;:::o;14:290:10:-;84:6;137:2;125:9;116:7;112:23;108:32;105:52;;;153:1;150;143:12;105:52;179:16;;-1:-1:-1;;;;;224:31:10;;214:42;;204:70;;270:1;267;260:12;204:70;293:5;14:290;-1:-1:-1;;;14:290:10:o;517:127::-;163:181:0;;;;;;;;;;;",
+    "deployedSourceMap": "163:181:0:-:0;;;;;;180:463:9;265:22;131:42;265:40;;594:1;571;541:7;535:14;510:2;501:7;497:16;461:14;434:5;402:211;381:246;367:270;180:463;:::o;-1:-1:-1:-;;;:::i;:::-;:::o;14:127:10:-;75:10;70:3;66:20;63:1;56:31;106:4;103:1;96:15;130:4;127:1;120:15",
+    "sourcePath": "c:/Users/Bebo/CrowdFunding/BlockChainWithBackEnd/contracts/Admin.sol",
+    "compiler": {
+        "name": "solc",
+        "version": "0.8.19+commit.7dd6d404"
+    },
+    "ast": {
+        "absolutePath": "c:/Users/Bebo/CrowdFunding/BlockChainWithBackEnd/contracts/Admin.sol",
+        "exportedSymbols": {
+            "Admin": [
+                21
+            ],
+            "console": [
+                8847
+            ]
+        },
+        "id": 22,
+        "license": "GPL-3.0",
+        "nodeType": "SourceUnit",
+        "nodes": [
+            {
+                "absolutePath": "c:/Users/Bebo/CrowdFunding/BlockChainWithBackEnd/node_modules/hardhat/console.sol",
+                "file": "c:/Users/Bebo/CrowdFunding/BlockChainWithBackEnd/node_modules/hardhat/console.sol",
+                "id": 1,
+                "nameLocation": "-1:-1:-1",
+                "nodeType": "ImportDirective",
+                "scope": 22,
+                "sourceUnit": 8848,
+                "src": "37:91:0",
+                "symbolAliases": [],
+                "unitAlias": ""
+            },
+            {
+                "id": 2,
+                "literals": [
+                    "solidity",
+                    ">=",
+                    "0.7",
+                    ".0",
+                    "<",
+                    "0.9",
+                    ".0"
+                ],
+                "nodeType": "PragmaDirective",
+                "src": "130:31:0"
+            },
+            {
+                "abstract": false,
+                "baseContracts": [],
+                "canonicalName": "Admin",
+                "contractDependencies": [],
+                "contractKind": "contract",
+                "fullyImplemented": true,
+                "id": 21,
+                "linearizedBaseContracts": [
+                    21
+                ],
+                "name": "Admin",
+                "nameLocation": "172:5:0",
+                "nodeType": "ContractDefinition",
+                "nodes": [
+                    {
+                        "constant": false,
+                        "id": 4,
+                        "mutability": "immutable",
+                        "name": "adminAddress",
+                        "nameLocation": "203:12:0",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 21,
+                        "src": "184:31:0",
+                        "stateVariable": true,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                        },
+                        "typeName": {
+                            "id": 3,
+                            "name": "address",
+                            "nodeType": "ElementaryTypeName",
+                            "src": "184:7:0",
+                            "stateMutability": "nonpayable",
+                            "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                            }
+                        },
+                        "visibility": "internal"
+                    },
+                    {
+                        "body": {
+                            "id": 19,
+                            "nodeType": "Block",
+                            "src": "256:85:0",
+                            "statements": [
+                                {
+                                    "expression": {
+                                        "id": 11,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "lValueRequested": false,
+                                        "leftHandSide": {
+                                            "id": 9,
+                                            "name": "adminAddress",
+                                            "nodeType": "Identifier",
+                                            "overloadedDeclarations": [],
+                                            "referencedDeclaration": 4,
+                                            "src": "267:12:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_address",
+                                                "typeString": "address"
+                                            }
+                                        },
+                                        "nodeType": "Assignment",
+                                        "operator": "=",
+                                        "rightHandSide": {
+                                            "id": 10,
+                                            "name": "_adminAddress",
+                                            "nodeType": "Identifier",
+                                            "overloadedDeclarations": [],
+                                            "referencedDeclaration": 6,
+                                            "src": "282:13:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_address",
+                                                "typeString": "address"
+                                            }
+                                        },
+                                        "src": "267:28:0",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_address",
+                                            "typeString": "address"
+                                        }
+                                    },
+                                    "id": 12,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "267:28:0"
+                                },
+                                {
+                                    "expression": {
+                                        "arguments": [
+                                            {
+                                                "id": 16,
+                                                "name": "adminAddress",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 4,
+                                                "src": "318:12:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_address",
+                                                    "typeString": "address"
+                                                }
+                                            }
+                                        ],
+                                        "expression": {
+                                            "argumentTypes": [
+                                                {
+                                                    "typeIdentifier": "t_address",
+                                                    "typeString": "address"
+                                                }
+                                            ],
+                                            "expression": {
+                                                "id": 13,
+                                                "name": "console",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 8847,
+                                                "src": "306:7:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_type$_t_contract$_console_$8847_$",
+                                                    "typeString": "type(library console)"
+                                                }
+                                            },
+                                            "id": 15,
+                                            "isConstant": false,
+                                            "isLValue": false,
+                                            "isPure": false,
+                                            "lValueRequested": false,
+                                            "memberLocation": "314:3:0",
+                                            "memberName": "log",
+                                            "nodeType": "MemberAccess",
+                                            "referencedDeclaration": 1406,
+                                            "src": "306:11:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_function_internal_pure$_t_address_$returns$__$",
+                                                "typeString": "function (address) pure"
+                                            }
+                                        },
+                                        "id": 17,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "kind": "functionCall",
+                                        "lValueRequested": false,
+                                        "nameLocations": [],
+                                        "names": [],
+                                        "nodeType": "FunctionCall",
+                                        "src": "306:25:0",
+                                        "tryCall": false,
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_tuple$__$",
+                                            "typeString": "tuple()"
+                                        }
+                                    },
+                                    "id": 18,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "306:25:0"
+                                }
+                            ]
+                        },
+                        "id": 20,
+                        "implemented": true,
+                        "kind": "constructor",
+                        "modifiers": [],
+                        "name": "",
+                        "nameLocation": "-1:-1:-1",
+                        "nodeType": "FunctionDefinition",
+                        "parameters": {
+                            "id": 7,
+                            "nodeType": "ParameterList",
+                            "parameters": [
+                                {
+                                    "constant": false,
+                                    "id": 6,
+                                    "mutability": "mutable",
+                                    "name": "_adminAddress",
+                                    "nameLocation": "242:13:0",
+                                    "nodeType": "VariableDeclaration",
+                                    "scope": 20,
+                                    "src": "234:21:0",
+                                    "stateVariable": false,
+                                    "storageLocation": "default",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_address",
+                                        "typeString": "address"
+                                    },
+                                    "typeName": {
+                                        "id": 5,
+                                        "name": "address",
+                                        "nodeType": "ElementaryTypeName",
+                                        "src": "234:7:0",
+                                        "stateMutability": "nonpayable",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_address",
+                                            "typeString": "address"
+                                        }
+                                    },
+                                    "visibility": "internal"
+                                }
+                            ],
+                            "src": "233:23:0"
+                        },
+                        "returnParameters": {
+                            "id": 8,
+                            "nodeType": "ParameterList",
+                            "parameters": [],
+                            "src": "256:0:0"
+                        },
+                        "scope": 21,
+                        "src": "222:119:0",
+                        "stateMutability": "nonpayable",
+                        "virtual": false,
+                        "visibility": "public"
+                    }
+                ],
+                "scope": 22,
+                "src": "163:181:0",
+                "usedErrors": []
+            }
+        ],
+        "src": "37:307:0"
+    },
+    "functionHashes": {},
+    "gasEstimates": {
+        "creation": {
+            "codeDepositCost": "25200",
+            "executionCost": "infinite",
+            "totalCost": "infinite"
+        }
+    }
+}
