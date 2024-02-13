@@ -18,6 +18,7 @@ contract BaseCampaign {
         Pending,
         Failed
     }
+    
     CampaignStatus public campaignStatus;
     event ContributionReceived(
         address indexed contributor,
@@ -76,6 +77,16 @@ contract BaseCampaign {
     function setCampaignActive() public OnlyAdmin   {
         campaignStatus = CampaignStatus.Active;
        }
+
+    // abdalla 10/2 10:00 AM  this function for Admin.sol
+    function setCampaignStatus(CampaignStatus _status) public {
+            campaignStatus = _status;
+        }
+
+
+
+    
+
     
         //update this fun to
     function contribute() public virtual payable  CampaignActice ContributionMinimun {
