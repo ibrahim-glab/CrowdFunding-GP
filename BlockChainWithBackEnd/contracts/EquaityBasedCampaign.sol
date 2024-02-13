@@ -7,7 +7,7 @@ contract EquaityBasedCampaign is BaseCampaign{
 
     uint256 totaldonations = 0;
 
-    constructor(address payable owner, uint256 minimumContribution, uint256 durationInDays , uint256 Goal) BaseCampaign(owner, minimumContribution, durationInDays , Goal) {
+    constructor(address payable owner, uint256 minimumContribution, uint256 durationInDays , uint256 Goal , address admin) BaseCampaign(owner, minimumContribution, durationInDays , Goal , admin) {
     }
 
     function contribute() public payable override  {

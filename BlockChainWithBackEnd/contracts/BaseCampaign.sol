@@ -3,6 +3,7 @@ pragma solidity >=0.7.0 <0.9.0;
 import "hardhat/console.sol";
 contract BaseCampaign {
     address payable public Owner;
+    address private Admin;
     uint256 public Type;
     uint256 public minimumcontribution;
     uint256 public immutable goal;
@@ -36,7 +37,8 @@ contract BaseCampaign {
         address  payable owner,
         uint256 minimumContribution,
         uint256 durationInDays,
-        uint256 Goal
+        uint256 Goal,
+        address admin
     ) {
         Owner = owner;
         minimumcontribution = minimumContribution;
@@ -44,10 +46,17 @@ contract BaseCampaign {
         campaignStatus = CampaignStatus.Pending;
         goal = Goal;
         console.log(address(this));
+        Admin = admin;
     }
 
     modifier restricted() {
         require(msg.sender == Owner, "Only the Owner can call this function");
+        _;
+    }
+
+       modifier OnlyAdmin() 
+       {
+        require(msg.sender == Admin, "Only the Owner can call this function");
         _;
     }
      modifier CampaignActice(){
@@ -64,7 +73,7 @@ contract BaseCampaign {
         }
         return false;
     }
-    function setCampaignActive() public restricted   {
+    function setCampaignActive() public OnlyAdmin   {
         campaignStatus = CampaignStatus.Active;
        }
     
@@ -82,29 +91,6 @@ contract BaseCampaign {
         emit ContributionReceived(msg.sender, msg.value);
     }
 
-    // function createRequest(
-    //     string memory description,
-    //     uint256 value,
-    //     address payable recipient
-    // ) public restricted {
-    //     Request memory newRequest = Request({
-    //         description: description,
-    //         value: value,
-    //         recipient: recipient,
-    //         complete: false,
-    //         approvalCount: 0
-    //     });
-    //     requests.push(newRequest);
-    // }
-
-    //   function approveRequest(uint256 index) public {
-    //     Request storage request = requests[index];
-    //     require(contributors[msg.sender] > 0, "You must be a contributor to approve");
-    //     require(!request.approvals[msg.sender], "You can't approve the same request twice");
-
-    //     request.approvals[msg.sender] = true;
-    //     request.approvalCount++;
-    // }
 
     function endCampaign() public virtual restricted {
         require(
