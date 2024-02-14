@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Raleway:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&display=swap");
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    font-family: "Cairo", sans-serif;
-    background-color: #282828;
+    font-family: "Epilogue", sans-serif;
+    background-color: #1c1c24;
 }
 
 *:focus {
@@ -76,7 +76,6 @@ ul {
 }
 
 #header h2 {
-    background-color: #2C645B;
     padding: 5px 10px;
     border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -131,10 +130,6 @@ tr {
     -o-transition: 0.3s;
 }
 
-table .header-row {
-    background-color: #2C645B;
-}
-
 table .header-row th {
     padding: 10px;
     color: #E6E7EE;
@@ -172,7 +167,7 @@ table .even-row {
 .select-dropdown {
     width: 200px;
     /* Adjust width as needed */
-    padding: 5px;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: transparent;
@@ -200,6 +195,6 @@ table .even-row {
 
 .select-dropdown:focus {
     outline: none;
-    border-color: #4CAF50;
+    border-color: #4acd8d;
     box-shadow: 0 0 5px #2C645B;
 }

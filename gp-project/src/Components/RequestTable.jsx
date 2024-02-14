@@ -5,7 +5,7 @@ function RequestTable({ filteredData }) {
     return (
         <table>
             <tbody>
-                <tr className="header-row">
+                <tr className="header-row bg-[#4acd8d]">
                     {requestHeader.map((item) => <RequestTitles title={item} key={item} />)}
                 </tr>
                 {filteredData.map((item, index) => <RequestData key={item.walletID} {...item} index={index} />)}
