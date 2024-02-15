@@ -84,8 +84,6 @@ contract CampaginFactory {
         }
         console.log("Reward out");
     }
-
-
      function contribute(address _campaignAddress, uint256 _amount) public payable {
         BaseCampaign campaign = BaseCampaign(_campaignAddress);
         campaign.contribute{value: msg.value}();
