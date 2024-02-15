@@ -9,14 +9,12 @@ pragma solidity >=0.7.0 <0.9.0;
 
 contract CampaginFactory {
     address public immutable admin;
-    event AdminChanged(address indexed oldAdmin, address indexed newAdmin);
-    event CampaignActivated(
-        address indexed admin,
-        address indexed campaign,
-        bool isActive
-    );
+    
     event CampaignCreated(address indexed Owner, address indexed campaign);
-
+     struct Contribution {
+        address campaignAddress;
+        uint256 amount;
+    }
     modifier onlyAdmin() {
         require(msg.sender == admin, "Only the admin can perform this action");
         _;
@@ -29,6 +27,8 @@ contract CampaginFactory {
     BaseCampaign[] public deployedProjects;
     mapping(address => BaseCampaign) public campagins;
     mapping(address => BaseCampaign[]) public userCampagins;
+    mapping(address => Contribution[]) public userContributions;
+
 
     enum CampaignType {
         Charity,
@@ -85,10 +85,20 @@ contract CampaginFactory {
         console.log("Reward out");
     }
 
+
+     function contribute(address _campaignAddress, uint256 _amount) public payable {
+        BaseCampaign campaign = BaseCampaign(_campaignAddress);
+        campaign.contribute{value: msg.value}();
+        userContributions[msg.sender].push(Contribution(_campaignAddress, _amount));
+    }
+
     function getDeployedProjects() public view returns (BaseCampaign[] memory) {
         return deployedProjects;
     }
     function getDeployedProjectsByUser(address user) public view returns (BaseCampaign[] memory) {
         return userCampagins[user];
+    }
+    function getUserContributions(address _user) public view returns (Contribution[] memory) {
+        return userContributions[_user];
     }
 }

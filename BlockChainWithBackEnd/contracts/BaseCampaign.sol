@@ -46,8 +46,11 @@ contract BaseCampaign {
         Owner = owner;
         minimumcontribution = minimumContribution;
         campaignEndTime = block.timestamp + (durationInDays * 1 days);
+        if(!verfied)
+            campaignStatus = CampaignStatus.Active;
         campaignStatus = CampaignStatus.Pending;
         goal = Goal;
+
         console.log(address(this));
         Admin = admin;
     }
