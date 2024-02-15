@@ -9,8 +9,9 @@ contract CharityBasedCampaign is BaseCampaign {
         uint256 minimumContribution,
         uint256 durationInDays,
         uint256 Goal , 
-        address admin
-    ) BaseCampaign(owner, minimumContribution, durationInDays, Goal , admin) {}
+        address admin,
+        bool verfied
+    ) BaseCampaign(owner, minimumContribution, durationInDays, Goal , admin , verfied) {}
 
     function endCampaign() public override restricted {
         require(

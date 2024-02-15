@@ -16,7 +16,8 @@ contract BaseCampaign {
         Active,
         Successful,
         Pending,
-        Failed
+        Failed,
+        Denied
     }
     
     CampaignStatus public campaignStatus;
@@ -39,7 +40,8 @@ contract BaseCampaign {
         uint256 minimumContribution,
         uint256 durationInDays,
         uint256 Goal,
-        address admin
+        address admin , 
+        bool verfied
     ) {
         Owner = owner;
         minimumcontribution = minimumContribution;

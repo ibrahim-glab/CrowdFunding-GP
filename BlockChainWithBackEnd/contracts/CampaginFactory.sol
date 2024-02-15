@@ -40,7 +40,9 @@ contract CampaginFactory {
         uint256 minimumContribution,
         uint256 durationInDays,
         uint256 Goal,
-        CampaignType campType
+        CampaignType campType,
+        bool verfied
+
     ) public {
         if (campType == CampaignType.Charity) {
             console.log("Reward 1 ");
@@ -49,7 +51,7 @@ contract CampaginFactory {
                 minimumContribution,
                 durationInDays,
                 Goal,
-                admin
+                admin , verfied
             );
             deployedProjects.push(newCamp);
             userCampagins[msg.sender].push(newCamp);
@@ -61,7 +63,7 @@ contract CampaginFactory {
                 minimumContribution,
                 durationInDays,
                 Goal,
-                admin
+                admin , verfied
             );
             deployedProjects.push(newCamp);
             userCampagins[msg.sender].push(newCamp);
@@ -74,7 +76,7 @@ contract CampaginFactory {
                 minimumContribution,
                 durationInDays,
                 Goal,
-                admin
+                admin , verfied
             );
             deployedProjects.push(newCamp);
             userCampagins[msg.sender].push(newCamp);
