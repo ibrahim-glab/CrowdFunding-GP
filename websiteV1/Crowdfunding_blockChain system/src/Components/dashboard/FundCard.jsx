@@ -1,6 +1,6 @@
 import React from "react";
 
-import { tagType, thirdweb } from "../assets";
+import { tagType, thirdweb } from "../../assets";
 // import { daysLeft } from '../utils';
 
 const FundCard = ({
@@ -16,13 +16,13 @@ const FundCard = ({
   //   const remainingDays = daysLeft(deadline);
   const targetDate = new Date("2024-03-01");
   const currentDate = new Date();
-  
+
   // Calculate the difference in milliseconds
   const differenceInMs = targetDate - currentDate;
-  
+
   // Convert milliseconds to days
   const remainingDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
-  
+
   return (
     <div
       className=" sm:w-[288px] cursor-pointer rounded-[15px] w-full bg-[#1c1c24]"
@@ -65,7 +65,7 @@ const FundCard = ({
           </div>
           <div className="flex flex-col">
             <h4 className="font-epilogue font-semibold text-[14px] text-[#b2b3bd] leading-[22px]">
-               {remainingDays}
+              {remainingDays}
             </h4>
             <p className="mt-[3px] font-epilogue font-normal text-[12px] leading-[18px] text-[#808191] sm:max-w-[120px] truncate">
               Days Left

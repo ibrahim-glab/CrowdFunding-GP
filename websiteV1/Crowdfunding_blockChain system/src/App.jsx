@@ -1,36 +1,38 @@
 import ocean from './assets/ocean.png';
-import './index.css';  
+import './index.css';
 import "./App.css";
-import SideBar from "./Components/SideBar";
-import NavBar from  "./Components/NavBar"
+import SideBar from "./Components/dashboard/SideBar";
+import NavBar from "./Components/dashboard/NavBar"
 import Home from './Pages/Home';
 import { dummyData } from './test';
-import { Router,BrowserRouter,Routes,Route } from 'react-router-dom';
+import { Router, BrowserRouter, Routes, Route } from 'react-router-dom';
+import Requests from './Pages/Requests';
+import Hist from './Pages/Hist';
 
 function App() {
   return (
-  
-  
-   <BrowserRouter>
-    <>
-      <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row">
-        <div className="sm:flex hidden mr-10 relative">
-          <SideBar />
-         
-        </div>
-        <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
-        <NavBar />
-        
-    
+    <BrowserRouter>
+      <>
+        <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row">
+          <div className="sm:flex hidden mr-10 relative">
+            <SideBar />
+
+          </div>
+          <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
+            <NavBar />
+
+
             <Routes>
-              <Route path="/Home" element={<Home campaigns={dummyData} />} />
+              <Route path="/" element={<Home campaigns={dummyData} />} />
+              <Route path="/requests" element={<Requests />} />
+              <Route path="/history" element={<Hist />} />
             </Routes>
-         
+
+          </div>
+
         </div>
-      
-      </div>
-     
-    </>
+
+      </>
     </BrowserRouter>
   );
 }
