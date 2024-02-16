@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "hardhat/console.sol";
+
 contract BaseCampaign {
+    AggregatorV3Interface internal priceFeed;
     address payable public Owner;
     address private Admin;
     uint256 public Type;
@@ -19,40 +22,28 @@ contract BaseCampaign {
         Failed,
         Denied
     }
-    
-    CampaignStatus public campaignStatus;
-    event ContributionReceived(
-        address indexed contributor,
-        uint256 amount
-    );
 
-    // struct Request {
-    //     string description;
-    //     uint256 value;
-    //     address payable recipient;
-    //     bool complete;
-    //     uint256 approvalCount;
-    // }
-    // Request[] public requests;
+    CampaignStatus public campaignStatus;
+    event ContributionReceived(address indexed contributor, uint256 amount);
+
+
 
     constructor(
-        address  payable owner,
+        address payable owner,
         uint256 minimumContribution,
         uint256 durationInDays,
         uint256 Goal,
-        address admin , 
+        address admin,
         bool verfied
     ) {
         Owner = owner;
         minimumcontribution = minimumContribution;
         campaignEndTime = block.timestamp + (durationInDays * 1 days);
-        if(!verfied)
-            campaignStatus = CampaignStatus.Active;
+        if (!verfied) campaignStatus = CampaignStatus.Active;
         campaignStatus = CampaignStatus.Pending;
         goal = Goal;
-
-        console.log(address(this));
         Admin = admin;
+
     }
 
     modifier restricted() {
@@ -60,44 +51,41 @@ contract BaseCampaign {
         _;
     }
 
-       modifier OnlyAdmin() 
-       {
+    modifier OnlyAdmin() {
         require(msg.sender == Admin, "Only the Owner can call this function");
         _;
     }
-     modifier CampaignActice(){
-        require(campaignStatus == CampaignStatus.Active, "Campaign is not active");
-        _;
-     }
-     modifier ContributionMinimun(){
-        require(msg.value >= minimumcontribution, "Contribution amount too low");
-        _;
-     }
-    function isCampaignActive() public view returns (bool) {
-        if (campaignStatus == CampaignStatus.Active) {
-            return true;
-        }
-        return false;
-    }
-    function setCampaignActive() public OnlyAdmin   {
-        campaignStatus = CampaignStatus.Active;
-       }
-
-    // abdalla 10/2 10:00 AM  this function for Admin.sol
-    function setCampaignStatus(CampaignStatus _status) public {
-            campaignStatus = _status;
-        }
-
-
-
-    
-
-    
-        //update this fun to
-    function contribute() public virtual payable  CampaignActice ContributionMinimun {
-        require(block.timestamp < campaignEndTime, "Campaign has ended");     
+    modifier CampaignActice() {
         require(
-            msg.value>= minimumcontribution,
+            campaignStatus == CampaignStatus.Active,
+            "Campaign is not active"
+        );
+        _;
+    }
+    modifier ContributionMinimun() {
+        require(
+            msg.value >= minimumcontribution,
+            "Contribution amount too low"
+        );
+        _;
+    }
+
+    function setCampaignActive() public OnlyAdmin {
+        campaignStatus = CampaignStatus.Active;
+    }
+
+
+    //update this fun to
+    function contribute()
+         external 
+         payable       
+         virtual
+        CampaignActice
+        ContributionMinimun
+    {
+        require(block.timestamp < campaignEndTime, "Campaign has ended");
+        require(
+            msg.value >= minimumcontribution,
             "Contribution amount too low"
         );
 
@@ -106,7 +94,6 @@ contract BaseCampaign {
         contributorsList.push(msg.sender);
         emit ContributionReceived(msg.sender, msg.value);
     }
-
 
     function endCampaign() public virtual restricted {
         require(
@@ -127,7 +114,7 @@ contract BaseCampaign {
             );
         }
     }
-/////////
+
     function refundContributors() public {
         uint256 maxRetries = 5;
         for (uint256 i = 0; i < contributorsList.length; i++) {

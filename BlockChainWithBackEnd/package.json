@@ -1,7 +1,8 @@
 {
   "dependencies": {
+    "@chainlink/contracts": "^0.8.0",
     "@openzeppelin/contracts": "^5.0.1",
-    "hardhat": "^2.19.5",
+    "hardhat": "^2.20.1",
     "hardhat-gas-reporter": "^1.0.10"
   },
   "devDependencies": {
