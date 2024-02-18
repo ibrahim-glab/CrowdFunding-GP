@@ -26,7 +26,6 @@ function CreateCampaign() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-
         setForm({
             name: '',
             title: '',
@@ -37,6 +36,7 @@ function CreateCampaign() {
             verify: false
         })
         console.log("Form submitted:", form);
+        performAction();
     };
     return (
         <>
@@ -99,7 +99,7 @@ function CreateCampaign() {
                         Verify Your Campaign ? *
                     </label>
                     <div className="flex justify-center items-center mt-[40px]">
-                        <button onClick={performAction} type="submit" className="bg-[#1dc071] font-semibold text-[16px] leading-[26px] text-white min-h-[52px] px-4 rounded-[10px]  w-fit">
+                        <button onClick={performAction}  type="submit" className="bg-[#1dc071] font-semibold text-[16px] leading-[26px] text-white min-h-[52px] px-4 rounded-[10px]  w-fit">
                             Submit Campaign
                         </button>
                     </div>
