@@ -18,7 +18,7 @@ const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => (
   </div>
 );
 
-const SideBar = () => {
+const SideBar = ({ activePage, updateActivePage }) => {
   const [isActive, setIsActive] = useState(
     performance.navigation.type === performance.navigation.TYPE_RELOAD ? localStorage.getItem("activeNavItem") : "dashboard"
   );

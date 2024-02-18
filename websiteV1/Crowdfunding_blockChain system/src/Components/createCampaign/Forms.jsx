@@ -17,6 +17,7 @@ function Form({ labelName, placeholder, inputType, isTextArea, value, handleChan
                     value={value}
                     onChange={handleChange}
                     type={inputType}
+                    step="0.2"
                     placeholder={placeholder}
                     accept={image}
                     className="py-[15px] sm:px-[25px] px-[15px] outline-none border-[1px] border-[#3a3a43] bg-transparent font-epilogue text-white text-[14px] placeholder:text-[#4b5264] rounded-[10px] sm:min-w-[300px]"

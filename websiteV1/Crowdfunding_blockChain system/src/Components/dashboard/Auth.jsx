@@ -4,7 +4,7 @@ import { useRef, useImperativeHandle, forwardRef } from 'react';   //importing u
 const Auth = forwardRef((props, ref) => {
     const dialog = useRef();
     useImperativeHandle(ref, () => ({
-        open() {
+        open: () => {
             dialog.current.showModal();
         },
     }));
