@@ -8,6 +8,7 @@ import { dummyData } from './test';
 import { Router, BrowserRouter, Routes, Route } from 'react-router-dom';
 import Requests from './Pages/Requests';
 import Hist from './Pages/Hist';
+import CreateCampaign from './Pages/CreateCampaign';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/" element={<Home campaigns={dummyData} />} />
               <Route path="/requests" element={<Requests />} />
               <Route path="/history" element={<Hist />} />
+              <Route path='/create-campaign' element={<CreateCampaign />} />
             </Routes>
 
           </div>

@@ -200,3 +200,17 @@ table .even-row {
     border-color: #4acd8d;
     box-shadow: 0 0 5px #2C645B;
 }
+
+
+/* Create Campaign Page */
+
+.form-control {
+    font-family: system-ui, sans-serif;
+    font-size: 14px;
+    color: #808191;
+    font-weight: bold;
+    line-height: 1.1;
+    display: grid;
+    grid-template-columns: 1em auto;
+    gap: 0.5em;
+}
