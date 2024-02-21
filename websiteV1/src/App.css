@@ -1,0 +1,735 @@
+<<<<<<<< HEAD:websiteV1/Crowdfunding_blockChain_system/src/App.css
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&display=swap");
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Epilogue", sans-serif;
+    background-color: #1c1c23;
+}
+
+*:focus {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* small */
+
+@media (min-width:768px) {
+    .container {
+        width: 750px;
+    }
+}
+
+
+/* Medium */
+
+@media (min-width:992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+
+/* Large */
+
+@media (min-width:1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+
+/* Request Page */
+
+#header {
+    display: flex;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+#header .filter {
+    width: 30px;
+    height: 30px;
+    color: white;
+}
+
+#header h2 {
+    padding: 5px 10px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+
+/* .reqBox {
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+.reqBox #reqHeader {
+    background-color: #2C645B;
+}
+
+.reqBox #reqHeader ul {
+    display: flex;
+    justify-content: space-around;
+}
+
+.reqBox #reqHeader ul li {
+    font-weight: bold;
+    position: relative;
+} */
+
+table {
+    width: 100%;
+    background-color: white;
+    transition: 0.5s all ease-in-out;
+    -webkit-transition: 0.5s all ease-in-out;
+    -moz-transition: 0.5s all ease-in-out;
+    -ms-transition: 0.5s all ease-in-out;
+    -o-transition: 0.5s all ease-in-out;
+}
+
+table,
+tr {
+    border-collapse: collapse;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+table .header-row th {
+    padding: 10px;
+    color: #E6E7EE;
+}
+
+table .data-row td {
+    padding: 10px;
+    text-align: center;
+}
+
+table .data-row td a {
+    color: black;
+    font-weight: bold;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+table .data-row td a:hover {
+    color: #2C645B;
+}
+
+table .even-row {
+    background-color: #D3D3D3;
+}
+
+
+/* Header.css */
+
+
+/* ComboBox dropdown */
+
+.select-dropdown {
+    width: 200px;
+    /* Adjust width as needed */
+    padding: 8px;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+/* ComboBox options */
+
+#header select option {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 5px;
+    background-color: #333;
+    padding: 2px;
+    color: white;
+}
+
+
+/* Hover effect on ComboBox */
+
+.select-dropdown:hover {
+    border-color: #666;
+}
+
+
+/* Focus effect on ComboBox */
+
+.select-dropdown:focus {
+    outline: none;
+    border-color: #4acd8d;
+    box-shadow: 0 0 5px #2C645B;
+}
+
+
+/* Create Campaign Page */
+
+.form-control {
+    font-family: system-ui, sans-serif;
+    font-size: 14px;
+    color: #808191;
+    font-weight: bold;
+    line-height: 1.1;
+    display: grid;
+    grid-template-columns: 1em auto;
+    gap: 0.5em;
+}
+
+
+
+/* ay kalam */
+
+.result-modal {
+    border: none;
+    border-radius: 8px;
+    padding: 5rem;
+    background-color: #1c1c23;
+  }
+  
+  .result-modal[open] {
+    animation: slide-in-from-top 0.35s ease-out;
+  }
+  
+  .result-modal::backdrop, .dialogBg::backdrop{
+    background: rgba(0, 0, 0, 0.9);
+  }
+  
+  .result-modal h2 {
+    font-family: 'Handjet', monospace;
+    margin: 0 0 0.25rem 0;
+    font-size: 3rem;
+    text-transform: uppercase;
+  }
+  
+  .result-modal progress {
+    width: 100%;
+    height: 1.5rem;
+    margin: 0;
+    accent-color: #46cebe;
+  }
+  
+  .result-modal p {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+  }
+  
+  .result-modal p strong {
+    color: #10655b;
+  }
+  .result-modal h3{
+    color: #E6E7EE;
+    
+  }
+  .result-modal form {
+    text-align: right;
+  }
+   .active {
+    animation: flash 1s infinite;
+  }
+  .result-modal button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background: #12352f;
+    color: #edfcfa;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .result-modal button:hover {
+    background: #051715;
+  }
+  
+.loading{
+    animation: loading 3s 1 300ms forwards 
+}
+
+  
+  /* animations */
+  @keyframes slide-in-from-top {
+    0% {
+      transform: translateY(-15%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  /* comment */
+  .form-container .success h2 {
+    color: transparentize(#fff,.1);
+  }
+  
+  .form-container .success button {
+    align-self: center;
+    font-size: 14px;
+  }
+  
+  @keyframes swoosh {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    10% {
+      transform: translateY(10px);
+      opacity: 1;
+    }
+    50%, 70% {
+      transform: translateY(-150%);
+      opacity: 0;
+    }
+    80% {
+      transform: translateY(-50%);
+      opacity: .5;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes flash {
+    0% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes loading {
+    0%, 30% {
+      width: 0%;
+    }
+    30% {
+      width: 10%;
+    }
+    40% {
+      width: 40%;
+    }
+    50% {
+      width: 50%;
+    }
+    60%, 70% {
+      width: 70%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+========
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&display=swap");
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Epilogue", sans-serif;
+    background-color: #1c1c23;
+}
+
+*:focus {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* small */
+
+@media (min-width:768px) {
+    .container {
+        width: 750px;
+    }
+}
+
+
+/* Medium */
+
+@media (min-width:992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+
+/* Large */
+
+@media (min-width:1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+
+/* Request Page */
+
+#header {
+    display: flex;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+#header .filter {
+    width: 30px;
+    height: 30px;
+    color: white;
+}
+
+#header h2 {
+    padding: 5px 10px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+
+/* .reqBox {
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+.reqBox #reqHeader {
+    background-color: #2C645B;
+}
+
+.reqBox #reqHeader ul {
+    display: flex;
+    justify-content: space-around;
+}
+
+.reqBox #reqHeader ul li {
+    font-weight: bold;
+    position: relative;
+} */
+
+table {
+    width: 100%;
+    background-color: white;
+    transition: 0.5s all ease-in-out;
+    -webkit-transition: 0.5s all ease-in-out;
+    -moz-transition: 0.5s all ease-in-out;
+    -ms-transition: 0.5s all ease-in-out;
+    -o-transition: 0.5s all ease-in-out;
+}
+
+table,
+tr {
+    border-collapse: collapse;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+table .header-row th {
+    padding: 10px;
+    color: #E6E7EE;
+}
+
+table .data-row td {
+    padding: 10px;
+    text-align: center;
+}
+
+table .data-row td a {
+    color: black;
+    font-weight: bold;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+table .data-row td a:hover {
+    color: #2C645B;
+}
+
+table .even-row {
+    background-color: #D3D3D3;
+}
+
+
+/* Header.css */
+
+
+/* ComboBox dropdown */
+
+.select-dropdown {
+    width: 200px;
+    /* Adjust width as needed */
+    padding: 8px;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+/* ComboBox options */
+
+#header select option {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 5px;
+    background-color: #333;
+    padding: 2px;
+    color: white;
+}
+
+
+/* Hover effect on ComboBox */
+
+.select-dropdown:hover {
+    border-color: #666;
+}
+
+
+/* Focus effect on ComboBox */
+
+.select-dropdown:focus {
+    outline: none;
+    border-color: #4acd8d;
+    box-shadow: 0 0 5px #2C645B;
+}
+
+
+/* Create Campaign Page */
+
+.form-control {
+    font-family: system-ui, sans-serif;
+    font-size: 14px;
+    color: #808191;
+    font-weight: bold;
+    line-height: 1.1;
+    display: grid;
+    grid-template-columns: 1em auto;
+    gap: 0.5em;
+}
+
+
+
+/* ay kalam */
+
+.result-modal {
+    border: none;
+    border-radius: 8px;
+    padding: 5rem;
+    background-color: #1c1c23;
+  }
+  
+  .result-modal[open] {
+    animation: slide-in-from-top 0.35s ease-out;
+  }
+  
+  .result-modal::backdrop, .dialogBg::backdrop{
+    background: rgba(0, 0, 0, 0.9);
+  }
+  
+  .result-modal h2 {
+    font-family: 'Handjet', monospace;
+    margin: 0 0 0.25rem 0;
+    font-size: 3rem;
+    text-transform: uppercase;
+  }
+  
+  .result-modal progress {
+    width: 100%;
+    height: 1.5rem;
+    margin: 0;
+    accent-color: #46cebe;
+  }
+  
+  .result-modal p {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+  }
+  
+  .result-modal p strong {
+    color: #10655b;
+  }
+  .result-modal h3{
+    color: #E6E7EE;
+    
+  }
+  .result-modal form {
+    text-align: right;
+  }
+   .active {
+    animation: flash 1s infinite;
+  }
+  .result-modal button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background: #12352f;
+    color: #edfcfa;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .result-modal button:hover {
+    background: #051715;
+  }
+  
+.loading{
+    animation: loading 3s 1 300ms forwards 
+}
+/* connectWallet */
+.customButton{
+  background-color: #2C645B;
+}
+  
+  /* animations */
+  @keyframes slide-in-from-top {
+    0% {
+      transform: translateY(-15%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  /* comment */
+  .form-container .success h2 {
+    color: transparentize(#fff,.1);
+  }
+  
+  .form-container .success button {
+    align-self: center;
+    font-size: 14px;
+  }
+  
+  @keyframes swoosh {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    10% {
+      transform: translateY(10px);
+      opacity: 1;
+    }
+    50%, 70% {
+      transform: translateY(-150%);
+      opacity: 0;
+    }
+    80% {
+      transform: translateY(-50%);
+      opacity: .5;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes flash {
+    0% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes loading {
+    0%, 30% {
+      width: 0%;
+    }
+    30% {
+      width: 10%;
+    }
+    40% {
+      width: 40%;
+    }
+    50% {
+      width: 50%;
+    }
+    60%, 70% {
+      width: 70%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+>>>>>>>> bb26c742f9bf025b792c2c1c65b70c67569086b0:websiteV1/src/App.css
+  
