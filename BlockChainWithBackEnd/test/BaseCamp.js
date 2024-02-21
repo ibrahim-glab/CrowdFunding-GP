@@ -71,12 +71,32 @@ it("Should create a Reward-based campaign ensure event is emitted", async functi
 });
  // Test case for contributing to a project
  it("Should contribute to a project", async function () {
-    await campaginFactory.createProject(100, 30, 1000, 0, true);
+    await campaginFactory.createProject(100, 30, 1000, 0, false);
     const projects = await campaginFactory.getDeployedProjects();
-    await campaginFactory.Contribute(await ethers.ContractAt("CharityBasedCampaign", projects[0]) , 100, "hello");
-    const contributions = await campaginFactory.getContributions(owner.address);
+    console.log("Project address:", projects[0]);
+
+    const project = await ethers.getContractAt("BaseCampaign", projects[0]);
+    console.log("Project address:", projects[0]);
+
+    await campaginFactory.Contribute(project,  { value: ethers.parseEther("1") });
+    const contributions = await campaginFactory.getContributions(owner);
     console.log(contributions);
     expect(contributions.length).to.equal(1);
+});    
+
+
+it("Should contribute to a project and balance is updated", async function () {
+    await campaginFactory.createProject(100, 30, 1000, 0, false);
+    const projects = await campaginFactory.getDeployedProjects();
+    console.log("Project address:", projects[0]);
+
+    const project = await ethers.getContractAt("BaseCampaign", projects[0]);
+    console.log("Project address:", projects[0]);
+
+    await campaginFactory.Contribute(project,  { value: ethers.parseEther("1") });
+    const contributions = await campaginFactory.getContributions(owner);
+    console.log(contributions);
+    expect(await ethers.provider.getBalance(project)).to.equal( ethers.parseEther("1"));
 });    
 
 });

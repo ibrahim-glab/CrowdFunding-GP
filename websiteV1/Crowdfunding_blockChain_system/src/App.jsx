@@ -6,18 +6,19 @@ import NavBar from "./Components/dashboard/NavBar"
 import Home from './Pages/Home';
 import { dummyData } from './test';
 import { Router, BrowserRouter, Routes, Route } from 'react-router-dom';
+import { MoralisProvider } from 'react-moralis';
 import Requests from './Pages/Requests';
 import Hist from './Pages/Hist';
 import CreateCampaign from './Pages/CreateCampaign';
 
 function App() {
   return (
+    <MoralisProvider appId={"bf09a160-bc4a-4c59-a1c3-514ca11450cc"}> 
     <BrowserRouter>
       <>
         <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row">
           <div className="sm:flex hidden mr-10 relative">
             <SideBar />
-
           </div>
           <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
             <NavBar />
@@ -36,6 +37,7 @@ function App() {
 
       </>
     </BrowserRouter>
+    </MoralisProvider>  
   );
 }
 

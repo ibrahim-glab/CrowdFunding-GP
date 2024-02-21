@@ -44,7 +44,7 @@ contract CampaginFactory {
     }
     function Contribute(address campaign) public payable {
         BaseCampaign camp = BaseCampaign(campaign);
-        payable(address(camp)).transfer(msg.value);        
+       camp.contribute{value : msg.value}(msg.sender );      
         contributions[msg.sender].push(Contribution({amount: msg.value, Campaignaddress: campaign}));
     }
     function getDeployedProjects() public view returns (BaseCampaign[] memory) {

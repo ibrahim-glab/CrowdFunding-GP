@@ -10,7 +10,8 @@ contract EquaityBasedCampaign is BaseCampaign{
     constructor(address payable owner, uint256 minimumContribution, uint256 durationInDays , uint256 Goal , address admin , bool verfied) BaseCampaign(owner, minimumContribution, durationInDays , Goal , admin,verfied) {
     }
 
-    function contribute() public payable override  {
+    function contribute( address sender) public payable override   CampaignActice
+        ContributionMinimun  {
         require(block.timestamp < campaignEndTime, "Campaign has ended");
         require(
             campaignStatus == CampaignStatus.Active,
@@ -27,8 +28,8 @@ contract EquaityBasedCampaign is BaseCampaign{
             "The campaign reaches its goal"
         );
 
-        contributors[msg.sender] += msg.value;
+        contributors[sender] += msg.value;
         totalContributions += msg.value;
-        contributorsList.push(msg.sender);
+        contributorsList.push(sender);
     }
 }

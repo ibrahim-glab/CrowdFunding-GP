@@ -1,0 +1,8 @@
+{
+  "sepolia": {
+    "CampaignFactory": {
+      "address": "0x7d59FDDfF59e17Db6e164F393C38F94EB360Bc1b",
+      "startBlock": 0
+    }
+  }
+}

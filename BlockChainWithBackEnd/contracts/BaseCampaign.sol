@@ -1,10 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "hardhat/console.sol";
 
 contract BaseCampaign {
-    AggregatorV3Interface internal priceFeed;
     address payable public Owner;
     address private Admin;
     uint256 public Type;
@@ -40,7 +38,8 @@ contract BaseCampaign {
         minimumcontribution = minimumContribution;
         campaignEndTime = block.timestamp + (durationInDays * 1 days);
         if (!verfied) campaignStatus = CampaignStatus.Active;
-        campaignStatus = CampaignStatus.Pending;
+        else{
+        campaignStatus = CampaignStatus.Pending;}
         goal = Goal;
         Admin = admin;
 
@@ -75,9 +74,8 @@ contract BaseCampaign {
     }
 
 
-    //update this fun to
-    function contribute()
-         external 
+    function contribute( address sender)     
+         public     
          payable       
          virtual
         CampaignActice
@@ -89,10 +87,10 @@ contract BaseCampaign {
             "Contribution amount too low"
         );
 
-        contributors[msg.sender] += msg.value;
+        contributors[sender] += msg.value;
         totalContributions += msg.value;
-        contributorsList.push(msg.sender);
-        emit ContributionReceived(msg.sender, msg.value);
+        contributorsList.push(sender);
+        emit ContributionReceived(sender, msg.value);
     }
 
     function endCampaign() public virtual restricted {
