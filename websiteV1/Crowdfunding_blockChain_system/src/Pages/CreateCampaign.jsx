@@ -1,8 +1,16 @@
 import Form from "../Components/createCampaign/Forms";
+import { lazily } from 'react-lazily';
+import { Suspense } from 'react';
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Progress from "../Components/Animations/Progress";
+import { SendTransaction, useNotification } from "web3uikit";
+import myData from '../../ABI.json';
+import { getChain } from "react-moralis";
 function CreateCampaign() {
+    console.log(getChain);
+    const Abi = JSON.stringify(myData)
+    const contractaddress =  "  ";
 
     const navigate = useNavigate();
     const [form, setForm] = useState({
@@ -39,8 +47,9 @@ function CreateCampaign() {
         performAction();
     };
     return (
-        <>
 
+        <>
+           <Suspense fallback={<>Loading...</>}>
             <div className="create-campaign bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
                 <Progress ref={dialogRef} />
                 <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
@@ -99,13 +108,26 @@ function CreateCampaign() {
                         Verify Your Campaign ? *
                     </label>
                     <div className="flex justify-center items-center mt-[40px]">
-                        <button onClick={performAction}  type="submit" className="bg-[#1dc071] font-semibold text-[16px] leading-[26px] text-white min-h-[52px] px-4 rounded-[10px]  w-fit">
-                            Submit Campaign
-                        </button>
+                    <SendTransaction
+                                chainId = '11155111'
+                                contractOptions={{ abi: Abi, address: contractaddress ,params: [50 , 3 , 0 , false ]}}
+                                buttonConfig={{
+                                    text: 'Send',
+                                    theme: 'primary',
+                                    type: 'submit',
+                                }}
+                            />
                     </div>
                 </form>
             </div>
+            </Suspense>
         </>
     )
 }
 export default CreateCampaign;
+
+/*  uint256 minimumContribution,
+        uint256 durationInDays,
+        uint256 goal,
+        CampaignType campType,
+        bool verified*/
