@@ -1,0 +1,9 @@
+<svg width="24" height="24" viewBox="4 3 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+    {/* Circle border */}
+    <path d="M16 6a10 10 0 00-10 10c0 5.523 4.477 10 10 10s10-4.477 10-10c0-5.523-4.477-10-10-10z" fill="none" stroke="#1DC071" stroke-width="2" />
+
+    {/* Green add sign with adjustable thickness */}
+    <path d="M14 1h4M16 14v4" stroke="#1DC071" stroke-width="2" />
+    <path d="M11 1h10" stroke="#1DC071" stroke-width="2" />
+     <path d="M12 16h8M16 12v8" stroke="#1DC071" stroke-width="2" />
+</svg>
