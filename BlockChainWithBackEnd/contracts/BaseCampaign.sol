@@ -4,19 +4,15 @@ import "hardhat/console.sol";
 
 contract BaseCampaign {
     address payable public Owner;
-    string public ownerName;
     string public title;
     string public description;
     string public image;
     address private Admin;
-    uint256 public Type;
-    uint256 public minimumcontribution;
     uint256 public immutable goal;
     mapping(address => uint256) public contributors;
     address[] public contributorsList;
     uint256 public totalContributions;
     uint256 public immutable campaignEndTime;
-    bool private authorized;
     enum CampaignStatus {
         Active,
         Successful,
@@ -28,11 +24,9 @@ contract BaseCampaign {
     CampaignStatus public campaignStatus;
     event ContributionReceived(address indexed contributor, uint256 amount);
 
-
-
     constructor(
         address payable owner,
-        string memory name,
+        
         string memory Title,
         string memory Description,
         string memory Image,
@@ -48,11 +42,9 @@ contract BaseCampaign {
         campaignStatus = CampaignStatus.Pending;}
         goal = Goal;
         Admin = admin;
-        ownerName = name;
         title = Title;
         description = Description;
         image = Image;
-
     }
 
     modifier restricted() {
@@ -64,32 +56,17 @@ contract BaseCampaign {
         require(msg.sender == Admin, "Only the Owner can call this function");
         _;
     }
-    modifier CampaignActice() {
-        require(
-            campaignStatus == CampaignStatus.Active,
-            "Campaign is not active"
-        );
-        _;
-    }
-    modifier ContributionMinimun() {
-        require(
-            msg.value >= minimumcontribution,
-            "Contribution amount too low"
-        );
-        _;
-    }
+ 
 
     function setCampaignActive() public OnlyAdmin {
         campaignStatus = CampaignStatus.Active;
     }
 
-
     function contribute( address sender)     
          public     
          payable       
          virtual
-        CampaignActice
-        
+              
     {
         require(block.timestamp < campaignEndTime, "Campaign has ended");
       
@@ -119,7 +96,7 @@ contract BaseCampaign {
         }
     }
 
-    function refundContributors() public {
+    function refundContributors() internal {
         uint256 maxRetries = 5;
         for (uint256 i = 0; i < contributorsList.length; i++) {
             uint256 retries = 0;

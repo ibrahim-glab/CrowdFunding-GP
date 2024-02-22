@@ -6,7 +6,7 @@ import "./BaseCampaign.sol";
 contract CharityBasedCampaign is BaseCampaign {
     constructor(
         address payable owner,
-        string memory ownerName,
+   
          string memory title,
         string memory description,
         string memory image,
@@ -14,7 +14,7 @@ contract CharityBasedCampaign is BaseCampaign {
         uint256 Goal , 
         address admin,
         bool verfied
-    ) BaseCampaign(owner, ownerName , title,description , image, durationInDays, Goal , admin , verfied) {}
+    ) BaseCampaign(owner , title,description , image, durationInDays, Goal , admin , verfied) {}
 
     function endCampaign() public override restricted {
         require(
