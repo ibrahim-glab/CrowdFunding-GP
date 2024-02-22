@@ -4,6 +4,10 @@ import "hardhat/console.sol";
 
 contract BaseCampaign {
     address payable public Owner;
+    string public ownerName;
+    string public title;
+    string public description;
+    string public image;
     address private Admin;
     uint256 public Type;
     uint256 public minimumcontribution;
@@ -28,20 +32,26 @@ contract BaseCampaign {
 
     constructor(
         address payable owner,
-        uint256 minimumContribution,
+        string memory name,
+        string memory Title,
+        string memory Description,
+        string memory Image,
         uint256 durationInDays,
         uint256 Goal,
         address admin,
         bool verfied
     ) {
         Owner = owner;
-        minimumcontribution = minimumContribution;
         campaignEndTime = block.timestamp + (durationInDays * 1 days);
         if (!verfied) campaignStatus = CampaignStatus.Active;
         else{
         campaignStatus = CampaignStatus.Pending;}
         goal = Goal;
         Admin = admin;
+        ownerName = name;
+        title = Title;
+        description = Description;
+        image = Image;
 
     }
 
@@ -79,14 +89,10 @@ contract BaseCampaign {
          payable       
          virtual
         CampaignActice
-        ContributionMinimun
+        
     {
         require(block.timestamp < campaignEndTime, "Campaign has ended");
-        require(
-            msg.value >= minimumcontribution,
-            "Contribution amount too low"
-        );
-
+      
         contributors[sender] += msg.value;
         totalContributions += msg.value;
         contributorsList.push(sender);

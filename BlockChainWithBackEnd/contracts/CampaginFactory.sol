@@ -24,7 +24,10 @@ contract CampaginFactory {
     enum CampaignType { Charity, Equaity, Reward }
 
     function createProject(
-        uint256 minimumContribution,
+        string memory name,
+        string memory title,
+        string memory description,
+        string memory image,
         uint256 durationInDays,
         uint256 goal,
         CampaignType campType,
@@ -32,11 +35,11 @@ contract CampaginFactory {
     ) public {
         BaseCampaign newCamp;
         if (campType == CampaignType.Charity) {
-            newCamp = new CharityBasedCampaign(payable(msg.sender), minimumContribution, durationInDays, goal, admin, verified);
+            newCamp = new CharityBasedCampaign(payable(msg.sender),  name,   title,   description,  image, durationInDays, goal, admin, verified);
         } else if (campType == CampaignType.Equaity) {
-            newCamp = new EquaityBasedCampaign(payable(msg.sender), minimumContribution, durationInDays, goal, admin, verified);
+            newCamp = new EquaityBasedCampaign(payable(msg.sender),   name,   title,   description,  image,durationInDays, goal, admin, verified);
         } else if (campType == CampaignType.Reward) {
-            newCamp = new RewardBasedCampaign(payable(msg.sender), minimumContribution, durationInDays, goal, admin, verified);
+            newCamp = new RewardBasedCampaign(payable(msg.sender),  name,   title,   description,  image, durationInDays, goal, admin, verified);
         }
         deployedProjects.push(newCamp);
         UserCampaigns[msg.sender].push(newCamp);
