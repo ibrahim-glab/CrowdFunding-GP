@@ -1,17 +1,16 @@
 import Form from "../Components/createCampaign/Forms";
-import { lazily } from 'react-lazily';
-import { Suspense } from 'react';
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Progress from "../Components/Animations/Progress";
-import { SendTransaction, useNotification } from "web3uikit";
-import myData from '../../ABI.json';
-import { getChain } from "react-moralis";
+import { ConnectWallet, useConnectionStatus , useContract ,useContractWrite,Web3Button} from "@thirdweb-dev/react";
+import {contractABI} from "../constants/index.js";
 function CreateCampaign() {
-    console.log(getChain);
-    const Abi = JSON.stringify(myData)
-    const contractaddress =  "  ";
-
+    const { contract, isLoading, error } = useContract("0x7d59FDDfF59e17Db6e164F393C38F94EB360Bc1b" , contractABI);
+     console.log(contract);
+     const { mutateAsync, isLoading1, error1 } = useContractWrite(
+        contract,
+        "createProject",
+      );
     const navigate = useNavigate();
     const [form, setForm] = useState({
         name: '',
@@ -47,9 +46,8 @@ function CreateCampaign() {
         performAction();
     };
     return (
-
         <>
-           <Suspense fallback={<>Loading...</>}>
+
             <div className="create-campaign bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
                 <Progress ref={dialogRef} />
                 <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
@@ -108,26 +106,32 @@ function CreateCampaign() {
                         Verify Your Campaign ? *
                     </label>
                     <div className="flex justify-center items-center mt-[40px]">
-                    <SendTransaction
-                                chainId = '11155111'
-                                contractOptions={{ abi: Abi, address: contractaddress ,params: [50 , 3 , 0 , false ]}}
-                                buttonConfig={{
-                                    text: 'Send',
-                                    theme: 'primary',
-                                    type: 'submit',
-                                }}
-                            />
+                        <button  type="submit" className="bg-[#1dc071] font-semibold text-[16px] leading-[26px] text-white min-h-[52px] px-4 rounded-[10px]  w-fit hidden">
+                            Submit Campaign
+
+                            
+                        </button>
+                        <Web3Button
+                                contractAddress={"0x7d59FDDfF59e17Db6e164F393C38F94EB360Bc1b"}
+                                // Calls the "setName" function on your smart contract with "My Name" as the first argument
+                                action={() => mutateAsync({ args: [10,10,10000,0,false] })}
+                                style={{ color: "white", backgroundColor: "#2c645b" }}
+                                type="submit"
+                                >
+                                Sumbit
+                      </Web3Button>
                     </div>
                 </form>
             </div>
-            </Suspense>
         </>
     )
 }
 export default CreateCampaign;
 
-/*  uint256 minimumContribution,
+/* function createProject(
+        uint256 minimumContribution,
         uint256 durationInDays,
         uint256 goal,
         CampaignType campType,
-        bool verified*/
+        bool verified
+    ) public {*/
