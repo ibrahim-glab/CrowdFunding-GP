@@ -1,5 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useContract , useContractRead } from '@thirdweb-dev/react';
+import { BasecontractABI, contractABI } from "../../constants";
 import { v4 as uuidv4 } from "uuid";
 import FundCard from './FundCard';
 import { loader } from '../../assets';
@@ -10,6 +13,17 @@ const Campaigns = ({ title, isLoading, campaigns }) => {
   //   const handleNavigate = (campaign) => {
   //     navigate(`/campaign-details/${campaign.title}`, { state: campaign })
   //   }
+
+  // Show Data For Campigns addresses after retrive addresses use it in each Camp Component to retrive data for each one of them
+  const { contract } = useContract( "0x2464d306066264089FC4e7D006ae7E9270b19E68", contractABI);
+  console.log(contract);
+  const { data, isLoading1, error } = useContractRead(
+  contract,
+  "getDeployedProjects",
+);
+console.log(data);
+/// show addresses for all  campigns
+
 
   return (
     <div>

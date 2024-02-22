@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import Progress from "../Components/Animations/Progress";
 import { ConnectWallet, useConnectionStatus , useContract ,useContractWrite,Web3Button} from "@thirdweb-dev/react";
 import {contractABI} from "../constants/index.js";
+import { ethers } from "ethers";
 function CreateCampaign() {
-    const { contract, isLoading, error } = useContract("0x7d59FDDfF59e17Db6e164F393C38F94EB360Bc1b" , contractABI);
+    const { contract, isLoading, error } = useContract( "0x2464d306066264089FC4e7D006ae7E9270b19E68", contractABI);
      console.log(contract);
      const { mutateAsync, isLoading1, error1 } = useContractWrite(
         contract,
@@ -112,9 +113,9 @@ function CreateCampaign() {
                             
                         </button>
                         <Web3Button
-                                contractAddress={"0x7d59FDDfF59e17Db6e164F393C38F94EB360Bc1b"}
+                                contractAddress={"0x2464d306066264089FC4e7D006ae7E9270b19E68"}
                                 // Calls the "setName" function on your smart contract with "My Name" as the first argument
-                                action={() => mutateAsync({ args: [10,10,10000,0,false] })}
+                                action={() => mutateAsync({ args: [form.title, form.description, form.image, 30 , ethers.utils.parseEther(form.target),0,false] })}
                                 style={{ color: "white", backgroundColor: "#2c645b" }}
                                 type="submit"
                                 >
@@ -128,10 +129,12 @@ function CreateCampaign() {
 }
 export default CreateCampaign;
 
-/* function createProject(
-        uint256 minimumContribution,
+/*  function createProject(
+        string memory title,
+        string memory description,
+        string memory image,
         uint256 durationInDays,
         uint256 goal,
-        CampaignType campType,
+        CampaignType campType,  0 or 1 or 2
         bool verified
-    ) public {*/
+    ) {*/
