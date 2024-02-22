@@ -15,16 +15,16 @@ const Dialog = forwardRef((props, ref) => {
     },
   }));
 
-  useEffect(() => {
-    if (!loading) {
-      // If loading is false, set a timeout to switch back to loading state after 5 seconds
-      const timer = setTimeout(() => {
-        setLoading(true);
-      }, 5000);
+  // useEffect(() => {
+  //   if (!loading) {
+  //     // If loading is false, set a timeout to switch back to loading state after 5 seconds
+  //     const timer = setTimeout(() => {
+  //       setLoading(true);
+  //     }, 5000);
 
-      return () => clearTimeout(timer); // Clear the timeout on component unmount
-    }
-  }, [loading]); // Run the effect whenever the loading state changes
+  //     return () => clearTimeout(timer); // Clear the timeout on component unmount
+  //   }
+  // }, [loading]); // Run the effect whenever the loading state changes
 
   return (
     <>

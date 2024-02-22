@@ -6,7 +6,7 @@ import { ConnectWallet, useConnectionStatus , useContract ,useContractWrite,Web3
 import {contractABI} from "../constants/index.js";
 import { ethers } from "ethers";
 function CreateCampaign() {
-    const { contract, isLoading, error } = useContract( "0x2464d306066264089FC4e7D006ae7E9270b19E68", contractABI);
+    const { contract, isLoading, error } = useContract("0xdeD74b8Dc8b7CdAAD3d2496F64B8c94A509C6a41", contractABI);
      console.log(contract);
      const { mutateAsync, isLoading1, error1 } = useContractWrite(
         contract,
@@ -113,7 +113,7 @@ function CreateCampaign() {
                             
                         </button>
                         <Web3Button
-                                contractAddress={"0x2464d306066264089FC4e7D006ae7E9270b19E68"}
+                                contractAddress={"0xdeD74b8Dc8b7CdAAD3d2496F64B8c94A509C6a41"}
                                 // Calls the "setName" function on your smart contract with "My Name" as the first argument
                                 action={() => mutateAsync({ args: [form.title, form.description, form.image, 30 , ethers.utils.parseEther(form.target),0,false] })}
                                 style={{ color: "white", backgroundColor: "#2c645b" }}
