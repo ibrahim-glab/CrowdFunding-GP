@@ -6,12 +6,15 @@ import "./BaseCampaign.sol";
 contract CharityBasedCampaign is BaseCampaign {
     constructor(
         address payable owner,
-        uint256 minimumContribution,
+   
+         string memory title,
+        string memory description,
+        string memory image,
         uint256 durationInDays,
         uint256 Goal , 
         address admin,
         bool verfied
-    ) BaseCampaign(owner, minimumContribution, durationInDays, Goal , admin , verfied) {}
+    ) BaseCampaign(owner , title,description , image, durationInDays, Goal , admin , verfied) {}
 
     function endCampaign() public override restricted {
         require(

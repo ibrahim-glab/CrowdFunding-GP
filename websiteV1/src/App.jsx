@@ -10,7 +10,6 @@ import { MoralisProvider } from 'react-moralis';
 import Requests from './Pages/Requests';
 import Hist from './Pages/Hist';
 import CreateCampaign from './Pages/CreateCampaign';
-import ThirdWebTry from './Pages/ThirdWebTry';
 
 function App() {
   return (
@@ -31,7 +30,6 @@ function App() {
               <Route path="/requests" element={<Requests />} />
               <Route path="/history" element={<Hist />} />
               <Route path='/create-campaign' element={<CreateCampaign />} />
-              <Route path='/profile' element={<ThirdWebTry/>}/>
             </Routes>
 
           </div>
