@@ -83,7 +83,10 @@ const { data: data5, isLoading45, error6 } = useContractEvents(
 
 // here display the data of  campaign Example
 if(data5 !== undefined){
-console.log(data5);
+  // all evnent data 
+  console.log(data5);
+  // data of 0 index
+console.log(data5[0].data);
 
 }
   return (
