@@ -6,6 +6,16 @@ import { ConnectWallet, useConnectionStatus , useContract ,useContractWrite,Web3
 import {contractABI} from "../constants/index.js";
 import { ethers } from "ethers";
 function CreateCampaign() {
+// how to upload images to IPFS and then Store the IPFS address into Blcockchain
+
+    // const { mutateAsync: upload, isLoading } = useStorageUpload();
+ 
+// async function uploadData() {
+//   const filesToUpload = [...];
+//   const uris = await upload({ data: files });
+//   console.log(uris);
+// }
+
     const { contract, isLoading, error } = useContract("0xdeD74b8Dc8b7CdAAD3d2496F64B8c94A509C6a41", contractABI);
      console.log(contract);
      const { mutateAsync, isLoading1, error1 } = useContractWrite(

@@ -28,25 +28,31 @@ console.log(data);
 /// show addresses for all  campigns
 
 const { contract: contract2 } = useContract("0xdeD74b8Dc8b7CdAAD3d2496F64B8c94A509C6a41", contractABI);
-// const { data: data5, isLoading45, error6 } = useContractEvents(
-//   contract2,
-//   "CampaignCreated",
-//   {
-//     queryFilter: {
-//       fromBlock: 0, // Events starting from this block
-//       order: "asc", // Order of events ("asc" or "desc")
-//     },
-//     subscribe: true, // Subscribe to new events
-//   },
-// );
 
-// here display the data of  campaign Example
-// if(data5 !== undefined){
-//   // all evnent data 
-//   console.log(data5);
-//   // data of 0 index
-// console.log(data5[0].data);
-// }
+
+const { data: data5, isLoading45, error6 } = useContractEvents(
+  contract2,
+  "CampaignCreated",
+  {
+    queryFilter: {
+      fromBlock: 0, // Events starting from this block
+      order: "asc", // Order of events ("asc" or "desc")
+    },
+    subscribe: true, // Subscribe to new events
+  },
+);
+
+
+
+//here display the data of  campaign Example
+if(data5 !== undefined){
+  // all evnent data 
+  console.log(data5);
+  // data of 0 index
+console.log(data5[0].data);
+}
+
+
 
 // retrive data of each campaign for a specific owner or Connected address wallet
 const { data: data6, isLoading453, error7 } = useContractEvents(
