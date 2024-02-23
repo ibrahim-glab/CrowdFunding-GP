@@ -71,3 +71,19 @@ export const histData = [{
         amount: "$500",
     },
 ]
+export const adHeader = [
+    'Wallet ID', 'Name'
+]
+export const adminData = [{
+        walletID: "0x179AVNJA89201",
+        name: "Amr",
+    },
+    {
+        walletID: "0x179AVNJA89201",
+        name: "Amr",
+    },
+    {
+        walletID: "0x179AVNJA79201",
+        name: "Amr",
+    }
+]

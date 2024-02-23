@@ -216,7 +216,6 @@ table .even-row {
 }
 
 
-
 /* ay kalam */
 
 .result-modal {
@@ -224,49 +223,53 @@ table .even-row {
     border-radius: 8px;
     padding: 5rem;
     background-color: #1c1c23;
-  }
-  
-  .result-modal[open] {
+}
+
+.result-modal[open] {
     animation: slide-in-from-top 0.35s ease-out;
-  }
-  
-  .result-modal::backdrop, .dialogBg::backdrop{
+}
+
+.result-modal::backdrop,
+.dialogBg::backdrop {
     background: rgba(0, 0, 0, 0.9);
-  }
-  
-  .result-modal h2 {
+}
+
+.result-modal h2 {
     font-family: 'Handjet', monospace;
     margin: 0 0 0.25rem 0;
     font-size: 3rem;
     text-transform: uppercase;
-  }
-  
-  .result-modal progress {
+}
+
+.result-modal progress {
     width: 100%;
     height: 1.5rem;
     margin: 0;
     accent-color: #46cebe;
-  }
-  
-  .result-modal p {
+}
+
+.result-modal p {
     margin: 0.5rem 0;
     font-size: 1.2rem;
-  }
-  
-  .result-modal p strong {
+}
+
+.result-modal p strong {
     color: #10655b;
-  }
-  .result-modal h3{
+}
+
+.result-modal h3 {
     color: #E6E7EE;
-    
-  }
-  .result-modal form {
+}
+
+.result-modal form {
     text-align: right;
-  }
-   .active {
+}
+
+.active {
     animation: flash 1s infinite;
-  }
-  .result-modal button {
+}
+
+.result-modal button {
     margin-top: 1rem;
     padding: 0.5rem 1rem;
     border: none;
@@ -275,91 +278,145 @@ table .even-row {
     color: #edfcfa;
     font-size: 1.2rem;
     cursor: pointer;
-  }
-  
-  .result-modal button:hover {
-    background: #051715;
-  }
-  
-.loading{
-    animation: loading 3s 1 300ms forwards 
 }
 
-  
-  /* animations */
-  @keyframes slide-in-from-top {
+.result-modal button:hover {
+    background: #051715;
+}
+
+.loading {
+    animation: loading 3s 1 300ms forwards
+}
+
+
+/* animations */
+
+@keyframes slide-in-from-top {
     0% {
-      transform: translateY(-15%);
-      opacity: 0;
+        transform: translateY(-15%);
+        opacity: 0;
     }
     100% {
-      transform: translateY(0);
-      opacity: 1;
+        transform: translateY(0);
+        opacity: 1;
     }
-  }
-  /* comment */
-  .form-container .success h2 {
-    color: transparentize(#fff,.1);
-  }
-  
-  .form-container .success button {
+}
+
+
+/* comment */
+
+.form-container .success h2 {
+    color: transparentize(#fff, .1);
+}
+
+.form-container .success button {
     align-self: center;
     font-size: 14px;
-  }
-  
-  @keyframes swoosh {
+}
+
+@keyframes swoosh {
     0% {
-      transform: translateY(0);
-      opacity: 1;
+        transform: translateY(0);
+        opacity: 1;
     }
     10% {
-      transform: translateY(10px);
-      opacity: 1;
+        transform: translateY(10px);
+        opacity: 1;
     }
-    50%, 70% {
-      transform: translateY(-150%);
-      opacity: 0;
+    50%,
+    70% {
+        transform: translateY(-150%);
+        opacity: 0;
     }
     80% {
-      transform: translateY(-50%);
-      opacity: .5;
+        transform: translateY(-50%);
+        opacity: .5;
     }
     100% {
-      transform: translateY(0);
-      opacity: 1;
+        transform: translateY(0);
+        opacity: 1;
     }
-  }
-  
-  @keyframes flash {
+}
+
+@keyframes flash {
     0% {
-      opacity: 0.5;
+        opacity: 0.5;
     }
     50% {
-      opacity: 1;
+        opacity: 1;
     }
     100% {
-      opacity: 0.5;
+        opacity: 0.5;
     }
-  }
+}
 
-  @keyframes loading 
-  {
-    0%, 30% {
-      width: 0%;
+@keyframes loading {
+    0%,
+    30% {
+        width: 0%;
     }
     30% {
-      width: 10%;
+        width: 10%;
     }
     40% {
-      width: 40%;
+        width: 40%;
     }
     50% {
-      width: 50%;
+        width: 50%;
     }
-    60%, 70% {
-      width: 70%;
+    60%,
+    70% {
+        width: 70%;
     }
     100% {
-      width: 100%;
+        width: 100%;
     }
-  }
+}
+
+
+/* ADMIN */
+
+table .adminHeader .select-dropdown {
+    background-color: #232B2B;
+}
+
+table .admin-row th {
+    padding: 10px;
+    color: #232B2B;
+}
+
+table .reject,
+table .accept {
+    transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -ms-transition: 0.3s all ease-in-out;
+    -o-transition: 0.3s all ease-in-out;
+}
+
+table .reject:hover {
+    color: #f6624f;
+}
+
+table .accept:hover {
+    color: #50c1d2;
+}
+
+table .data-roww td {
+    padding: 10px;
+    text-align: center;
+}
+
+table .data-roww {
+    cursor: pointer;
+    transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -ms-transition: 0.3s all ease-in-out;
+    -o-transition: 0.3s all ease-in-out;
+}
+
+table .data-roww:hover {
+    background-color: #10655b;
+    color: white;
+}
