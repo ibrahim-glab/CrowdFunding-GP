@@ -6,10 +6,10 @@ import { ConnectWallet, useConnectionStatus , useContract ,useContractWrite,Web3
 import {contractABI} from "../constants/index.js";
 import { ethers } from "ethers";
 function CreateCampaign() {
-// how to upload images to IPFS and then Store the IPFS address into Blcockchain
 
-    // const { mutateAsync: upload, isLoading } = useStorageUpload();
- 
+    
+//  upload images to IPFS and then Store the IPFS address into Blcockchain
+// const { mutateAsync: upload, isLoading } = useStorageUpload();
 // async function uploadData() {
 //   const filesToUpload = [...];
 //   const uris = await upload({ data: files });
@@ -118,9 +118,7 @@ function CreateCampaign() {
                     </label>
                     <div className="flex justify-center items-center mt-[40px]">
                         <button  type="submit" className="bg-[#1dc071] font-semibold text-[16px] leading-[26px] text-white min-h-[52px] px-4 rounded-[10px]  w-fit hidden">
-                            Submit Campaign
-
-                            
+                            Submit Campaign  
                         </button>
                         <Web3Button
                                 contractAddress={"0xdeD74b8Dc8b7CdAAD3d2496F64B8c94A509C6a41"}
@@ -142,7 +140,9 @@ export default CreateCampaign;
         string memory title,
         string memory description,
         string memory image,
+
         uint256 durationInDays,
+
         uint256 goal,
         CampaignType campType,  0 or 1 or 2
         bool verified

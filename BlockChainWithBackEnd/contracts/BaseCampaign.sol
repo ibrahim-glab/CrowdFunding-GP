@@ -33,6 +33,7 @@ contract BaseCampaign {
     ) {
         Owner = owner;
         campaignEndTime = block.timestamp + (durationInDays * 1 days);
+        //  campaignEndTime = block.timestamp + (durationInDays * 1 days);
         if (!verfied) campaignStatus = CampaignStatus.Active;
         else{
         campaignStatus = CampaignStatus.Pending;}
@@ -61,8 +62,7 @@ contract BaseCampaign {
          virtual
               
     {
-        require(block.timestamp < campaignEndTime, "Campaign has ended");
-      
+        require(block.timestamp < campaignEndTime, "Campaign has ended"); 
         contributors[sender] += msg.value;
         totalContributions += msg.value;
         contributorsList.push(sender);
