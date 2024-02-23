@@ -9,6 +9,7 @@ function CreateCampaign() {
 
     
 //  upload images to IPFS and then Store the IPFS address into Blcockchain
+
 // const { mutateAsync: upload, isLoading } = useStorageUpload();
 // async function uploadData() {
 //   const filesToUpload = [...];
@@ -22,6 +23,7 @@ function CreateCampaign() {
         contract,
         "createProject",
       );
+      
     const navigate = useNavigate();
     const [form, setForm] = useState({
         name: '',
@@ -147,3 +149,5 @@ export default CreateCampaign;
         CampaignType campType,  0 or 1 or 2
         bool verified
     ) {*/
+
+
