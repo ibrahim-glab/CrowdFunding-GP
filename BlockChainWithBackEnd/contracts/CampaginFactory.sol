@@ -8,11 +8,22 @@ import "./BaseCampaign.sol";
 contract CampaignFactory {
     address public immutable admin;
     BaseCampaign[] private deployedProjects;
-    event CampaignCreated(address indexed owner, address indexed campaign);
+    event CampaignCreated(
+        address indexed owner,
+        address indexed campaign,
+        string title,
+        string description,
+        string image,
+        uint256 durationInDays,
+        uint256 goal,
+        CampaignType campType,
+        bool verified
+    );
 
     constructor() {
         admin = msg.sender;
     }
+
     enum CampaignType {
         Charity,
         Equaity,
@@ -32,9 +43,6 @@ contract CampaignFactory {
         if (campType == CampaignType.Charity) {
             newCamp = new CharityBasedCampaign(
                 payable(msg.sender),
-                title,
-                description,
-                image,
                 durationInDays,
                 goal,
                 admin,
@@ -43,9 +51,6 @@ contract CampaignFactory {
         } else if (campType == CampaignType.Equaity) {
             newCamp = new EquaityBasedCampaign(
                 payable(msg.sender),
-                title,
-                description,
-                image,
                 durationInDays,
                 goal,
                 admin,
@@ -54,9 +59,6 @@ contract CampaignFactory {
         } else if (campType == CampaignType.Reward) {
             newCamp = new BaseCampaign(
                 payable(msg.sender),
-                title,
-                description,
-                image,
                 durationInDays,
                 goal,
                 admin,
@@ -64,7 +66,18 @@ contract CampaignFactory {
             );
         }
         deployedProjects.push(newCamp);
-        emit CampaignCreated(msg.sender, address(newCamp));
+
+        emit CampaignCreated(
+            msg.sender,
+            address(newCamp),
+            title,
+            description,
+            image,
+            durationInDays,
+            goal,
+            campType,
+            verified
+        );
     }
 
     function contribute(address campaign) external payable {

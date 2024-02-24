@@ -8,9 +8,7 @@ contract EquaityBasedCampaign is BaseCampaign {
 
     constructor(
         address payable owner,
-        string memory title,
-        string memory description,
-        string memory image,
+        
         uint256 durationInDays,
         uint256 Goal,
         address admin,
@@ -18,9 +16,6 @@ contract EquaityBasedCampaign is BaseCampaign {
     )
         BaseCampaign(
             owner,
-            title,
-            description,
-            image,
             durationInDays,
             Goal,
             admin,

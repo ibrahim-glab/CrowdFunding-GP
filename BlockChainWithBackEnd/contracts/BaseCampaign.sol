@@ -3,10 +3,9 @@ pragma solidity >=0.7.0 <0.9.0;
 import "hardhat/console.sol";
 
 contract BaseCampaign {
+ 
     address payable public Owner;
-    string public title;
-    string public description;
-    string public image;
+  
     address private Admin;
     uint256 public immutable goal;
     mapping(address => uint256) public contributors;
@@ -26,10 +25,7 @@ contract BaseCampaign {
 
     constructor(
         address payable owner,
-        
-        string memory Title,
-        string memory Description,
-        string memory Image,
+       
         uint256 durationInDays,
         uint256 Goal,
         address admin,
@@ -41,10 +37,7 @@ contract BaseCampaign {
         else{
         campaignStatus = CampaignStatus.Pending;}
         goal = Goal;
-        Admin = admin;
-        title = Title;
-        description = Description;
-        image = Image;
+        Admin = admin;    
     }
 
     modifier restricted() {

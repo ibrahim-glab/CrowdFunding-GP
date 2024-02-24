@@ -342,7 +342,8 @@ table .even-row {
     }
   }
 
-  @keyframes loading {
+  @keyframes loading 
+  {
     0%, 30% {
       width: 0%;
     }

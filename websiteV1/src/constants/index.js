@@ -93,6 +93,48 @@ export const contractABI = [
 				"internalType": "address",
 				"name": "campaign",
 				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "image",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "durationInDays",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "goal",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum CampaignFactory.CampaignType",
+				"name": "campType",
+				"type": "uint8"
+			},
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "verified",
+				"type": "bool"
 			}
 		],
 		"name": "CampaignCreated",
@@ -156,6 +198,19 @@ export const contractABI = [
 	},
 	{
 		"inputs": [],
+		"name": "admin",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "getDeployedProjects",
 		"outputs": [
 			{
@@ -168,7 +223,6 @@ export const contractABI = [
 		"type": "function"
 	}
 ]
-
 
 export const BasecontractABI = 
 [
