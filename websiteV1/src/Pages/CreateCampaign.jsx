@@ -124,9 +124,9 @@ function CreateCampaign() {
                         </button>
                         <Web3Button
                             contractAddress={"0xdeD74b8Dc8b7CdAAD3d2496F64B8c94A509C6a41"}
-                            action={() => mutateAsync({ args: [form.title, form.description, form.image, 30, ethers.utils.parseEther(form.target), 0, false] })}
+                            action={() => mutateAsync({ args: [form.title, form.description, form.image,  new Date(form.deadline).getTime(), ethers.utils.parseEther(form.target), 0, false] })}
                             style={{ color: "white", backgroundColor: "#2c645b" }}
-                            type="submit"
+                            type="submit"deadline
                         >
                             Sumbit
                         </Web3Button>
