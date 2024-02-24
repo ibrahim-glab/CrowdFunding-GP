@@ -13,6 +13,7 @@ import NavBar from "./Components/dashboard/NavBar";
 import { useAddress } from '@thirdweb-dev/react';
 import { navlinks } from './constants';
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -31,9 +32,11 @@ function AppContent() {
     const isAdminPath = location.pathname === '/admin';
     if (address === null) {
       navigate("/");
-    } else if (address === "0x19ea86496fC7Bc2fca9Eb7E8C12549A50C855A40" && !isAdminPath) {
+    } else if (address === import.meta.env.VITE_ADMIN_ADDRESS && !isAdminPath) {
+      console.log('navigating to admin'); 
       navigate("/admin");
-    } else if (address !== "0x19ea86496fC7Bc2fca9Eb7E8C12549A50C855A40" && isAdminPath) {
+    } else if (address !== import.meta.env.VITE_ADMIN_ADDRESS && isAdminPath) {
+      console.log('navigating to home');  
       navigate("/");
     }
   }, [address, location.pathname, navigate]);

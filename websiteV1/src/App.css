@@ -369,11 +369,7 @@ table .even-row {
         width: 70%;
     }
     100% {
-<<<<<<< HEAD
-      width: 100%;
-    }
-  }
-=======
+
         width: 100%;
     }
 }
@@ -425,4 +421,4 @@ table .data-roww:hover {
     background-color: #10655b;
     color: white;
 }
->>>>>>> 4378a6d3647fc65b6421d40af3ffa703035176a7
+
