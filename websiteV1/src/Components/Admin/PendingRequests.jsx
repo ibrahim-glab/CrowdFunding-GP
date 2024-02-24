@@ -1,15 +1,28 @@
 import { adminData } from "../../../data";
 import Data from "./Data";
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { logo } from "../../assets";
+import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 function PendingRequests() {
-
+    const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => (
+        <div
+            className={`w-20 h-[3rem] rounded-[10px] ${isActive === name ? "bg-[#2c2f32]" : ""
+                } flex justify-center items-center ${!disabled ? "cursor-pointer" : ""
+                } ${styles}`}
+            onClick={handleClick}
+        >
+            <img
+                src={imgUrl}
+                alt="fund_logo"
+                className={`w-1/2 h-1/2 ${isActive !== name ? "grayscale" : ""}`}
+            />
+        </div>
+    );
     return (
         <div>
-            {/* <div className="flex md:flex-row flex-col-reverse justify-between mb-[35px] gap-6">
-                <div className="w-[52px] h-[52px] flex justify-center items-center cursor-pointer relative">
-                    <ConnectWallet />
-                </div>
-            </div> */}
+            <div className="flex justify-between items-center mb-4">
+                <Icon styles="w-20 h-20 bg-2c2f32" imgUrl={logo} />
+                <ConnectWallet />
+            </div>
             <div className="adminHeader flex items-center justify-around bg-[#232B2B] p-4">
                 <h2 className="text-white text-[20px] font-bold">Pending Requests</h2>
                 <input
