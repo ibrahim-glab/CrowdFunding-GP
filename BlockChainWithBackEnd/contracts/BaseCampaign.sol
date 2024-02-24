@@ -1,110 +1,80 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 import "hardhat/console.sol";
+
 contract BaseCampaign {
     address payable public Owner;
-    uint256 public Type;
-    uint256 public minimumcontribution;
+    string public title;
+    string public description;
+    string public image;
+    address private Admin;
     uint256 public immutable goal;
     mapping(address => uint256) public contributors;
     address[] public contributorsList;
     uint256 public totalContributions;
     uint256 public immutable campaignEndTime;
-    bool private authorized;
     enum CampaignStatus {
         Active,
         Successful,
         Pending,
-        Failed
+        Failed,
+        Denied
     }
-    CampaignStatus public campaignStatus;
-    event ContributionReceived(
-        address indexed contributor,
-        uint256 amount
-    );
 
-    // struct Request {
-    //     string description;
-    //     uint256 value;
-    //     address payable recipient;
-    //     bool complete;
-    //     uint256 approvalCount;
-    // }
-    // Request[] public requests;
+    CampaignStatus public campaignStatus;
+    event ContributionReceived(address indexed contributor, uint256 amount);
 
     constructor(
-        address  payable owner,
-        uint256 minimumContribution,
+        address payable owner,
+        
+        string memory Title,
+        string memory Description,
+        string memory Image,
         uint256 durationInDays,
-        uint256 Goal
+        uint256 Goal,
+        address admin,
+        bool verfied
     ) {
         Owner = owner;
-        minimumcontribution = minimumContribution;
         campaignEndTime = block.timestamp + (durationInDays * 1 days);
-        campaignStatus = CampaignStatus.Pending;
+        if (!verfied) campaignStatus = CampaignStatus.Active;
+        else{
+        campaignStatus = CampaignStatus.Pending;}
         goal = Goal;
-        console.log(address(this));
+        Admin = admin;
+        title = Title;
+        description = Description;
+        image = Image;
     }
 
     modifier restricted() {
         require(msg.sender == Owner, "Only the Owner can call this function");
         _;
     }
-     modifier CampaignActice(){
-        require(campaignStatus == CampaignStatus.Active, "Campaign is not active");
+
+    modifier OnlyAdmin() {
+        require(msg.sender == Admin, "Only the Owner can call this function");
         _;
-     }
-     modifier ContributionMinimun(){
-        require(msg.value >= minimumcontribution, "Contribution amount too low");
-        _;
-     }
-    function isCampaignActive() public view returns (bool) {
-        if (campaignStatus == CampaignStatus.Active) {
-            return true;
-        }
-        return false;
     }
-    function setCampaignActive() public restricted   {
+ 
+
+    function setCampaignActive() public OnlyAdmin {
         campaignStatus = CampaignStatus.Active;
-       }
-    
-        //update this fun to
-    function contribute() public virtual payable  CampaignActice ContributionMinimun {
-        require(block.timestamp < campaignEndTime, "Campaign has ended");     
-        require(
-            msg.value>= minimumcontribution,
-            "Contribution amount too low"
-        );
-
-        contributors[msg.sender] += msg.value;
-        totalContributions += msg.value;
-        contributorsList.push(msg.sender);
-        emit ContributionReceived(msg.sender, msg.value);
     }
 
-    // function createRequest(
-    //     string memory description,
-    //     uint256 value,
-    //     address payable recipient
-    // ) public restricted {
-    //     Request memory newRequest = Request({
-    //         description: description,
-    //         value: value,
-    //         recipient: recipient,
-    //         complete: false,
-    //         approvalCount: 0
-    //     });
-    //     requests.push(newRequest);
-    // }
-
-    //   function approveRequest(uint256 index) public {
-    //     Request storage request = requests[index];
-    //     require(contributors[msg.sender] > 0, "You must be a contributor to approve");
-    //     require(!request.approvals[msg.sender], "You can't approve the same request twice");
-
-    //     request.approvals[msg.sender] = true;
-    //     request.approvalCount++;
-    // }
+    function contribute( address sender)     
+         public     
+         payable       
+         virtual
+              
+    {
+        require(block.timestamp < campaignEndTime, "Campaign has ended");
+      
+        contributors[sender] += msg.value;
+        totalContributions += msg.value;
+        contributorsList.push(sender);
+        emit ContributionReceived(sender, msg.value);
+    }
 
     function endCampaign() public virtual restricted {
         require(
@@ -126,7 +96,7 @@ contract BaseCampaign {
         }
     }
 
-    function refundContributors() public {
+    function refundContributors() internal {
         uint256 maxRetries = 5;
         for (uint256 i = 0; i < contributorsList.length; i++) {
             uint256 retries = 0;

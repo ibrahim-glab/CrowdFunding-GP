@@ -1,14 +1,18 @@
 // SPDX-License-Identifier: GPL-3.0
-import "./CharityBasedCampaign.sol";
-import "./EquaityBasedCampaign.sol";
-import "./RewardBasedCampaign.sol";
-import "./BaseCampaign.sol";
-import "./UserManagement.sol";
-import "hardhat/console.sol";
 pragma solidity >=0.7.0 <0.9.0;
 
-contract CampaginFactory {
-    BaseCampaign[] public deployedProjects;
+import "./CharityBasedCampaign.sol";
+import "./EquaityBasedCampaign.sol";
+import "./BaseCampaign.sol";
+
+contract CampaignFactory {
+    address public immutable admin;
+    BaseCampaign[] private deployedProjects;
+    event CampaignCreated(address indexed owner, address indexed campaign);
+
+    constructor() {
+        admin = msg.sender;
+    }
     enum CampaignType {
         Charity,
         Equaity,
@@ -16,40 +20,63 @@ contract CampaginFactory {
     }
 
     function createProject(
-        uint256 minimumContribution,
+        string memory title,
+        string memory description,
+        string memory image,
         uint256 durationInDays,
-        uint256 Goal,
-        CampaignType campType
-    ) public {
-        if(campType == CampaignType.Charity){
-            console.log("Reward 1 ");
-             BaseCampaign newCamp = new CharityBasedCampaign(
-            payable(msg.sender),
-            minimumContribution,durationInDays , Goal);
-            deployedProjects.push(newCamp);
+        uint256 goal,
+        CampaignType campType,
+        bool verified
+    ) external {
+        BaseCampaign newCamp;
+        if (campType == CampaignType.Charity) {
+            newCamp = new CharityBasedCampaign(
+                payable(msg.sender),
+                title,
+                description,
+                image,
+                durationInDays,
+                goal,
+                admin,
+                verified
+            );
+        } else if (campType == CampaignType.Equaity) {
+            newCamp = new EquaityBasedCampaign(
+                payable(msg.sender),
+                title,
+                description,
+                image,
+                durationInDays,
+                goal,
+                admin,
+                verified
+            );
+        } else if (campType == CampaignType.Reward) {
+            newCamp = new BaseCampaign(
+                payable(msg.sender),
+                title,
+                description,
+                image,
+                durationInDays,
+                goal,
+                admin,
+                verified
+            );
         }
-        else if(campType == CampaignType.Equaity){
-             console.log("Reward 2 ");
-
-            BaseCampaign newCamp = new EquaityBasedCampaign(
-             payable(msg.sender),
-            minimumContribution,durationInDays , Goal);
-            deployedProjects.push(newCamp);
-            console.log("Reward 2 out out " );
-        }
-        else if(campType == CampaignType.Reward){
-            console.log("Reward");
-            BaseCampaign newCamp = new RewardBasedCampaign(
-             payable(msg.sender),
-            minimumContribution,durationInDays , Goal);
-            deployedProjects.push(newCamp);
-        }
-    console.log("Reward out");
-
-    
+        deployedProjects.push(newCamp);
+        emit CampaignCreated(msg.sender, address(newCamp));
     }
 
-    function getDeployedProjects() public view returns (BaseCampaign[] memory) {
+    function contribute(address campaign) external payable {
+        BaseCampaign camp = BaseCampaign(campaign);
+        camp.contribute{value: msg.value}(msg.sender);
+    }
+
+    function getDeployedProjects()
+        external
+        view
+        returns (BaseCampaign[] memory)
+    {
         return deployedProjects;
     }
 }

@@ -284,10 +284,7 @@ table .even-row {
 .loading{
     animation: loading 3s 1 300ms forwards 
 }
-/* connectWallet */
-.customButton{
-  background-color: #2C645B;
-}
+
   
   /* animations */
   @keyframes slide-in-from-top {
@@ -365,4 +362,3 @@ table .even-row {
       width: 100%;
     }
   }
-  

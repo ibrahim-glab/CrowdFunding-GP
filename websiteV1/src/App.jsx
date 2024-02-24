@@ -6,13 +6,14 @@ import NavBar from "./Components/dashboard/NavBar"
 import Home from './Pages/Home';
 import { dummyData } from './test';
 import { Router, BrowserRouter, Routes, Route } from 'react-router-dom';
+import { MoralisProvider } from 'react-moralis';
 import Requests from './Pages/Requests';
 import Hist from './Pages/Hist';
 import CreateCampaign from './Pages/CreateCampaign';
-import ThirdWebTry from './Pages/ThirdWebTry';
 
 function App() {
   return (
+    <MoralisProvider initializeOnMount = {false}> 
     <BrowserRouter>
       <>
         <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row">
@@ -29,7 +30,6 @@ function App() {
               <Route path="/requests" element={<Requests />} />
               <Route path="/history" element={<Hist />} />
               <Route path='/create-campaign' element={<CreateCampaign />} />
-              <Route path='/profile' element={<ThirdWebTry/>}/>
             </Routes>
 
           </div>
@@ -38,6 +38,7 @@ function App() {
 
       </>
     </BrowserRouter>
+    </MoralisProvider>  
   );
 }
 
