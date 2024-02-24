@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useContract , useContractRead } from '@thirdweb-dev/react';
+import { useContract, useContractRead, useAddress } from '@thirdweb-dev/react';
 import Campaigns from "../Components/dashboard/Campaigns";
+import { useNavigate } from 'react-router-dom';
 // import { useStateContext } from '../context'
 const Home = ({ campaigns }) => {
 
-  
+
   const [isLoading, setIsLoading] = useState(false);
   // const [campaigns, setCampaigns] = useState([]);
 
@@ -20,6 +21,8 @@ const Home = ({ campaigns }) => {
   //   useEffect(() => {
   //     if(contract) fetchCampaigns();
   //   }, [address, contract]);
+
+
 
   return (
     <Campaigns

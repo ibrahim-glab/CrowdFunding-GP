@@ -1,44 +1,65 @@
-import ocean from './assets/ocean.png';
+import React, { useEffect } from 'react';
 import './index.css';
 import "./App.css";
-import SideBar from "./Components/dashboard/SideBar";
-import NavBar from "./Components/dashboard/NavBar"
+import { dummyData } from '../utils';
 import Home from './Pages/Home';
-import { dummyData } from './test';
-import { Router, BrowserRouter, Routes, Route } from 'react-router-dom';
-import { MoralisProvider } from 'react-moralis';
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Requests from './Pages/Requests';
 import Hist from './Pages/Hist';
 import CreateCampaign from './Pages/CreateCampaign';
+import AdminPage from './Pages/AdminPage';
+import SideBar from "./Components/dashboard/SideBar";
+import NavBar from "./Components/dashboard/NavBar";
+import { useAddress } from '@thirdweb-dev/react';
+import { navlinks } from './constants';
 
 function App() {
   return (
-    <MoralisProvider initializeOnMount = {false}> 
     <BrowserRouter>
-      <>
-        <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row">
+      <AppContent />
+    </BrowserRouter>
+  );
+}
+
+function AppContent() {
+  const location = useLocation();
+  const address = useAddress();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if current path is '/admin'
+    const isAdminPath = location.pathname === '/admin';
+    if (address === null) {
+      navigate("/");
+    } else if (address === "0x19ea86496fC7Bc2fca9Eb7E8C12549A50C855A40" && !isAdminPath) {
+      navigate("/admin");
+    } else if (address !== "0x19ea86496fC7Bc2fca9Eb7E8C12549A50C855A40" && isAdminPath) {
+      navigate("/");
+    }
+  }, [address, location.pathname, navigate]);
+
+  return (
+    <>
+      <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row">
+        {/* Conditionally render SideBar based on isAdminPath */}
+        {location.pathname !== '/admin' && (
           <div className="sm:flex hidden mr-10 relative">
             <SideBar />
-
           </div>
-          <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
-            <NavBar />
-
-
-            <Routes>
-              <Route path="/" element={<Home campaigns={dummyData} />} />
-              <Route path="/requests" element={<Requests />} />
-              <Route path="/history" element={<Hist />} />
-              <Route path='/create-campaign' element={<CreateCampaign />} />
-            </Routes>
-
-          </div>
-
+        )}
+        <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
+          {/* Conditionally render NavBar based on isAdminPath */}
+          {location.pathname !== '/admin' && <NavBar />}
+          <Routes>
+            <Route path="/" element={<Home campaigns={dummyData} />} />
+            <Route path="/requests" element={<Requests />} />
+            <Route path="/history" element={<Hist />} />
+            <Route path='/create-campaign' element={<CreateCampaign />} />
+            <Route path='/admin' element={<AdminPage />} />
+          </Routes>
         </div>
-
-      </>
-    </BrowserRouter>
-    </MoralisProvider>  
+      </div>
+    </>
   );
 }
 

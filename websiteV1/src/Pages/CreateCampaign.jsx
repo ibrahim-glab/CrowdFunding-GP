@@ -2,16 +2,28 @@ import Form from "../Components/createCampaign/Forms";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Progress from "../Components/Animations/Progress";
-import { ConnectWallet, useConnectionStatus , useContract ,useContractWrite,Web3Button} from "@thirdweb-dev/react";
-import {contractABI} from "../constants/index.js";
+import { ConnectWallet, useConnectionStatus, useContract, useContractWrite, Web3Button } from "@thirdweb-dev/react";
+import { contractABI } from "../constants/index.js";
 import { ethers } from "ethers";
 function CreateCampaign() {
-    const { contract, isLoading, error } = useContract( "0x2464d306066264089FC4e7D006ae7E9270b19E68", contractABI);
-     console.log(contract);
-     const { mutateAsync, isLoading1, error1 } = useContractWrite(
+
+
+    //  upload images to IPFS and then Store the IPFS address into Blcockchain
+
+    // const { mutateAsync: upload, isLoading } = useStorageUpload();
+    // async function uploadData() {
+    //   const filesToUpload = [...];
+    //   const uris = await upload({ data: files });
+    //   console.log(uris);
+    // }
+
+    const { contract, isLoading, error } = useContract("0xdeD74b8Dc8b7CdAAD3d2496F64B8c94A509C6a41", contractABI);
+    console.log(contract);
+    const { mutateAsync, isLoading1, error1 } = useContractWrite(
         contract,
         "createProject",
-      );
+    );
+
     const navigate = useNavigate();
     const [form, setForm] = useState({
         name: '',
@@ -107,20 +119,17 @@ function CreateCampaign() {
                         Verify Your Campaign ? *
                     </label>
                     <div className="flex justify-center items-center mt-[40px]">
-                        <button  type="submit" className="bg-[#1dc071] font-semibold text-[16px] leading-[26px] text-white min-h-[52px] px-4 rounded-[10px]  w-fit hidden">
+                        <button type="submit" className="bg-[#1dc071] font-semibold text-[16px] leading-[26px] text-white min-h-[52px] px-4 rounded-[10px]  w-fit hidden">
                             Submit Campaign
-
-                            
                         </button>
                         <Web3Button
-                                contractAddress={"0x2464d306066264089FC4e7D006ae7E9270b19E68"}
-                                // Calls the "setName" function on your smart contract with "My Name" as the first argument
-                                action={() => mutateAsync({ args: [form.title, form.description, form.image, 30 , ethers.utils.parseEther(form.target),0,false] })}
-                                style={{ color: "white", backgroundColor: "#2c645b" }}
-                                type="submit"
-                                >
-                                Sumbit
-                      </Web3Button>
+                            contractAddress={"0xdeD74b8Dc8b7CdAAD3d2496F64B8c94A509C6a41"}
+                            action={() => mutateAsync({ args: [form.title, form.description, form.image, 30, ethers.utils.parseEther(form.target), 0, false] })}
+                            style={{ color: "white", backgroundColor: "#2c645b" }}
+                            type="submit"
+                        >
+                            Sumbit
+                        </Web3Button>
                     </div>
                 </form>
             </div>
@@ -133,8 +142,12 @@ export default CreateCampaign;
         string memory title,
         string memory description,
         string memory image,
+
         uint256 durationInDays,
+
         uint256 goal,
         CampaignType campType,  0 or 1 or 2
         bool verified
     ) {*/
+
+
