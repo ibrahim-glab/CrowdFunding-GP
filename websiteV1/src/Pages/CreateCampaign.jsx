@@ -108,8 +108,7 @@ function CreateCampaign() {
                     <Form
                         labelName="Campaign image *"
                         placeholder="Place image URL of your campaign"
-                        inputType="file"
-                        image={"image/*"}
+                        inputType="url"
                         value={form.image}
                         handleChange={(e) => handleFormFieldChange('image', e)}
                         className={`transition-opacity duration-500 ${form.image === '' ? 'opacity-0' : 'opacity-100'}`}
@@ -124,9 +123,9 @@ function CreateCampaign() {
                         </button>
                         <Web3Button
                             contractAddress={"0xdeD74b8Dc8b7CdAAD3d2496F64B8c94A509C6a41"}
-                            action={() => mutateAsync({ args: [form.title, form.description, form.image,  new Date(form.deadline).getTime(), ethers.utils.parseEther(form.target), 0, false] })}
+                            action={() => mutateAsync({ args: [form.title, form.description, form.image, new Date(form.deadline).getTime(), ethers.utils.parseEther(form.target), 0, false] })}
                             style={{ color: "white", backgroundColor: "#2c645b" }}
-                            type="submit"deadline
+                            type="submit" deadline
                         >
                             Sumbit
                         </Web3Button>

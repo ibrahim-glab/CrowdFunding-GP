@@ -1,5 +1,5 @@
 import React from "react";
-
+import { logo } from "../../assets";
 import { tagType, thirdweb } from "../../assets";
 // import { daysLeft } from '../utils';
 
@@ -22,7 +22,7 @@ const FundCard = ({
 
   // Convert milliseconds to days
   const remainingDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
-
+  console.log("imageeeeeee" + image);
   return (
     <div
       className=" sm:w-[288px] cursor-pointer rounded-[15px] w-full bg-[#1c1c24]"

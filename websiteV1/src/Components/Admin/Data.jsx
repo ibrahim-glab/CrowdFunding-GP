@@ -1,8 +1,8 @@
-function Data({ walletID, name, index, children }) {
+function Data({ title, owner, index, children }) {
     return (
         <tr className={"data-roww"}>
-            <td>{walletID}</td>
-            <td>{name}</td>
+            <td>{owner}</td>
+            <td>{title}</td>
             {children}
         </tr>
     )
