@@ -17,18 +17,18 @@ const Campaigns = ({ title, isLoading, campaigns }) => {
   // Show Data For Campigns addresses after retrive addresses use it in each Camp Component to retrive data for each one of them
 
 
-/// show addresses for all  campigns
+  /// show addresses for all  campigns
 
 
 
 
-//here display the data of  campaign Example
-// if(data5 !== undefined){
-//   // all evnent data 
-//   console.log(data5);
-//   // data of 0 index
-// console.log(data5[0].data);
-// }
+  //here display the data of  campaign Example
+  // if(data5 !== undefined){
+  //   // all evnent data 
+  //   console.log(data5);
+  //   // data of 0 index
+  // console.log(data5[0].data);
+  // }
 
 
 

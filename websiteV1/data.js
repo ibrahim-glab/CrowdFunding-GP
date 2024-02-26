@@ -75,11 +75,11 @@ export const adHeader = [
     'Wallet ID', 'Name'
 ]
 export const adminData = [{
-        walletID: "0x179AVNJA89201",
+        walletID: "0x179AVNJA89202",
         name: "Amr",
     },
     {
-        walletID: "0x179AVNJA89201",
+        walletID: "0x179AVNJA89203",
         name: "Amr",
     },
     {

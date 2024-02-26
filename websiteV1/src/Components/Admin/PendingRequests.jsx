@@ -2,7 +2,7 @@ import { adminData } from "../../../data";
 import Data from "./Data";
 import { logo } from "../../assets";
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
-function PendingRequests() {
+function PendingRequests({ campaigns }) {
     const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => (
         <div
             className={`w-20 h-[3rem] rounded-[10px] ${isActive === name ? "bg-[#2c2f32]" : ""
@@ -35,12 +35,12 @@ function PendingRequests() {
                 <tbody>
                     <tr className="admin-row">
                         <th>Wallet ID</th>
-                        <th>Owner Name</th>
+                        <th>title</th>
                         <th>
                             Decision
                         </th>
                     </tr>
-                    {adminData.map((item, index) => <Data key={item.walletID} {...item} index={index}>
+                    {campaigns.map((campaign) => <Data key={campaign.owner} {...campaign}>
                         <td className="flex items-center justify-center gap-3">
                             <button className="accept bg-[#ECEFF1] p-2 rounded-[10px] text-[#a1a3a4] text-sm">
                                 <i className="fa fa-check mr-2"></i>

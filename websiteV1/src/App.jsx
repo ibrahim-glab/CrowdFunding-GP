@@ -33,10 +33,10 @@ function AppContent() {
     if (address === null) {
       navigate("/");
     } else if (address === import.meta.env.VITE_ADMIN_ADDRESS && !isAdminPath) {
-      console.log('navigating to admin'); 
+      console.log('navigating to admin');
       navigate("/admin");
     } else if (address !== import.meta.env.VITE_ADMIN_ADDRESS && isAdminPath) {
-      console.log('navigating to home');  
+      console.log('navigating to home');
       navigate("/");
     }
   }, [address, location.pathname, navigate]);

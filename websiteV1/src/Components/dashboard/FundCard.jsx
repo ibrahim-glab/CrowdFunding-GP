@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
+=======
+import React from "react";
+import { logo } from "../../assets";
+>>>>>>> ea2d9d54ca3cd5d8206b3340ff0a29f74b9ee301
 import { tagType, thirdweb } from "../../assets";
 import { useStorageUpload } from "@thirdweb-dev/react"; // Adjusted import statement
 
@@ -25,7 +30,7 @@ const FundCard = ({
 
   // Convert milliseconds to days
   const remainingDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
-
+  console.log("imageeeeeee" + image);
   return (
     <div
       className=" sm:w-[288px] cursor-pointer rounded-[15px] w-full bg-[#1c1c24]"
