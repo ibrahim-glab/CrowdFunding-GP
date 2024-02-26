@@ -1,7 +1,6 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import { tagType, thirdweb } from "../../assets";
-// import { daysLeft } from '../utils';
+import { useStorageUpload } from "@thirdweb-dev/react"; // Adjusted import statement
 
 const FundCard = ({
   owner,
@@ -13,7 +12,11 @@ const FundCard = ({
   image,
   handleClick,
 }) => {
-  //   const remainingDays = daysLeft(deadline);
+  console.log("image  " + image )
+  const [ipfsUrl, setIpfsUrl] = useState(""); // State to store IPFS URL
+
+
+
   const targetDate = new Date("2024-03-01");
   const currentDate = new Date();
 
@@ -90,4 +93,5 @@ const FundCard = ({
     </div>
   );
 };
+
 export default FundCard;

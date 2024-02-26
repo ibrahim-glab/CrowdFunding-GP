@@ -7,7 +7,7 @@ import { ThirdwebProvider } from '@thirdweb-dev/react'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
    
-    <ThirdwebProvider activeChain={Sepolia} clientId="930432fd22031de24c7b002dc4abcd6e">
+    <ThirdwebProvider activeChain={Sepolia} clientId="a2bb068145c0ae3bf90caaa77361de77">
       <App />
     </ThirdwebProvider>
 
