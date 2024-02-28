@@ -1,7 +1,7 @@
 
 import React from "react";
 import { logo } from "../../assets";
-
+import { useState } from "react";
 import { tagType, thirdweb } from "../../assets";
 import { useStorageUpload } from "@thirdweb-dev/react"; // Adjusted import statement
 

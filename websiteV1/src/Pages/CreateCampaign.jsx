@@ -3,54 +3,51 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Progress from "../Components/Animations/Progress";
 import {
-    Web3Button,
-    useStorageUpload,
-    useContract,
-    useContractWrite,
+  Web3Button,
+  useStorageUpload,
+  useContract,
+  useContractWrite,
 } from "@thirdweb-dev/react";
 import { contractABI } from "../constants/index.js";
 
 import { ethers } from "ethers";
 
 function CreateCampaign() {
-    const [file, setFile] = useState(null);
-    const { mutateAsync: upload } = useStorageUpload();
-    const [image,setImage]=useState([null]);
-    
-    const uploadToIpfs = async () => {
-        if (!file) {
-            console.error("No file selected.");
-            return;
-        }
-        const uploadUrl = await upload({
-            data: [file],
-            options: {
-                uploadWithGatewayUrl: true,
-                uploadWithoutDirectory: true,
-            },
-        });
-        console.log("uploadUrl: ", uploadUrl);
-        // if (uploadUrl) {
-        //     setForm((prevForm) => ({
-        //       ...prevForm,
-        //       image: uploadUrl,
-        //     }));
-        //   }
-        return uploadUrl;
-    };
+  const [file, setFile] = useState(null);
+  const { mutateAsync: upload } = useStorageUpload();
+  const [image, setImage] = useState([null]);
 
-    const { contract } = useContract(
-        "0xdeD74b8Dc8b7CdAAD3d2496F64B8c94A509C6a41",
-        contractABI
-    );
-    console.log(contract);
+  const uploadToIpfs = async () => {
+    if (!file) {
+      console.error("No file selected.");
+      return;
+    }
+    const uploadUrl = await upload({
+      data: [file],
+      options: {
+        uploadWithGatewayUrl: true,
+        uploadWithoutDirectory: true,
+      },
+    });
+    console.log("uploadUrl: ", uploadUrl);
+    // if (uploadUrl) {
+    //     setForm((prevForm) => ({
+    //       ...prevForm,
+    //       image: uploadUrl,
+    //     }));
+    //   }
+    return uploadUrl;
+  };
 
-    const { mutateAsync } = useContractWrite(
-        contract,
-        "createProject"
-    );
+  const { contract } = useContract(
+    "0xdeD74b8Dc8b7CdAAD3d2496F64B8c94A509C6a41",
+    contractABI
+  );
+  console.log(contract);
 
-    const navigate = useNavigate();
+  const { mutateAsync } = useContractWrite(contract, "createProject");
+
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     title: "",
@@ -64,50 +61,57 @@ function CreateCampaign() {
   const dialogRef = useRef();
 
   const handleFormFieldChange = async (fieldName, e) => {
-    if(fieldName !== "image")
-    setForm((prevForm) => ({ ...prevForm, [fieldName]: e.target.value }));
+    if (fieldName !== "image")
+      setForm((prevForm) => ({ ...prevForm, [fieldName]: e.target.value }));
     if (e.target.files) {
-        setFile(e.target.files[0]);
-        console.log(e.target.files[0]);
-      }
-   
-   
+      setFile(e.target.files[0]);
+      console.log(e.target.files[0]);
+    }
   };
 
   const performAction = () => {
     dialogRef.current.openDialog();
   };
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Upload file to IPFS
-   
+
     //console.log("Form submitted: image ", form.image);
     const uploadedUrl = await uploadToIpfs();
-    
+
     console.log("uploadedUrl: ", uploadedUrl);
-  
+
     // If the upload was successful, update form.image with the uploaded URL
-   
-     setImage(uploadedUrl); 
-     console.log("image: ", image); 
+
+    setImage(uploadedUrl);
+    console.log("image: ", image);
     // Reset other form fields
     setForm((prevForm) => ({
-        ...prevForm,
-        name: "",
-        title: "",
-        description: "",
-        target: "",
-        deadline: "",
-        verify: false,
+      ...prevForm,
+      name: "",
+      title: "",
+      description: "",
+      target: "",
+      deadline: "",
+      verify: false,
     }));
-  
+
     console.log("Form submitted:", form);
     performAction();
-  
+    mutateAsync({
+      args: [
+        form.title,
+        form.description,
+        form.image,
+        new Date(form.deadline).getTime(),
+        ethers.utils.parseEther(form.target),
+        0,
+        false,
+      ],
+    });
   };
-  
 
   return (
     <>
@@ -118,10 +122,7 @@ function CreateCampaign() {
             Create New Campaign
           </h1>
         </div>
-        <form
-          onSubmit={handleSubmit}
-          className="mt-8 w-full flex flex-col gap-[30px]"
-        >
+        <form className="mt-8 w-full flex flex-col gap-[30px]">
           <Form
             labelName={"Name *"}
             placeholder={"Enter Your Name"}
@@ -194,19 +195,7 @@ function CreateCampaign() {
             </button>
             <Web3Button
               contractAddress={"0xdeD74b8Dc8b7CdAAD3d2496F64B8c94A509C6a41"}
-              action={() =>
-                mutateAsync({
-                  args: [
-                    form.title,
-                    form.description,
-                    form.image,
-                    new Date(form.deadline).getTime(),
-                    ethers.utils.parseEther(form.target),
-                    0,
-                    false,
-                  ],
-                })
-              }
+              action={(e) => handleSubmit(e)}
               style={{ color: "white", backgroundColor: "#2c645b" }}
               type="submit"
               deadline
