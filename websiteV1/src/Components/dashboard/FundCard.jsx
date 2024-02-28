@@ -1,5 +1,6 @@
 import React from "react";
 import { logo } from "../../assets";
+import { useState } from "react";
 import { tagType, thirdweb } from "../../assets";
 import { useContract, useContractRead } from "@thirdweb-dev/react";
 import { BasecontractABI } from "../../constants";
@@ -113,4 +114,5 @@ const FundCard = ({
     )
   );
 };
+
 export default FundCard;
