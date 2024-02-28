@@ -6,8 +6,8 @@ import { Sepolia } from "@thirdweb-dev/chains";
 import { ThirdwebProvider } from '@thirdweb-dev/react'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-   
-    <ThirdwebProvider activeChain={Sepolia} clientId="930432fd22031de24c7b002dc4abcd6e">
+
+    <ThirdwebProvider activeChain={Sepolia} clientId="b1a5dc98f41e4ccd71b1f68cccded809">
       <App />
     </ThirdwebProvider>
 

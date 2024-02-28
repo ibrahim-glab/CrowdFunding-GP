@@ -30,13 +30,8 @@ const Campaigns = ({ title, isLoading, campaigns }) => {
   // console.log(data5[0].data);
   // }
 
-
-
-
-
-
-
   return (
+
     <div>
       <h1 className="font-epilogue font-semibold text-[18px] text-white text-left">{title} ({campaigns.length})</h1>
 
