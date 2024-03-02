@@ -40,16 +40,8 @@ function PendingRequests({ campaigns }) {
                             Decision
                         </th>
                     </tr>
-                    {campaigns.map((campaign) => <Data key={campaign.owner} {...campaign}>
-                        <td className="flex items-center justify-center gap-3">
-                            <button className="accept bg-[#ECEFF1] p-2 rounded-[10px] text-[#a1a3a4] text-sm">
-                                <i className="fa fa-check mr-2"></i>
-                                <span>Accept</span></button>
-                            <button className="reject bg-[#ECEFF1] p-2 rounded-[10px] text-[#a1a3a4] text-sm">
-                                <i className="fa fa-trash mr-2 "></i>
-                                <span>Reject</span>
-                            </button>
-                        </td>
+                    {campaigns.map((campaign) => <Data key={campaign.CampaignAddress} {...campaign}>
+                       
                     </Data>)}
                 </tbody>
             </table>
