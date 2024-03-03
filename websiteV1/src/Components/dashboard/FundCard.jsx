@@ -4,6 +4,7 @@ import { useState } from "react";
 import { tagType, thirdweb } from "../../assets";
 import { useContract, useContractRead } from "@thirdweb-dev/react";
 import { BasecontractABI } from "../../constants";
+import { ethers } from "ethers";
 // import { daysLeft } from '../utils';
 
 const FundCard = ({
@@ -23,9 +24,9 @@ const FundCard = ({
 
   // Calculate the difference in milliseconds
   const differenceInMs = targetDate - currentDate;
-
+  const difference = new Date(deadline).getTime() - Date.now();
   // Convert milliseconds to days
-  const remainingDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
+  const remainingDays = Math.ceil(difference / (1000 * 60 * 60 * 24));
   console.log("imageeeeeee" + image);
 
   //Status
@@ -44,7 +45,12 @@ const FundCard = ({
     isLoading,
     error,
   } = useContractRead(contract, "campaignStatus");
-
+  const {
+    data: amount,
+    isLoadingg,
+    errorr,
+  } = useContractRead(contract, "totalContributions");
+  console.log(amount);
   return (
     status === 0 && (
       <div
@@ -80,7 +86,7 @@ const FundCard = ({
           <div className="flex justify-between flex-wrap mt-[15px] gap-2">
             <div className="flex flex-col">
               <h4 className="font-epilogue font-semibold text-[14px] text-[#b2b3bd] leading-[22px]">
-                {amountCollected}
+                {ethers.utils.formatEther(amount.toString())}
               </h4>
               <p className="mt-[3px] font-epilogue font-normal text-[12px] leading-[18px] text-[#808191] sm:max-w-[120px] truncate">
                 Raised of {target}

@@ -15,26 +15,24 @@ function Data({ title, owner, CampaignAddress, index, children }) {
     const { mutateAsync, isLoading1, error1 } = useContractWrite(
         contract,   
         "setCampaignActive"
-      );
+    );
     
-      const { mutateAsync: mutateAsync2, isLoading2, error2 } = useContractWrite(
+    const { mutateAsync: mutateAsync2, isLoading2, error2 } = useContractWrite(
         contract,
         "setCampaignDenied"
-      );
-      if    (Status === 2)
-      console.log(Status);
+    );
+    if(Status === 2)
+        console.log(Status);
     return (
         Status == "2" &&
         <tr className={"data-roww"}>
             <td>{owner}</td>
-            <td>{CampaignAddress}</td>
             <td>{title}</td>
             <td className="flex items-center justify-center gap-3">
                 <div>
                     <Web3Button
                         contractAddress={CampaignAddress}
                         action={()=>mutateAsync({args:[]})}
-                        
                     >
                         Accept
                     </Web3Button>
