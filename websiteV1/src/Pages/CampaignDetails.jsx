@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { calculateBarPercentage, daysLeft } from "../../utils";
+import { calculateBarPercentage } from "../../utils";
 import { thirdweb } from "../assets";
 import CountBox from "../Components/Details/CountBox";
 import { Web3Button, useAddress } from "@thirdweb-dev/react";
 import {
   useContract,
-  useContractWrite,
   useContractEvents,
   useContractRead,
 } from "@thirdweb-dev/react";
@@ -18,7 +17,6 @@ function CampaignDetails() {
   const { state } = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState("");
-  const [donators, setDonators] = useState([]);
 
   const add = useAddress();
   const difference = new Date(state.deadline).getTime() - Date.now();
@@ -55,16 +53,18 @@ function CampaignDetails() {
     await contract.call("contribute", [add], { value: amountInWei });
     setIsLoading(false);
   };
-  const uniqueContributors = contributorsData.filter(
-    (item, index, self) =>
-      index ===
-      self.findIndex((t) => t.data.contributor === item.data.contributor)
-  );
+
+  const uniqueContributors = contributorsData
+    ? contributorsData.filter(
+        (item, index, self) =>
+          index ===
+          self.findIndex((t) => t.data.contributor === item.data.contributor)
+      )
+    : [];
+
   return (
     <div>
-      {isLoadingContributors || isLoadingTotalContributions ? (
-        <></>
-      ) : (
+      {!isLoadingContributors || !isLoadingTotalContributions ? (
         <div>
           {isLoading && <Loader />}
           <div className="w-full flex md:flex-row flex-col mt-10 gap-[30px]">
@@ -204,7 +204,7 @@ function CampaignDetails() {
             </div>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
