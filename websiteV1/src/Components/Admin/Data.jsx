@@ -3,6 +3,8 @@ import { BasecontractABI } from "../../constants";
 import { Web3Button } from "@thirdweb-dev/react";
 
 function Data({ title, owner, CampaignAddress, index, children }) {
+     
+
     const { contract } = useContract(
         CampaignAddress,
         BasecontractABI
@@ -46,6 +48,7 @@ function Data({ title, owner, CampaignAddress, index, children }) {
                     >
                         Reject
                     </Web3Button>
+
                 </div>
             </td>
         </tr>
