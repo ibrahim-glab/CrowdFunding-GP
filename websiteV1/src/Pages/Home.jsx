@@ -69,7 +69,6 @@ const Home = ({ campaigns }) => {
   if (!isLoading && data6) {
     // Add null check for data6
     parsedCampaigns = data6
-      .filter((campaign) => campaign.data.verified === false)
       .map((campaign) => {
         if (campaign.data) {
           // Add null check for campaign.data

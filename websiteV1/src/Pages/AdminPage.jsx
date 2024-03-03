@@ -40,6 +40,7 @@ function AdminPage() {
             .map(campaign => ({
                 title: campaign.data.title,
                 owner: campaign.data.owner,
+                CampaignAddress : campaign.data.campaign,
             }));
         console.log(parsedCampaigns);
     }
