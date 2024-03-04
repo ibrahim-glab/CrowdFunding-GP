@@ -77,149 +77,158 @@ export const reqData = [{
 
 ]
 
-export const contractABI = [{
-        "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "anonymous": false,
-        "inputs": [{
-                "indexed": true,
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "campaign",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "string",
-                "name": "title",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "internalType": "string",
-                "name": "description",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "internalType": "string",
-                "name": "image",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "durationInDays",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "goal",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "internalType": "enum CampaignFactory.CampaignType",
-                "name": "campType",
-                "type": "uint8"
-            },
-            {
-                "indexed": false,
-                "internalType": "bool",
-                "name": "verified",
-                "type": "bool"
-            }
-        ],
-        "name": "CampaignCreated",
-        "type": "event"
-    },
-    {
-        "inputs": [{
-            "internalType": "address",
-            "name": "campaign",
-            "type": "address"
-        }],
-        "name": "contribute",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-    },
-    {
-        "inputs": [{
-                "internalType": "string",
-                "name": "title",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "description",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "image",
-                "type": "string"
-            },
-            {
-                "internalType": "uint256",
-                "name": "durationInDays",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "goal",
-                "type": "uint256"
-            },
-            {
-                "internalType": "enum CampaignFactory.CampaignType",
-                "name": "campType",
-                "type": "uint8"
-            },
-            {
-                "internalType": "bool",
-                "name": "verified",
-                "type": "bool"
-            }
-        ],
-        "name": "createProject",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "admin",
-        "outputs": [{
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-        }],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getDeployedProjects",
-        "outputs": [{
-            "internalType": "contract BaseCampaign[]",
-            "name": "",
-            "type": "address[]"
-        }],
-        "stateMutability": "view",
-        "type": "function"
-    }
+export const contractABI = [
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "campaign",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "image",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "durationInDays",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "goal",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum CampaignFactory.CampaignType",
+				"name": "campType",
+				"type": "uint8"
+			},
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "verified",
+				"type": "bool"
+			}
+		],
+		"name": "CampaignCreated",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "campaign",
+				"type": "address"
+			}
+		],
+		"name": "contribute",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "image",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "durationInDays",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "goal",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum CampaignFactory.CampaignType",
+				"name": "campType",
+				"type": "uint8"
+			},
+			{
+				"internalType": "bool",
+				"name": "verified",
+				"type": "bool"
+			}
+		],
+		"name": "createProject",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "admin",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getDeployedProjects",
+		"outputs": [
+			{
+				"internalType": "contract BaseCampaign[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
 ]
 
-export const BasecontractABI = [
+export const BasecontractABI =[
 	{
 		"inputs": [
 			{
@@ -383,6 +392,13 @@ export const BasecontractABI = [
 	{
 		"inputs": [],
 		"name": "setCampaignActive",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "setCampaignDenied",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

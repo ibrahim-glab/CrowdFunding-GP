@@ -1,55 +1,37 @@
-import { useContract, useContractRead , useContractWrite } from "@thirdweb-dev/react";
-import { BasecontractABI } from "../../constants";
-import { Web3Button } from "@thirdweb-dev/react";
+import { useContract, useContractRead, useContractWrite } from '@thirdweb-dev/react';
+import { BasecontractABI } from '../../constants';
+import { Web3Button } from '@thirdweb-dev/react';
 
-function Data({ title, owner, CampaignAddress, index, children }) {
-     
+const Data = ({ title, owner, CampaignAddress, index, children }) => {
+  const { contract } = useContract(CampaignAddress, BasecontractABI);
+  const { data: status, isLoading, error } = useContractRead(contract, 'campaignStatus');
+  const { mutateAsync: setCampaignActive } = useContractWrite(contract, 'setCampaignActive');
+  const { mutateAsync: setCampaignDenied } = useContractWrite(contract, 'setCampaignDenied');
 
-    const { contract } = useContract(
-        CampaignAddress,
-        BasecontractABI
-    );
-    const { data: Status, isLoading, error } = useContractRead(
-        contract,
-        "campaignStatus",
-    );
+  const isStatusTwo = status === 2;
 
-    const { mutateAsync, isLoading1, error1 } = useContractWrite(
-        contract,   
-        "setCampaignActive"
-    );
-    
-    const { mutateAsync: mutateAsync2, isLoading2, error2 } = useContractWrite(
-        contract,
-        "setCampaignDenied"
-    );
-    if(Status === 2)
-        console.log(Status);
-    return (
-        Status == "2" &&
-        <tr className={"data-roww"}>
-            <td>{owner}</td>
-            <td>{title}</td>
-            <td className="flex items-center justify-center gap-3">
-                <div>
-                    <Web3Button
-                        contractAddress={CampaignAddress}
-                        action={()=>mutateAsync({args:[]})}
-                    >
-                        Accept
-                    </Web3Button>
-                </div>
-                <div>
-                    <Web3Button
-                        contractAddress={CampaignAddress}
-                        action={() => mutateAsync2({ args: [] })}
-                    >
-                        Reject
-                    </Web3Button>
+  if (isStatusTwo) console.log(status);
 
-                </div>
-            </td>
-        </tr>
-    )
+
+
+  const createActionButton = (action, label) => (
+    <div>
+      <Web3Button contractAddress={CampaignAddress} action={() => action({ args: [] })}>
+        {label}
+      </Web3Button>
+    </div>
+  );
+
+  return isStatusTwo && (
+    <tr className='data-roww'>
+      <td>{owner}</td>
+      <td>{title}</td>
+      <td className='flex items-center justify-center gap-3'>
+        {createActionButton(setCampaignActive, 'Accept')}
+        {createActionButton(setCampaignDenied, 'Reject')}
+      </td>
+    </tr>
+  );
 }
+
 export default Data;

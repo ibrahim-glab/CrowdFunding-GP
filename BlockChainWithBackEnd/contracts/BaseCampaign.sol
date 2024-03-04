@@ -55,6 +55,11 @@ contract BaseCampaign {
         campaignStatus = CampaignStatus.Active;
     }
 
+      function setCampaignDenied() public OnlyAdmin {
+        campaignStatus = CampaignStatus.Denied;
+    }
+
+
     function contribute( address sender)     
          public     
          payable       
@@ -113,3 +118,13 @@ contract BaseCampaign {
         return payable(Owner).send(address(this).balance);
     }
 }
+
+
+
+
+// 5 of 5 call End Campaign 
+
+4.8 
+
+0.3 
+
