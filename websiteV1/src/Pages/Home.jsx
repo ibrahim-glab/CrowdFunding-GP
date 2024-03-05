@@ -68,22 +68,21 @@ const Home = ({ campaigns }) => {
   console.log(data6);
   if (!isLoading && data6) {
     // Add null check for data6
-    parsedCampaigns = data6
-      .map((campaign) => {
-        if (campaign.data) {
-          // Add null check for campaign.data
-          return {
-            title: campaign.data.title,
-            description: campaign.data.description,
-            target: ethers.utils.formatEther(campaign.data.goal.toString()),
-            deadline: campaign.data.durationInDays.toNumber(),
-            amountCollected: 0.0,
-            image: campaign.data.image,
-            owner: campaign.data.owner,
-            address: campaign.data.campaign,
-          };
-        }
-      });
+    parsedCampaigns = data6.map((campaign) => {
+      if (campaign.data) {
+        // Add null check for campaign.data
+        return {
+          title: campaign.data.title,
+          description: campaign.data.description,
+          target: ethers.utils.formatEther(campaign.data.goal.toString()),
+          deadline: campaign.data.durationInDays.toNumber(),
+          amountCollected: 0.0,
+          image: campaign.data.image,
+          owner: campaign.data.owner,
+          address: campaign.data.campaign,
+        };
+      }
+    });
     console.log(parsedCampaigns);
   }
 
