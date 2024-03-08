@@ -36,9 +36,11 @@ function Hist() {
     subscribe: true, // Subscribe to new events
   });
   console.log(data5)
+  console.log(add);
   let histData = [];
   if (data5) {
-    histData = data5.map((campaign) => {
+    histData = data5.filter((campaign) => campaign.data.contributor === add)
+    .map((campaign) => {
       const unixTimestamp = campaign.data.date.toNumber();
       const date = new Date(unixTimestamp * 1000); // Convert to milliseconds
       const formattedDate = date.toLocaleDateString();
