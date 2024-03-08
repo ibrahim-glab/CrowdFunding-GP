@@ -15,13 +15,12 @@ function Data({ owner, CampaignAddress, title, date, goal, index }) {
     3: "Failed",
     4: "Denied",
   };
-
   if (status !== undefined && statusMap.hasOwnProperty(status)) {
     statusInLetters = statusMap[status];
   }
   return (
     <tr className={`data-row ${index % 2 === 0 ? "even-row" : "odd-row"}`}>
-      <td>{owner}</td>
+      {owner && <td>{owner}</td>}
       <td>
         <a href="#">{title}</a>
       </td>

@@ -12,7 +12,7 @@ import {
 import { ethers } from "ethers";
 import Loader from "../Components/Details/Loader";
 import { BasecontractABI } from "../constants";
-
+import { contractABI } from "../constants";
 function CampaignDetails() {
   const { state } = useLocation();
   const [isLoading, setIsLoading] = useState(false);
@@ -24,8 +24,11 @@ function CampaignDetails() {
   const remainingDays = Math.ceil(difference / (1000 * 60 * 60 * 24));
   // Calling Contribute Function
   const { contract } = useContract(state.address, BasecontractABI);
-
-  // Fetch Contributors
+  const { contract: contract2 } = useContract(
+    import.meta.env.VITE_CONTRACTADDRESS,
+    contractABI
+  );  // Fetch Contributors
+  console.log(contract2)
   const {
     data: contributorsData,
     isLoading: isLoadingContributors,
@@ -37,7 +40,7 @@ function CampaignDetails() {
     },
     subscribe: true, // Subscribe to new events
   });
-
+  console.log(contributorsData);
   // Fetch Total Contributions
   const {
     data: totalContributions,
@@ -50,7 +53,7 @@ function CampaignDetails() {
     setIsLoading(true);
     const amountInWei = ethers.utils.parseEther(amount); // Convert ETH to Wei
     // Call the contribute function on the contract with the address argument
-    await contract.call("contribute", [add], { value: amountInWei });
+    await contract2.call("contribute", [state.address], { value: amountInWei });
     setIsLoading(false);
   };
 
