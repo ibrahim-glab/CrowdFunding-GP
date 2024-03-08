@@ -54,15 +54,10 @@ function Requests() {
         };
       });
   }
-  const filteredData =
-    filter === "All"
-      ? reqData
-      : reqData.filter((item) => item.status === filter);
-
   if (sort === "Newest") {
-    filteredData.sort((a, b) => new Date(b.date) - new Date(a.date));
+    reqData.sort((a, b) => new Date(b.date) - new Date(a.date));
   } else if (sort === "Oldest") {
-    filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
+    reqData.sort((a, b) => new Date(a.date) - new Date(b.date));
   }
   return (
     <div className="container">
@@ -71,7 +66,7 @@ function Requests() {
         onSortChange={handleSortChange}
         pageTitle={"Requests"}
       />
-      <Table data={filteredData} isRequestPage={true} />
+      <Table data={reqData} isRequestPage={true} />
     </div>
   );
 }
