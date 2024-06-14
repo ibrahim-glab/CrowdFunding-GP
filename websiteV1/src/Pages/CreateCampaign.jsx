@@ -1,11 +1,9 @@
 import Form from "../Components/createCampaign/Forms";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Progress from "../Components/Animations/Progress";
 import Loader from "../Components/Details/Loader";
+import Dialog from "../Components/Animations/Progress.jsx";
 import {
-  ConnectWallet,
-  useConnectionStatus,
   useContract,
   useContractWrite,
   Web3Button,
@@ -18,12 +16,13 @@ function CreateCampaign() {
   const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState(null);
   const { mutateAsync: upload } = useStorageUpload();
-  const { contract, isLoading: contractLoading, error } = useContract(
-    import.meta.env.VITE_CONTRACTADDRESS,
-    contractABI
-  );
+  const {
+    contract,
+    isLoading: contractLoading,
+    error,
+  } = useContract(import.meta.env.VITE_CONTRACTADDRESS, contractABI);
   const { mutateAsync } = useContractWrite(contract, "createProject");
-
+  const dialogRef = useRef();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
@@ -34,7 +33,6 @@ function CreateCampaign() {
     image: "",
     verify: false,
   });
-  const dialogRef = useRef();
 
   // IPFS
   const uploadToIpfs = async () => {
@@ -68,45 +66,43 @@ function CreateCampaign() {
 
   // STORE Data in campaign
   const handleData = async () => {
-   
-    
-      const uploadedUrl = await uploadToIpfs();
-      console.log("uploadedUrl: ", uploadedUrl);
+    const uploadedUrl = await uploadToIpfs();
+    console.log("uploadedUrl: ", uploadedUrl);
 
-      // If the upload was successful, update form.image with the uploaded URL
-      const campaignData = [
-        form.title,
-        form.description,
-        uploadedUrl[0],
-        Math.floor(new Date(form.deadline).getTime() / 1000), // convert to UNIX timestamp
-        ethers.utils.parseEther(form.target),
-        0, // Assuming 0 for CampaignType
-        form.verify,
-      ];
+    // If the upload was successful, update form.image with the uploaded URL
+    const campaignData = [
+      form.title,
+      form.description,
+      uploadedUrl[0],
+      Math.floor(new Date(form.deadline).getTime() / 1000), // convert to UNIX timestamp
+      ethers.utils.parseEther(form.target),
+      0, // Assuming 0 for CampaignType
+      form.verify,
+    ];
 
-      console.log("Form submitted:", campaignData);
-      // performAction();
-     
-      return campaignData;
-    
-    
-  };
-  const handleDataLoading = async () => { 
-    setIsLoading(true);
-    const campaignData = await handleData();
-    setIsLoading(false);
+    console.log("Form submitted:", campaignData);
     return campaignData;
-  }
-
-  // const performAction = () => {
-  //   // Call the function to open the dialog
-  //  // dialogRef.current.openDialog();
-  // };
+  };
+  const performAction = () => {
+    dialogRef.current.openDialog();
+  };
+  const handleDataLoading = async () => {
+    setIsLoading(true);
+    try {
+      performAction();
+      const campaignData = await handleData();
+      await mutateAsync({ args: [...campaignData] });
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error creating campaign:", error);
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
       <div className="create-campaign bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
-        {isLoading && <Loader/> }
+        <Dialog ref={dialogRef} load={isLoading} />
         <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
           <h1 className="font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">
             Create New Campaign
@@ -170,16 +166,13 @@ function CreateCampaign() {
           <div className="flex justify-center items-center mt-[40px]">
             <button
               type="submit"
-              className="bg-[#1dc071] font-semibold text-[16px] leading-[26px] text-white min-h-[52px] px-4 rounded-[10px]  w-fit hidden"
+              className="bg-[#1dc071] font-semibold text-[16px] leading-[26px] text-white min-h-[52px] px-4 rounded-[10px] w-fit hidden"
             >
               Submit Campaign
             </button>
             <Web3Button
               contractAddress={import.meta.env.VITE_CONTRACTADDRESS}
-              action={async () => {
-                const campaignData = await handleDataLoading(); // Wait for handleData to complete
-                return mutateAsync({ args: [...campaignData] }); // Trigger mutateAsync with campaignData
-              }}
+              action={handleDataLoading}
               style={{ color: "white", backgroundColor: "#2c645b" }}
               type="submit"
               deadline

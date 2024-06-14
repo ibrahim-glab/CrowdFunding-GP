@@ -24,7 +24,7 @@ const FundCard = ({
 
   // Calculate the difference in milliseconds
   const differenceInMs = targetDate - currentDate;
-  const difference = new Date(deadline).getTime() - Date.now();
+  const difference = Math.abs(new Date(deadline).getTime() - Date.now());
   // Convert milliseconds to days
   const remainingDays = Math.ceil(difference / (1000 * 60 * 60 * 24));
   console.log("imageeeeeee" + image);
@@ -63,16 +63,7 @@ const FundCard = ({
           className=" w-full h-[158px]  object-cover rounded-[15px]"
         />
         <div className="flex flex-col p-4">
-          <div className="p-4 flex flex-row items-center mb-[18px] ">
-            <img
-              src={tagType}
-              alt="tag"
-              className="w-[17px] h-[17px] object-contain"
-            />
-            <p className="ml-[12px] mt-[2px] font-epilogue font-medium text-[12px] text-[#808191]">
-              Education
-            </p>
-          </div>
+          <div className="p-4 flex flex-row items-center mb-[18px] "></div>
           {/* // section of title */}
           <div className="block">
             <h3 className="font-epilogue font-semibold text-[16px] text-white text-left leading-[26px] truncate">

@@ -1,15 +1,14 @@
-import React, { useRef, useImperativeHandle, forwardRef, useState, useEffect } from "react";
+import React, {
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+  useState,
+  useEffect,
+} from "react";
 
 const Dialog = forwardRef(({ load }, ref) => {
   const dialogRef = useRef(null);
-
-  useEffect(() => {
-    if (load) {
-      dialogRef.current.showModal();
-    } else {
-      dialogRef.current.close();
-    }
-  }, [load]);
+  const [loading, setLoading] = useState(load);
 
   useImperativeHandle(ref, () => ({
     openDialog() {
@@ -20,9 +19,13 @@ const Dialog = forwardRef(({ load }, ref) => {
     },
   }));
 
+  useEffect(() => {
+    setLoading(load);
+  }, [load]);
+
   return (
     <>
-      {load ? (
+      {loading ? (
         <dialog ref={dialogRef} className="active result-modal p-8">
           <div className="h-[150px] flex items-center justify-center flex-col">
             <h3 className="mb-2 flash">Your Form is submitting...</h3>
@@ -32,7 +35,10 @@ const Dialog = forwardRef(({ load }, ref) => {
           </div>
         </dialog>
       ) : (
-        <dialog ref={dialogRef} className="dialogBg w-1/4 bg-[#1c1c23] m-auto h-1/4 p-5 rounded-[20px]">
+        <dialog
+          ref={dialogRef}
+          className="dialogBg w-1/4 bg-[#1c1c23] m-auto h-1/4 p-5 rounded-[20px]"
+        >
           <div className="flex flex-col items-center justify-center h-200">
             <i className="text-[#FF785A] fa-check fa fa-check text-4xl mb-8"></i>
             <h2 className="text-slate-50 mb-2">Your Message Has Been Sent!</h2>

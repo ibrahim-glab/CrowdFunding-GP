@@ -19,7 +19,7 @@ function CampaignDetails() {
   const [amount, setAmount] = useState("");
 
   const add = useAddress();
-  const difference = new Date(state.deadline).getTime() - Date.now();
+  const difference = Math.abs(new Date(state.deadline).getTime() - Date.now());
   // Convert milliseconds to days
   const remainingDays = Math.ceil(difference / (1000 * 60 * 60 * 24));
   // Calling Contribute Function
@@ -27,8 +27,8 @@ function CampaignDetails() {
   const { contract: contract2 } = useContract(
     import.meta.env.VITE_CONTRACTADDRESS,
     contractABI
-  );  // Fetch Contributors
-  console.log(contract2)
+  ); // Fetch Contributors
+  console.log(contract2);
   const {
     data: contributorsData,
     isLoading: isLoadingContributors,
