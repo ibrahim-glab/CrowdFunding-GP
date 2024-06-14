@@ -2,6 +2,7 @@ import Form from "../Components/createCampaign/Forms";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Progress from "../Components/Animations/Progress";
+import Loader from "../Components/Details/Loader";
 import {
   ConnectWallet,
   useConnectionStatus,
@@ -11,21 +12,29 @@ import {
   useStorageUpload,
 } from "@thirdweb-dev/react";
 import { contractABI } from "../constants/index.js";
-
 import { ethers } from "ethers";
 
 function CreateCampaign() {
+  const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState(null);
   const { mutateAsync: upload } = useStorageUpload();
-  const { contract, isLoading, error } = useContract(
+  const { contract, isLoading: contractLoading, error } = useContract(
     import.meta.env.VITE_CONTRACTADDRESS,
     contractABI
   );
-  console.log(contract);
-  const { mutateAsync, isLoading1, error1 } = useContractWrite(
-    contract,
-    "createProject"
-  );
+  const { mutateAsync } = useContractWrite(contract, "createProject");
+
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    name: "",
+    title: "",
+    description: "",
+    target: "",
+    deadline: "",
+    image: "",
+    verify: false,
+  });
+  const dialogRef = useRef();
 
   // IPFS
   const uploadToIpfs = async () => {
@@ -41,25 +50,9 @@ function CreateCampaign() {
       },
     });
     console.log("uploadUrl: ", uploadUrl);
-    // if (uploadUrl) {
-    //     setForm((prevForm) => ({
-    //       ...prevForm,
-    //       image: uploadUrl,
-    //     }));
-    //   }
     return uploadUrl;
   };
-  const navigate = useNavigate();
-  const [form, setForm] = useState({
-    name: "",
-    title: "",
-    description: "",
-    target: "",
-    deadline: "",
-    image: "",
-    verify: false,
-  });
-  const dialogRef = useRef();
+
   const handleFormFieldChange = async (fieldName, e) => {
     if (fieldName !== "image")
       setForm((prevForm) => ({ ...prevForm, [fieldName]: e.target.value }));
@@ -68,54 +61,52 @@ function CreateCampaign() {
       console.log(e.target.files[0]);
     }
   };
-  const performAction = () => {
-    // Call the function to open the dialog
-    dialogRef.current.openDialog();
-    // Perform other actions as needed
-  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
   // STORE Data in campaign
-  const handleData = async (e) => {
-    // Upload file to IPFS
+  const handleData = async () => {
+   
+    
+      const uploadedUrl = await uploadToIpfs();
+      console.log("uploadedUrl: ", uploadedUrl);
 
-    //console.log("Form submitted: image ", form.image);
-    const uploadedUrl = await uploadToIpfs();
+      // If the upload was successful, update form.image with the uploaded URL
+      const campaignData = [
+        form.title,
+        form.description,
+        uploadedUrl[0],
+        Math.floor(new Date(form.deadline).getTime() / 1000), // convert to UNIX timestamp
+        ethers.utils.parseEther(form.target),
+        0, // Assuming 0 for CampaignType
+        form.verify,
+      ];
 
-    console.log("uploadedUrl: ", uploadedUrl);
-
-    // If the upload was successful, update form.image with the uploaded URL
-    const campaignData = [
-      form.title,
-      form.description,
-      uploadedUrl[0],
-      new Date(form.deadline).getTime(),
-      ethers.utils.parseEther(form.target),
-      0,
-      form.verify,
-    ];
-    //setImage(uploadedUrl);
-    // console.log("image: ", image);
-    // Reset other form fields
-
-    setForm((prevForm) => ({
-      ...prevForm,
-      name: "",
-      title: "",
-      description: "",
-      target: "",
-      deadline: "",
-      verify: false,
-    }));
-    console.log("Form submitted:", campaignData);
-    performAction();
-    return campaignData;
+      console.log("Form submitted:", campaignData);
+      // performAction();
+     
+      return campaignData;
+    
+    
   };
+  const handleDataLoading = async () => { 
+    setIsLoading(true);
+    const campaignData = await handleData();
+    setIsLoading(false);
+    return campaignData;
+  }
+
+  // const performAction = () => {
+  //   // Call the function to open the dialog
+  //  // dialogRef.current.openDialog();
+  // };
+
   return (
     <>
       <div className="create-campaign bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
-        <Progress ref={dialogRef} />
+        {isLoading && <Loader/> }
         <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
           <h1 className="font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">
             Create New Campaign
@@ -131,9 +122,6 @@ function CreateCampaign() {
             inputType="text"
             value={form.name}
             handleChange={(e) => handleFormFieldChange("name", e)}
-            className={`transition-opacity duration-500 ${
-              form.name === "" ? "opacity-0" : "opacity-100"
-            }`}
           />
           <Form
             labelName={"Title *"}
@@ -156,9 +144,6 @@ function CreateCampaign() {
             inputType="number"
             value={form.target}
             handleChange={(e) => handleFormFieldChange("target", e)}
-            className={`transition-opacity duration-500 ${
-              form.target === "" ? "opacity-0" : "opacity-100"
-            }`}
           />
           <Form
             labelName="End Date *"
@@ -172,9 +157,6 @@ function CreateCampaign() {
             placeholder="Place image URL of your campaign"
             inputType="file"
             handleChange={(e) => handleFormFieldChange("image", e)}
-            className={`transition-opacity duration-500 ${
-              form.image === "" ? "opacity-0" : "opacity-100"
-            }`}
           />
           <label className="form-control">
             <input
@@ -195,14 +177,14 @@ function CreateCampaign() {
             <Web3Button
               contractAddress={import.meta.env.VITE_CONTRACTADDRESS}
               action={async () => {
-                const campaignData = await handleData(); // Wait for handleData to complete
+                const campaignData = await handleDataLoading(); // Wait for handleData to complete
                 return mutateAsync({ args: [...campaignData] }); // Trigger mutateAsync with campaignData
               }}
               style={{ color: "white", backgroundColor: "#2c645b" }}
               type="submit"
               deadline
             >
-              Sumbit
+              Submit
             </Web3Button>
           </div>
         </form>
@@ -210,16 +192,5 @@ function CreateCampaign() {
     </>
   );
 }
+
 export default CreateCampaign;
-
-/*  function createProject(
-        string memory title,
-        string memory description,
-        string memory image,
-
-        uint256 durationInDays,
-
-        uint256 goal,
-        CampaignType campType,  0 or 1 or 2
-        bool verified
-    ) {*/
