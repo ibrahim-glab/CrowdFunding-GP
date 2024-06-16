@@ -26,7 +26,7 @@ export const navlinks = [{
     {
         name: 'profile',
         imgUrl: profile,
-        link: '/profile',
+        link: '/MyCampaigns',
         disabled: false
     },
     {

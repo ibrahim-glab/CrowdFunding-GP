@@ -19,13 +19,10 @@ contract BaseCampaign {
         Failed,
         Denied
     }
-
     CampaignStatus public campaignStatus;
-    event ContributionReceived(address indexed contributor, uint256 amount);
-
+    event ContributionReceived(address indexed contributor, address Campaign ,uint256 amount , uint256 date );
     constructor(
         address payable owner,
-       
         uint256 durationInDays,
         uint256 Goal,
         address admin,
@@ -46,17 +43,16 @@ contract BaseCampaign {
     }
 
     modifier OnlyAdmin() {
-        require(msg.sender == Admin, "Only the Owner can call this function");
+        require(msg.sender == Admin, "Only the Admin can call this function");
         _;
     }
- 
-
     function setCampaignActive() public OnlyAdmin {
+
         campaignStatus = CampaignStatus.Active;
     }
 
-      function setCampaignDenied() public OnlyAdmin {
-        campaignStatus = CampaignStatus.Denied;
+    function setCampaignDenied() external  OnlyAdmin {
+       campaignStatus = CampaignStatus.Denied;    
     }
 
 
@@ -71,7 +67,7 @@ contract BaseCampaign {
         contributors[sender] += msg.value;
         totalContributions += msg.value;
         contributorsList.push(sender);
-        emit ContributionReceived(sender, msg.value);
+        emit ContributionReceived(sender, address(this) , msg.value , block.timestamp);
     }
 
     function endCampaign() public virtual restricted {
@@ -118,13 +114,3 @@ contract BaseCampaign {
         return payable(Owner).send(address(this).balance);
     }
 }
-
-
-
-
-// 5 of 5 call End Campaign 
-
-4.8 
-
-0.3 
-

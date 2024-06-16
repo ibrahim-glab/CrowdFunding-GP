@@ -20,6 +20,9 @@ contract CampaignFactory {
         bool verified
     );
 
+     event ContributionReceived(address indexed contributor, address Campaign ,uint256 amount , uint256 date );
+
+    
     constructor() {
         admin = msg.sender;
     }
@@ -83,6 +86,8 @@ contract CampaignFactory {
     function contribute(address campaign) external payable {
         BaseCampaign camp = BaseCampaign(campaign);
         camp.contribute{value: msg.value}(msg.sender);
+        emit ContributionReceived(msg.sender, campaign , msg.value , block.timestamp);
+
     }
 
     function getDeployedProjects()

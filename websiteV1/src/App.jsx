@@ -19,6 +19,7 @@ import NavBar from "./Components/dashboard/NavBar";
 import { useAddress } from "@thirdweb-dev/react";
 import { navlinks } from "./constants";
 import CampaignDetails from "./Pages/CampaignDetails";
+import MyCampaigns from "./Pages/MyCampaigns";
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function AppContent() {
             <Route path="/create-campaign" element={<CreateCampaign />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/campaign-details/:id" element={<CampaignDetails />} />
+            <Route path="/MyCampaigns" element={<MyCampaigns />} />
           </Routes>
         </div>
       </div>

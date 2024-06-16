@@ -11,64 +11,36 @@ import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 
 // import { useStateContext } from '../context'
-const Home = ({ campaigns }) => {
+const MyCampaigns = ({ campaigns }) => {
   const address = useAddress();
   const { contract } = useContract(
     "0x14f5c8fbba351ac74e1bfe5287c43de037b88a34",
     contractABI
   );
   console.log(contract);
-  //   const { data, isLoading1, error } = useContractRead(
-  //   contract,
-  //   "getDeployedProjects",
-  // );
-
-  // console.log(data);
 
   const { contract: contract2 } = useContract(
     import.meta.env.VITE_CONTRACTADDRESS,
     contractABI
   );
-
-  // const { data: data5, isLoading45, error6 } = useContractEvents(
-  //   contract2,
-  //   "CampaignCreated",
-  //   {
-  //     queryFilter: {
-  //       fromBlock: 0, // Events starting from this block
-  //       order: "asc", // Order of events ("asc" or "desc")
-  //     },
-  //     subscribe: true, // Subscribe to new events
-  //   },
-  // );
-  //retrive data of each campaign for a specific owner or Connected address wallet
   const {
     data: data6,
     isLoading,
     error7,
   } = useContractEvents(contract2, "CampaignCreated", {
     queryFilter: {
+      filter: { "owner": address },
       fromBlock: 0, // Events starting from this block
       order: "asc", // Order of events ("asc" or "desc")
     },
     subscribe: true, // Subscribe to new events
   });
-  // const parsedCampaings = data6.map((campaign, i) => ({
-  //   owner: campaign.owner,
-  //   title: campaign.title,
-  //   description: campaign.description,
-  //   target: ethers.utils.formatEther(campaign.target.toString()),
-  //   deadline: campaign.deadline.toNumber(),
-  //   amountCollected: ethers.utils.formatEther(campaign.amountCollected.toString()),
-  //   image: campaign.image,
-  //   pId: i
-  // }));
-  console.log("User address data");
   let parsedCampaigns = [];
   console.log(data6);
   if (!isLoading && data6) {
     // Add null check for data6
-    parsedCampaigns = data6.map((campaign) => {
+    parsedCampaigns = data6.filter((campaign) => campaign.data.owner === address)
+    .map((campaign) =>{
       if (campaign.data) {
         // Add null check for campaign.data
         return {
@@ -88,11 +60,11 @@ const Home = ({ campaigns }) => {
 
   return (
     <Campaigns
-      title="All Campaigns"
+      title="My Campaigns"
       isLoading={isLoading}
       campaigns={parsedCampaigns}
     />
   );
 };
 
-export default Home;
+export default MyCampaigns;
