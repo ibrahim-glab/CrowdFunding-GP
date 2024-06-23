@@ -1,7 +1,6 @@
 import Form from "../Components/createCampaign/Forms";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Loader from "../Components/Details/Loader";
 import Dialog from "../Components/Animations/Progress.jsx";
 import {
   useContract,

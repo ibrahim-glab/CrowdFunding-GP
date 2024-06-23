@@ -19,9 +19,10 @@ function CampaignDetails() {
   const [amount, setAmount] = useState("");
 
   const add = useAddress();
-  const difference = Math.abs(new Date(state.deadline).getTime() - Date.now());
-  // Convert milliseconds to days
-  const remainingDays = Math.ceil(difference / (1000 * 60 * 60 * 24));
+  const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+      const daysInSeconds = 24 * 60 * 60; // Seconds in a day
+      const remainingTimeInSeconds = state.deadline - currentTime;
+      const remainingDays = Math.ceil(remainingTimeInSeconds / daysInSeconds);
   // Calling Contribute Function
   const { contract } = useContract(state.address, BasecontractABI);
   const { contract: contract2 } = useContract(

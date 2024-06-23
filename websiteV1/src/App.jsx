@@ -61,7 +61,7 @@ function AppContent() {
           {/* Conditionally render NavBar based on isAdminPath */}
           {location.pathname !== "/admin" && <NavBar />}
           <Routes>
-            <Route path="/" element={<Home campaigns={dummyData} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/requests" element={<Requests />} />
             <Route path="/history" element={<Hist />} />
             <Route path="/create-campaign" element={<CreateCampaign />} />
