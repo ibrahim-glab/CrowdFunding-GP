@@ -4,7 +4,7 @@ import { search, thirdweb } from "../../assets";
 import Auth from "./Auth";
 import { ConnectWallet, useConnectionStatus } from "@thirdweb-dev/react";
 
-const NavBar = () => {
+const NavBar = ({onSearch}) => {
   const isConnected = useConnectionStatus();
   const inputRef = useRef(null);
   const [connect, setConnect] = useState(false);
@@ -16,7 +16,9 @@ const NavBar = () => {
   const disconnectHandler = () => {
     setConnect(false);
   };
-
+  const handleInputChange = (e) => {
+    onSearch(e.target.value);
+  };
   return (
     <div className="flex md:flex-row flex-col-reverse justify-between mb-[35px] gap-6">
       <Auth ref={inputRef} />
@@ -25,6 +27,7 @@ const NavBar = () => {
           type="text"
           placeholder="Search for campaigns"
           className="flex w-full font-epilogue font-normal text-[14px] placeholder:text-[#4b5264] text-white bg-transparent outline-none"
+          onChange={handleInputChange}
         />
         <div className="w-[72px] h-full rounded-[20px] bg-[#4acd8d] flex justify-center items-center cursor-pointer">
           <img

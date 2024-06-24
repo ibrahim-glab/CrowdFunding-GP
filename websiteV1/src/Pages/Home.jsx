@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Campaigns from "../Components/dashboard/Campaigns";
 import { ethers } from "ethers";
 
-const Home = () => {
+const Home = ({searchQuery}) => {
     const [campaigns, setCampaigns] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -32,12 +32,14 @@ const Home = () => {
         };
         fetchCampaigns();
     }, []);
-
+    const filteredCampaigns = campaigns.filter(campaign => 
+        campaign.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     return (
         <Campaigns
             title="All Campaigns"
             isLoading={isLoading}
-            campaigns={campaigns}
+            campaigns={filteredCampaigns}
         />
     );
 };

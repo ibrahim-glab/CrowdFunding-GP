@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { v4 as uuidv4 } from "uuid";
 import FundCard from "./FundCard";
 import { loader } from "../../assets";
 
@@ -30,7 +29,7 @@ const Campaigns = ({ title, isLoading, campaigns }) => {
 
         {!isLoading && campaigns.length === 0 && (
           <p className="font-epilogue font-semibold text-[14px] leading-[30px] text-[#818183]">
-            You have not created any campigns yet
+            You have not created any campaigns yet
           </p>
         )}
 
@@ -38,7 +37,7 @@ const Campaigns = ({ title, isLoading, campaigns }) => {
           campaigns.length > 0 &&
           campaigns.map((campaign) => (
             <FundCard
-              key={uuidv4()}
+              key={campaign.address} // Use a stable and unique key
               {...campaign}
               handleClick={() => handleNavigate(campaign)}
             />

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import "./index.css";
 import "./App.css";
 import { dummyData } from "../utils";
@@ -33,6 +33,11 @@ function AppContent() {
   const location = useLocation();
   const address = useAddress();
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
 
   useEffect(() => {
     // Check if current path is '/admin'
@@ -59,9 +64,9 @@ function AppContent() {
         )}
         <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
           {/* Conditionally render NavBar based on isAdminPath */}
-          {location.pathname !== "/admin" && <NavBar />}
+          {location.pathname !== "/admin" && <NavBar onSearch={handleSearch} />}
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home searchQuery={searchQuery} />} />
             <Route path="/requests" element={<Requests />} />
             <Route path="/history" element={<Hist />} />
             <Route path="/create-campaign" element={<CreateCampaign />} />

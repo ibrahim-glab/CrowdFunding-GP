@@ -4,7 +4,7 @@ import { useContract, useContractRead } from "@thirdweb-dev/react";
 import { logo, tagType, thirdweb } from "../../assets";
 import { BasecontractABI } from "../../constants";
 
-const FundCard = ({
+const FundCard = React.memo(({
   owner,
   title,
   description,
@@ -106,6 +106,6 @@ const FundCard = ({
       </div>
     </div>)
   );
-};
+});
 
 export default FundCard;
