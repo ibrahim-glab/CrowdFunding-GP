@@ -9,6 +9,7 @@ import {
   useAddress,
 } from "@thirdweb-dev/react";
 import { contractABI } from "../constants";
+
 function Requests() {
   const [filter, setFilter] = useState("All");
   const [sort, setSort] = useState("Newest");
@@ -25,6 +26,7 @@ function Requests() {
     import.meta.env.VITE_CONTRACTADDRESS,
     contractABI
   );
+
   const {
     data: data5,
     isLoading45,
@@ -36,13 +38,13 @@ function Requests() {
     },
     subscribe: true, // Subscribe to new events
   });
+
   let reqData = [];
   let add = useAddress();
   if (data5) {
     reqData = data5
       .filter((campaign) => campaign.data.owner === add) // Filter out unverified campaigns
       .map((campaign) => {
-        // Convert milliseconds to days and round up
         const date = new Date(campaign.data.reqDate * 1000);
         const dateString = date.toLocaleDateString();
         const dead = campaign.data.durationInDays.toNumber()
@@ -60,12 +62,13 @@ function Requests() {
         };
       });
   }
-  console.log(data5)
+
   if (sort === "Newest") {
     reqData.sort((a, b) => new Date(b.date) - new Date(a.date));
   } else if (sort === "Oldest") {
     reqData.sort((a, b) => new Date(a.date) - new Date(b.date));
   }
+
   return (
     <div className="container">
       <Headerr
@@ -73,7 +76,7 @@ function Requests() {
         onSortChange={handleSortChange}
         pageTitle={"Requests"}
       />
-      <Table data={reqData} isRequestPage={true} />
+      <Table data={reqData} statusFilter={filter} isRequestPage={true} />
     </div>
   );
 }

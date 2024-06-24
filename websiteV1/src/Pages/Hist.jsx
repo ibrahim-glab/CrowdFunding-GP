@@ -1,23 +1,17 @@
-import { histData } from "../../data";
-import { useState } from "react";
-import { histHeader } from "../../data";
+import { useState, useEffect } from "react";
 import "../style/all.min.css";
 import Headerr from "../Components/history/Header";
 import Table from "../Components/history/Table";
 import {
   useContract,
-  useContractRead,
   useContractEvents,
   useAddress,
 } from "@thirdweb-dev/react";
 import { contractABI } from "../constants";
 import { ethers } from "ethers";
+
 function Hist() {
   const [sort, setSort] = useState("Newest");
-
-  const handleSortChange = (selectedSort) => {
-    setSort(selectedSort);
-  };
   const add = useAddress();
   const { contract: contract2 } = useContract(
     import.meta.env.VITE_CONTRACTADDRESS,
@@ -25,40 +19,44 @@ function Hist() {
   );
   const {
     data: data5,
-    isLoading45,
-    error6,
+    isLoading: isLoading45,
+    error: error6,
   } = useContractEvents(contract2, "ContributionReceived", {
     queryFilter: {
-      filter: { "contributor": add },
-      fromBlock: 0, // Events starting from this block
-      order: "asc", // Order of events ("asc" or "desc")
+      filter: { contributor: add },
+      fromBlock: 0,
+      order: "asc",
     },
-    subscribe: true, // Subscribe to new events
+    subscribe: true,
   });
-  console.log(data5)
-  console.log(add);
-  let histData = [];
-  if (data5) {
-    histData = data5.filter((campaign) => campaign.data.contributor === add)
-    .map((campaign) => {
-      const unixTimestamp = campaign.data.date.toNumber();
-      const date = new Date(unixTimestamp * 1000); // Convert to milliseconds
-      const formattedDate = date.toLocaleDateString();
-      console.log(date)
-      return {
-        title : campaign.data.Campaign,
-        date: formattedDate,
-        goal :ethers.utils.formatEther(campaign.data.amount.toString()),
-        campaignAddress: campaign.data.Campaign,
-      };
-    });
-  }
 
-  if (sort === "Newest") {
-    histData.sort((a, b) => new Date(b.date) - new Date(a.date));
-  } else if (sort === "Oldest") {
-    histData.sort((a, b) => new Date(a.date) - new Date(b.date));
-  }
+  const [histData, setHistData] = useState([]);
+
+  useEffect(() => {
+    if (data5) {
+      const updatedHistData = data5
+        .filter((campaign) => campaign.data.contributor === add)
+        .map((campaign) => ({
+          title: campaign.data.Campaign,
+          date: new Date(campaign.data.date.toNumber() * 1000).toLocaleDateString(),
+          goal: ethers.utils.formatEther(campaign.data.amount.toString()),
+          campaignAddress: campaign.data.Campaign,
+        }));
+
+      if (sort === "Newest") {
+        updatedHistData.sort((a, b) => new Date(b.date) - new Date(a.date));
+      } else if (sort === "Oldest") {
+        updatedHistData.sort((a, b) => new Date(a.date) - new Date(b.date));
+      }
+
+      setHistData(updatedHistData);
+    }
+  }, [data5, add, sort]);
+
+  const handleSortChange = (selectedSort) => {
+    setSort(selectedSort);
+  };
+
   return (
     <div className="container">
       <Headerr

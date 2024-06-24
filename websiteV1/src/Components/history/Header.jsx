@@ -13,14 +13,14 @@ function Headerr({ onFilterChange, onSortChange, pageTitle }) {
         <div className="flex" id='header'>
             <h2 className="bg-[#4acd8d]">{pageTitle}</h2>
             <div>
-                {/* Conditionally render the filtering dropdown for the Request Page */}
                 {pageTitle === "Requests" && (
                     <select className="select-dropdown mr-[5px]" onChange={handleChange}>
-                        <option value="all">All</option>
-                        <option value="active">Active</option>
-                        <option value="pending">Pending</option>
-                        <option value="successful">Successful</option>
-                        <option value="failed">Failed</option>
+                        <option value="All">All</option>
+                        <option value="Active">Active</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Successful">Successful</option>
+                        <option value="Failed">Failed</option>
+                        <option value="Denied">Denied</option>
                     </select>
                 )}
                 <select className="select-dropdown" onChange={handleSort}>

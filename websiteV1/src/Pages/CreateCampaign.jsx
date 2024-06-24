@@ -1,7 +1,7 @@
+import React, { useRef, useState } from "react";
 import Form from "../Components/createCampaign/Forms";
-import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import Dialog from "../Components/Animations/Progress.jsx";
+import { useNavigate } from "react-router-dom";
 import {
   useContract,
   useContractWrite,
@@ -12,13 +12,14 @@ import { contractABI } from "../constants/index.js";
 import { ethers } from "ethers";
 
 function CreateCampaign() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Start with false
   const [file, setFile] = useState(null);
   const { mutateAsync: upload } = useStorageUpload();
   const {
     contract,
     isLoading: contractLoading,
-    error,
+    error: contractError,
   } = useContract(import.meta.env.VITE_CONTRACTADDRESS, contractABI);
   const { mutateAsync } = useContractWrite(contract, "createProject");
   const dialogRef = useRef();
@@ -31,7 +32,7 @@ function CreateCampaign() {
     deadline: "",
     image: "",
     verify: false,
-    reqDate : Date.now()
+    reqDate: Date.now(),
   });
 
   // IPFS
@@ -78,32 +79,37 @@ function CreateCampaign() {
       ethers.utils.parseEther(form.target),
       0, // Assuming 0 for CampaignType
       form.verify,
-      Math.floor(new Date(form.reqDate).getTime() / 1000)
+      Math.floor(new Date(form.reqDate).getTime() / 1000),
     ];
 
     console.log("Form submitted:", campaignData);
     return campaignData;
   };
-  const performAction = () => {
-    dialogRef.current.openDialog();
-  };
+
   const handleDataLoading = async () => {
-    setIsLoading(true);
+    setIsLoading(true); // Set loading to true when starting the submission
     try {
-      performAction();
-      const campaignData = await handleData();
-      await mutateAsync({ args: [...campaignData] });
-      setIsLoading(false);
+      dialogRef.current.openDialog(); // Open the progress dialog
+      const campaignData = await handleData(); // Handle form data submission
+      await mutateAsync({ args: [...campaignData] }); // Mutate the contract with campaign data
+      setIsLoading(false); // Set loading to false on success
+      dialogRef.current.closeDialog();
+      setLoadError("Campaign Created successfully"); // Set error state
+      dialogRef.current.openDialog(); 
+       // Close the progress dialog
     } catch (error) {
       console.error("Error creating campaign:", error);
-      setIsLoading(false);
+      setIsLoading(false); // Set loading to false on error
+      dialogRef.current.closeDialog(); // Close the progress dialog
+      setLoadError("Failed to create campaign"); // Set error state
+      dialogRef.current.openDialog(); // Open dialog popup on error
     }
   };
 
   return (
     <>
       <div className="create-campaign bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
-        <Dialog ref={dialogRef} load={isLoading} />
+        <Dialog ref={dialogRef} load={isLoading} error={loadError} />
         <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
           <h1 className="font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">
             Create New Campaign
@@ -174,9 +180,13 @@ function CreateCampaign() {
             <Web3Button
               contractAddress={import.meta.env.VITE_CONTRACTADDRESS}
               action={handleDataLoading}
+              onError={(error) => {
+                console.error("Web3Button error:", error);
+                setLoadError("Failed to interact with contract"); // Set a specific error message
+                dialogRef.current.openDialog(); // Open dialog popup on error
+              }}
               style={{ color: "white", backgroundColor: "#2c645b" }}
-              type="submit"
-              deadline
+              type="button"
             >
               Submit
             </Web3Button>

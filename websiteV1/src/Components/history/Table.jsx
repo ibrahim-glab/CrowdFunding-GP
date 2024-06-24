@@ -2,7 +2,8 @@ import Titles from "./Titles";
 import Data from "./Data";
 import { requestHeader, histHeader } from "../../../data";
 import { v4 as uuidv4 } from "uuid";
-function Table({ data, isRequestPage }) {
+
+function Table({ data, isRequestPage, statusFilter }) {
   const headers = isRequestPage ? requestHeader : histHeader;
   return (
     <table>
@@ -12,11 +13,12 @@ function Table({ data, isRequestPage }) {
             <Titles key={index} title={title} />
           ))}
         </tr>
-        {data.map((item, index) =>
-            <Data key={uuidv4()} {...item} index={index} />
-        )}
+        {data.map((item, index) => (
+          <Data key={uuidv4()} statusFilter={statusFilter} isRequestPage={isRequestPage} {...item} index={index} />
+        ))}
       </tbody>
     </table>
   );
 }
+
 export default Table;

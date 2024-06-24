@@ -200,7 +200,11 @@ function CampaignDetails({ loggedInUserAddress }) {
                     style={{ color: "white", backgroundColor: "#8c6dfd" }}
                     type="submit"
                     deadline
-                    isDisabled={isOwner}
+                    isDisabled={isOwner ||  amount === "" }
+                    onError={(error) => {
+                      alert("Something went wrong!");
+                      setIsLoading(false);
+                    }}
                   >
                     {isOwner ? "Cannot Fund Own Campaign" : "Fund Campaign"}
                   </Web3Button>

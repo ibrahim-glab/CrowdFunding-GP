@@ -202,6 +202,7 @@ const filterCamp = cron.schedule('*/10 * * * * *', async() => {
             const daysInSeconds = 24 * 60 * 60; // Seconds in a day
             const remainingTimeInSeconds = deadline - currentTime;
             const remainingDays = Math.ceil(remainingTimeInSeconds / daysInSeconds);
+            
             return remainingDays > 0;
         })
         console.log(filteredData);
