@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 
 // import { useStateContext } from '../context'
-const MyCampaigns = ({ campaigns }) => {
+const MyCampaigns = ({searchQuery}) => {
   const address = useAddress();
   const { contract } = useContract(
     "0x14f5c8fbba351ac74e1bfe5287c43de037b88a34",
@@ -57,12 +57,14 @@ const MyCampaigns = ({ campaigns }) => {
     });
     console.log(parsedCampaigns);
   }
-
+  const filteredCampaigns = parsedCampaigns.filter(campaign => 
+    campaign.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   return (
     <Campaigns
       title="My Campaigns"
       isLoading={isLoading}
-      campaigns={parsedCampaigns}
+      campaigns={filteredCampaigns}
     />
   );
 };
