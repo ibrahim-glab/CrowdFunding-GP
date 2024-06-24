@@ -16,10 +16,11 @@ function Headerr({ onFilterChange, onSortChange, pageTitle }) {
                 {/* Conditionally render the filtering dropdown for the Request Page */}
                 {pageTitle === "Requests" && (
                     <select className="select-dropdown mr-[5px]" onChange={handleChange}>
-                        <option value="All">All</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Accepted">Accepted</option>
-                        <option value="Rejected">Rejected</option>
+                        <option value="all">All</option>
+                        <option value="active">Active</option>
+                        <option value="pending">Pending</option>
+                        <option value="successful">Successful</option>
+                        <option value="failed">Failed</option>
                     </select>
                 )}
                 <select className="select-dropdown" onChange={handleSort}>

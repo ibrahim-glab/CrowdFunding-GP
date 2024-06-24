@@ -13,11 +13,11 @@ import { ethers } from "ethers";
 import Loader from "../Components/Details/Loader";
 import { BasecontractABI } from "../constants";
 import { contractABI } from "../constants";
-function CampaignDetails() {
+function CampaignDetails({ loggedInUserAddress }) {
   const { state } = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState("");
-
+  const isOwner = state.owner === loggedInUserAddress;
   const add = useAddress();
   const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
       const daysInSeconds = 24 * 60 * 60; // Seconds in a day
@@ -200,8 +200,9 @@ function CampaignDetails() {
                     style={{ color: "white", backgroundColor: "#8c6dfd" }}
                     type="submit"
                     deadline
+                    isDisabled={isOwner}
                   >
-                    Fund Campaign
+                    {isOwner ? "Cannot Fund Own Campaign" : "Fund Campaign"}
                   </Web3Button>
                 </div>
               </div>

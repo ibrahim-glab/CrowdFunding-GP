@@ -71,7 +71,7 @@ function AppContent() {
             <Route path="/history" element={<Hist />} />
             <Route path="/create-campaign" element={<CreateCampaign />} />
             <Route path="/admin" element={<AdminPage />} />
-            <Route path="/campaign-details/:id" element={<CampaignDetails />} />
+            <Route path="/campaign-details/:id" element={<CampaignDetails loggedInUserAddress={address} />} />
             <Route path="/MyCampaigns" element={<MyCampaigns searchQuery={searchQuery}/>} />
           </Routes>
         </div>

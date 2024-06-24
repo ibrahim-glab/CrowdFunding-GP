@@ -50,7 +50,6 @@ function Requests() {
         const daysInSeconds = 24 * 60 * 60;
         const remainingTimeInSeconds = dead - currentTime;
         const remainingDays = Math.ceil(remainingTimeInSeconds / daysInSeconds);
-        console.log(remainingDays);
         return {
           title: campaign.data.title,
           owner: campaign.data.owner,
@@ -61,6 +60,7 @@ function Requests() {
         };
       });
   }
+  console.log(data5)
   if (sort === "Newest") {
     reqData.sort((a, b) => new Date(b.date) - new Date(a.date));
   } else if (sort === "Oldest") {

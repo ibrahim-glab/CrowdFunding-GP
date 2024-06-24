@@ -29,14 +29,6 @@ function Data({ owner, CampaignAddress, title, date, goal, index ,deadline}) {
   if (deadline <= 0 && totalContributions >= goal) {
     statusInLetters=statusMap[1];
   }
-  // if (deadline <= 0){
-  //   const {
-  //     data: status,
-  //     isLoading,
-  //     error,
-  //   } = useContractRead(contract, "endCampaign");
-  //   console.log(status);
-  // }
   return (
     <tr className={`data-row ${index % 2 === 0 ? "even-row" : "odd-row"}`}>
       {owner && <td>{owner}</td>}
