@@ -29,7 +29,7 @@ contract BaseCampaign {
         bool verfied
     ) {
         Owner = owner;
-        campaignEndTime = block.timestamp + (durationInDays * 1 days);
+        campaignEndTime = durationInDays;
         if (!verfied) campaignStatus = CampaignStatus.Active;
         else{
         campaignStatus = CampaignStatus.Pending;}

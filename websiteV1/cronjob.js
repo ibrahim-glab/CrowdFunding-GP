@@ -61,6 +61,12 @@ const contractABI = [{
                 "internalType": "bool",
                 "name": "verified",
                 "type": "bool"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "reqDate",
+                "type": "uint256"
             }
         ],
         "name": "CampaignCreated",
@@ -142,6 +148,11 @@ const contractABI = [{
                 "internalType": "bool",
                 "name": "verified",
                 "type": "bool"
+            },
+            {
+                "internalType": "uint256",
+                "name": "reqDate",
+                "type": "uint256"
             }
         ],
         "name": "createProject",
@@ -173,7 +184,7 @@ const contractABI = [{
     }
 ]
 const contractAddress =
-    "0x04A96a108fE9838174Db610Ad47788E1aDc9BAFE";
+    "0x9d294E95fC6a1a6F00eb829cCAf4b65189625766";
 
 const provider = new ethers.providers.JsonRpcProvider(
     "https://eth-sepolia.g.alchemy.com/v2/59Sffz2x5iWB2LWv6mTA5l16dpQcPJqU");
@@ -193,6 +204,7 @@ const filterCamp = cron.schedule('*/10 * * * * *', async() => {
             const remainingDays = Math.ceil(remainingTimeInSeconds / daysInSeconds);
             return remainingDays > 0;
         })
+        console.log(filteredData);
     } catch (error) {
         console.error('Error fetching events:', error);
     }

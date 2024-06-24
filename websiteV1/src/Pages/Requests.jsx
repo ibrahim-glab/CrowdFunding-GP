@@ -43,14 +43,21 @@ function Requests() {
       .filter((campaign) => campaign.data.owner === add) // Filter out unverified campaigns
       .map((campaign) => {
         // Convert milliseconds to days and round up
-        const date = new Date(campaign.data.durationInDays.toNumber());
+        const date = new Date(campaign.data.reqDate * 1000);
         const dateString = date.toLocaleDateString();
+        const dead = campaign.data.durationInDays.toNumber()
+        const currentTime = Math.floor(Date.now() / 1000);
+        const daysInSeconds = 24 * 60 * 60;
+        const remainingTimeInSeconds = dead - currentTime;
+        const remainingDays = Math.ceil(remainingTimeInSeconds / daysInSeconds);
+        console.log(remainingDays);
         return {
           title: campaign.data.title,
           owner: campaign.data.owner,
           goal: ethers.utils.formatEther(campaign.data.goal.toString()),
           date: dateString,
           CampaignAddress: campaign.data.campaign,
+          deadline : remainingDays
         };
       });
   }

@@ -17,7 +17,8 @@ contract CampaignFactory {
         uint256 durationInDays,
         uint256 goal,
         CampaignType campType,
-        bool verified
+        bool verified,
+        uint256 reqDate
     );
 
      event ContributionReceived(address indexed contributor, address Campaign ,uint256 amount , uint256 date );
@@ -40,7 +41,8 @@ contract CampaignFactory {
         uint256 durationInDays,
         uint256 goal,
         CampaignType campType,
-        bool verified
+        bool verified,
+        uint256 reqDate
     ) external {
         BaseCampaign newCamp;
         if (campType == CampaignType.Charity) {
@@ -79,7 +81,8 @@ contract CampaignFactory {
             durationInDays,
             goal,
             campType,
-            verified
+            verified,
+            reqDate
         );
     }
 

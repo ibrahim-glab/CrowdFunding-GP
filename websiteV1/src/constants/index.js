@@ -137,6 +137,12 @@ export const contractABI = [{
                 "internalType": "bool",
                 "name": "verified",
                 "type": "bool"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "reqDate",
+                "type": "uint256"
             }
         ],
         "name": "CampaignCreated",
@@ -218,6 +224,11 @@ export const contractABI = [{
                 "internalType": "bool",
                 "name": "verified",
                 "type": "bool"
+            },
+            {
+                "internalType": "uint256",
+                "name": "reqDate",
+                "type": "uint256"
             }
         ],
         "name": "createProject",

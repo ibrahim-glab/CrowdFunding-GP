@@ -31,6 +31,7 @@ function CreateCampaign() {
     deadline: "",
     image: "",
     verify: false,
+    reqDate : Date.now()
   });
 
   // IPFS
@@ -77,6 +78,7 @@ function CreateCampaign() {
       ethers.utils.parseEther(form.target),
       0, // Assuming 0 for CampaignType
       form.verify,
+      Math.floor(new Date(form.reqDate).getTime() / 1000)
     ];
 
     console.log("Form submitted:", campaignData);
