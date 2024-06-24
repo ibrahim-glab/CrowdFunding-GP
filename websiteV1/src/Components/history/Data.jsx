@@ -1,6 +1,12 @@
 import React from "react";
-import { useContract, useContractRead } from "@thirdweb-dev/react";
+import {
+  useContract,
+  useContractEvents,
+  useContractRead,
+} from "@thirdweb-dev/react";
 import { BasecontractABI } from "../../constants";
+import { contractABI } from "../../constants";
+import { data } from "autoprefixer";
 
 function Data({
   owner,
@@ -14,12 +20,26 @@ function Data({
   isRequestPage,
 }) {
   const { contract } = useContract(CampaignAddress, BasecontractABI);
+  const { contract: titleContract } = useContract(
+    import.meta.env.VITE_CONTRACTADDRESS,
+    contractABI
+  );
   const { data: status } = useContractRead(contract, "campaignStatus");
   const { data: totalContributions } = useContractRead(
     contract,
     "totalContributions"
   );
+  const { data: campaignTitle } = useContractEvents(
+    titleContract,
+    "CampaignCreated"
+  );
 
+  let wantedCampaign = [];
+  if (campaignTitle) {
+    wantedCampaign = campaignTitle.filter(
+      (item) => item.data.campaign === title
+    );
+  }
   const statusMap = {
     0: "Active",
     1: "Successful",
@@ -34,6 +54,8 @@ function Data({
   }
   if (deadline <= 0 && totalContributions < goal) {
     statusInLetters = statusMap[3];
+   // const {data: test} = useContractRead(contract, "endCampaign");
+    
   }
   if (deadline <= 0 && totalContributions >= goal) {
     statusInLetters = statusMap[1];
@@ -53,6 +75,7 @@ function Data({
       {status !== undefined && <td>{statusInLetters}</td>}
     </tr>
   );
+  const titleCamp = wantedCampaign.map((campaign) => campaign.data.title);
 
   const rendersRow = (
     <tr className={`data-row ${index % 2 === 0 ? "even-row" : "odd-row"}`}>
@@ -60,6 +83,7 @@ function Data({
       <td>
         <a href="#">{title}</a>
       </td>
+      <td>{titleCamp}</td>
       <td>{date}</td>
       <td>{goal} ETH</td>
       {status !== undefined && <td>{statusInLetters}</td>}

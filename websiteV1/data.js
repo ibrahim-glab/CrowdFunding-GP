@@ -38,7 +38,7 @@ export const reqData = [{
     },
 ]
 export const histHeader = [
-    'Campaign Address', 'Enrollment Date', 'Amount'
+    'Campaign Address', 'title','Enrollment Date', 'Amount'
 ]
 export const histData = [{
         walletID: "0x244112632",

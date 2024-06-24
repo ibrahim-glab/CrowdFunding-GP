@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Campaigns from "../Components/dashboard/Campaigns";
 import { ethers } from "ethers";
+import { verify } from "@thirdweb-dev/sdk";
 
 const Home = ({searchQuery}) => {
     const [campaigns, setCampaigns] = useState([]);
@@ -21,6 +22,7 @@ const Home = ({searchQuery}) => {
                     image: item.args[4],
                     owner: item.args[0],
                     address: item.args[1],
+                    verified :item.args[8]
                 }));
                 setCampaigns(parsedCampaigns);
                 console.log(parsedCampaigns);

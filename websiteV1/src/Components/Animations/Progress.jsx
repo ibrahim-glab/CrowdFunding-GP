@@ -47,7 +47,7 @@ const Dialog = forwardRef(({ load, error }, ref) => {
           </>
         ) : (
           <>
-            <h3 className="mb-2 text-red-500">Error: {error}</h3>
+            <h3 className="mb-2 text-red-500"> {error}</h3>
             <button onClick={() => ref.current.closeDialog()}>Close</button>
           </>
         )}

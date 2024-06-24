@@ -35,21 +35,29 @@ function CreateCampaign() {
     reqDate: Date.now(),
   });
 
-  // IPFS
+  // IPFS Upload
   const uploadToIpfs = async () => {
     if (!file) {
       console.error("No file selected.");
+      setLoadError("No file selected."); // Update state with error message
+      dialogRef.current.openDialog(); // Open dialog to show error
       return;
     }
-    const uploadUrl = await upload({
-      data: [file],
-      options: {
-        uploadWithGatewayUrl: true,
-        uploadWithoutDirectory: true,
-      },
-    });
-    console.log("uploadUrl: ", uploadUrl);
-    return uploadUrl;
+    try {
+      const uploadUrl = await upload({
+        data: [file],
+        options: {
+          uploadWithGatewayUrl: true,
+          uploadWithoutDirectory: true,
+        },
+      });
+      console.log("uploadUrl: ", uploadUrl);
+      return uploadUrl;
+    } catch (error) {
+      console.error("IPFS upload error:", error);
+      setLoadError("Failed to upload to IPFS."); // Update state with error message
+      dialogRef.current.openDialog(); // Open dialog to show error
+    }
   };
 
   const handleFormFieldChange = async (fieldName, e) => {
@@ -65,12 +73,13 @@ function CreateCampaign() {
     e.preventDefault();
   };
 
-  // STORE Data in campaign
+  // Store Data in Campaign
   const handleData = async () => {
     const uploadedUrl = await uploadToIpfs();
+    if (!uploadedUrl) return; // Stop if upload failed
     console.log("uploadedUrl: ", uploadedUrl);
 
-    // If the upload was successful, update form.image with the uploaded URL
+    // Update form.image with the uploaded URL
     const campaignData = [
       form.title,
       form.description,
@@ -91,18 +100,19 @@ function CreateCampaign() {
     try {
       dialogRef.current.openDialog(); // Open the progress dialog
       const campaignData = await handleData(); // Handle form data submission
+      if (!campaignData) return; // Stop if data handling failed
       await mutateAsync({ args: [...campaignData] }); // Mutate the contract with campaign data
       setIsLoading(false); // Set loading to false on success
-      dialogRef.current.closeDialog();
-      setLoadError("Campaign Created successfully"); // Set error state
-      dialogRef.current.openDialog(); 
-       // Close the progress dialog
+      dialogRef.current.closeDialog(); // Close the progress dialog
+      setLoadError("Campaign Created successfully"); // Set success message
+      dialogRef.current.openDialog(); // Open dialog to show success
+     // setTimeout(() => navigate('/'), 2000); // Redirect after 2 seconds
     } catch (error) {
       console.error("Error creating campaign:", error);
       setIsLoading(false); // Set loading to false on error
+      setLoadError("Failed to create campaign"); // Set error message
       dialogRef.current.closeDialog(); // Close the progress dialog
-      setLoadError("Failed to create campaign"); // Set error state
-      dialogRef.current.openDialog(); // Open dialog popup on error
+      dialogRef.current.openDialog(); // Open dialog to show error
     }
   };
 
