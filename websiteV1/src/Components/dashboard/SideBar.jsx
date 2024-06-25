@@ -48,7 +48,7 @@ const SideBar = ({ activePage, updateActivePage }) => {
   }, [isActive]);
 
   return (
-    <div className="flex justify-between items-center flex-col sticky top-5 h-[93vh]">
+    <div className="flex justify-between items-center flex-col sticky top-3 h-[93vh]">
       <div className=" flex items-center mx-auto w-16 h-16 bg-[#2c2f32] rounded-lg">
         <p className="m-auto">
           <pre className="text-customGreen">𝕱𝖚𝖓𝖉</pre>{" "}

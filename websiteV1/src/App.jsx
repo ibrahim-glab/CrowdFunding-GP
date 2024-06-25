@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 import "./App.css";
 import { dummyData } from "../utils";
@@ -54,29 +54,25 @@ function AppContent() {
   }, [address, location.pathname, navigate]);
 
   return (
-    <>
-      <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row">
-        {/* Conditionally render SideBar based on isAdminPath */}
-        {location.pathname !== "/admin" && (
-          <div className="sm:flex hidden mr-10 relative">
-            <SideBar />
-          </div>
-        )}
-        <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
-          {/* Conditionally render NavBar based on isAdminPath */}
-          {location.pathname !== "/admin" && <NavBar onSearch={handleSearch} />}
-          <Routes>
-            <Route path="/" element={<Home searchQuery={searchQuery} />} />
-            <Route path="/requests" element={<Requests />} />
-            <Route path="/history" element={<Hist />} />
-            <Route path="/create-campaign" element={<CreateCampaign />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/campaign-details/:id" element={<CampaignDetails loggedInUserAddress={address} />} />
-            <Route path="/MyCampaigns" element={<MyCampaigns searchQuery={searchQuery}/>} />
-          </Routes>
+    <div className="relative sm:-8 p-4 bg-[#13131a] overflow-hidden min-h-screen flex flex-row min-w-full">
+      {location.pathname !== "/admin" && (
+        <div className="sm:flex hidden mr-10 relative">
+          <SideBar />
         </div>
+      )}
+      <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
+        {location.pathname !== "/admin" && <NavBar onSearch={handleSearch} />}
+        <Routes>
+          <Route path="/" element={<Home searchQuery={searchQuery} />} />
+          <Route path="/requests" element={<Requests />} />
+          <Route path="/" element={<Hist />} />
+          <Route path="/create-campaign" element={<CreateCampaign />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/campaign-details/:id" element={<CampaignDetails loggedInUserAddress={address} />} />
+          <Route path="/MyCampaigns" element={<MyCampaigns searchQuery={searchQuery}/>} />
+        </Routes>
       </div>
-    </>
+    </div>
   );
 }
 

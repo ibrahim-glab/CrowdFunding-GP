@@ -4,9 +4,7 @@ import {
   useContractEvents,
   useContractRead,
 } from "@thirdweb-dev/react";
-import { BasecontractABI } from "../../constants";
-import { contractABI } from "../../constants";
-import { data } from "autoprefixer";
+import { BasecontractABI, contractABI } from "../../constants";
 
 function Data({
   owner,
@@ -54,8 +52,6 @@ function Data({
   }
   if (deadline <= 0 && totalContributions < goal) {
     statusInLetters = statusMap[3];
-   // const {data: test} = useContractRead(contract, "endCampaign");
-    
   }
   if (deadline <= 0 && totalContributions >= goal) {
     statusInLetters = statusMap[1];
@@ -66,29 +62,31 @@ function Data({
 
   const renderRow = shouldRenderRow && (
     <tr className={`data-row ${index % 2 === 0 ? "even-row" : "odd-row"}`}>
-      {owner && <td>{owner}</td>}
-      <td>
+      {owner && <td className="px-6 py-4 whitespace-nowrap">{owner}</td>}
+      <td className="px-6 py-4 whitespace-nowrap">
         <a href="#">{title}</a>
       </td>
-      <td>{date}</td>
-      <td>{goal} ETH</td>
-      {status !== undefined && <td>{statusInLetters}</td>}
+      <td className="px-6 py-4 whitespace-nowrap">{date}</td>
+      <td className="px-6 py-4 whitespace-nowrap">{goal} ETH</td>
+      {status !== undefined && <td className="px-6 py-4 whitespace-nowrap">{statusInLetters}</td>}
     </tr>
   );
+
   const titleCamp = wantedCampaign.map((campaign) => campaign.data.title);
 
   const rendersRow = (
     <tr className={`data-row ${index % 2 === 0 ? "even-row" : "odd-row"}`}>
-      {owner && <td>{owner}</td>}
-      <td>
+      {owner && <td className="px-6 py-4 whitespace-nowrap">{owner}</td>}
+      <td className="px-6 py-4 whitespace-nowrap">
         <a href="#">{title}</a>
       </td>
-      <td>{titleCamp}</td>
-      <td>{date}</td>
-      <td>{goal} ETH</td>
-      {status !== undefined && <td>{statusInLetters}</td>}
+      <td className="px-6 py-4 whitespace-nowrap">{titleCamp}</td>
+      <td className="px-6 py-4 whitespace-nowrap">{date}</td>
+      <td className="px-6 py-4 whitespace-nowrap">{goal} ETH</td>
+      {status !== undefined && <td className="px-6 py-4 whitespace-nowrap">{statusInLetters}</td>}
     </tr>
   );
+
   return <>{isRequestPage === true ? renderRow : rendersRow}</>;
 }
 
