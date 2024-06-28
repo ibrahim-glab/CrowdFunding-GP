@@ -184,7 +184,7 @@ const contractABI = [{
     }
 ]
 const contractAddress =
-    "0x9d294E95fC6a1a6F00eb829cCAf4b65189625766";
+    "0x676866a521879b813b050Ba54bcdCa19f8D7A829";
 
 const provider = new ethers.providers.JsonRpcProvider(
     "https://eth-sepolia.g.alchemy.com/v2/59Sffz2x5iWB2LWv6mTA5l16dpQcPJqU");

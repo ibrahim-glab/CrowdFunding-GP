@@ -55,8 +55,9 @@ function Data({
   }
   if (deadline <= 0 && totalContributions >= goal) {
     statusInLetters = statusMap[1];
-  }
-
+   }// else {
+  //   statusInLetters = statusMap[4];
+  // }
   const shouldRenderRow =
     !statusFilter || statusFilter === "All" || statusInLetters === statusFilter;
 
@@ -68,7 +69,9 @@ function Data({
       </td>
       <td className="px-6 py-4 whitespace-nowrap">{date}</td>
       <td className="px-6 py-4 whitespace-nowrap">{goal} ETH</td>
-      {status !== undefined && <td className="px-6 py-4 whitespace-nowrap">{statusInLetters}</td>}
+      {status !== undefined && (
+        <td className="px-6 py-4 whitespace-nowrap">{statusInLetters}</td>
+      )}
     </tr>
   );
 
@@ -83,7 +86,9 @@ function Data({
       <td className="px-6 py-4 whitespace-nowrap">{titleCamp}</td>
       <td className="px-6 py-4 whitespace-nowrap">{date}</td>
       <td className="px-6 py-4 whitespace-nowrap">{goal} ETH</td>
-      {status !== undefined && <td className="px-6 py-4 whitespace-nowrap">{statusInLetters}</td>}
+      {status !== undefined && (
+        <td className="px-6 py-4 whitespace-nowrap">{statusInLetters}</td>
+      )}
     </tr>
   );
 
