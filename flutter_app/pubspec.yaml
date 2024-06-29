@@ -1,0 +1,55 @@
+name: flutter_app
+description: A new Flutter project.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  intl: ^0.17.0
+  autocomplete_textfield: ^2.0.1
+  provider: ^6.1.1
+  url_launcher: ^6.3.0
+  google_fonts: ^4.0.4
+  slider_button: ^2.1.0
+  web3modal_flutter: ^3.1.2
+  image_picker: ^0.8.5+3
+  http: ^1.2.1
+  cached_network_image: ^3.3.1
+  flutter_cache_manager: ^3.3.2
+  shared_preferences: ^2.0.13 
+ 
+
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
+
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/playstore.png"
+
+flutter:  
+  uses-material-design: true
+  assets:
+    - assets/playstore.png
+    - assets/147.jpg
+    - assets/New WHS image from video 1.jpg
+    - assets/97199cdda2fec20471eb88c8da150220.jpg
+    - assets/2149668609.jpg
+    - assets/clean-empty-hospital-ward-ready-receive-patients-reflecting-modern-medical-care.jpg
+    - assets/Sunnydale1.jpg
+    - assets/thirdweb.png
+    - assets/Verified Logo.png
+    - src/abis/
