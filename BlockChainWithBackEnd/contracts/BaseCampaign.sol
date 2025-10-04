@@ -1,53 +1,40 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 import "hardhat/console.sol";
+
 contract BaseCampaign {
+ 
     address payable public Owner;
+  
     address private Admin;
-    uint256 public Type;
-    uint256 public minimumcontribution;
     uint256 public immutable goal;
     mapping(address => uint256) public contributors;
     address[] public contributorsList;
     uint256 public totalContributions;
     uint256 public immutable campaignEndTime;
-    bool private authorized;
     enum CampaignStatus {
         Active,
         Successful,
         Pending,
-        Failed
+        Failed,
+        Denied
     }
-    
     CampaignStatus public campaignStatus;
-    event ContributionReceived(
-        address indexed contributor,
-        uint256 amount
-    );
-
-    // struct Request {
-    //     string description;
-    //     uint256 value;
-    //     address payable recipient;
-    //     bool complete;
-    //     uint256 approvalCount;
-    // }
-    // Request[] public requests;
-
+    event ContributionReceived(address indexed contributor, address Campaign ,uint256 amount , uint256 date );
     constructor(
-        address  payable owner,
-        uint256 minimumContribution,
+        address payable owner,
         uint256 durationInDays,
         uint256 Goal,
-        address admin
+        address admin,
+        bool verfied
     ) {
         Owner = owner;
-        minimumcontribution = minimumContribution;
-        campaignEndTime = block.timestamp + (durationInDays * 1 days);
-        campaignStatus = CampaignStatus.Pending;
+        campaignEndTime = durationInDays;
+        if (!verfied) campaignStatus = CampaignStatus.Active;
+        else{
+        campaignStatus = CampaignStatus.Pending;}
         goal = Goal;
-        console.log(address(this));
-        Admin = admin;
+        Admin = admin;    
     }
 
     modifier restricted() {
@@ -55,53 +42,33 @@ contract BaseCampaign {
         _;
     }
 
-       modifier OnlyAdmin() 
-       {
-        require(msg.sender == Admin, "Only the Owner can call this function");
+    modifier OnlyAdmin() {
+        require(msg.sender == Admin, "Only the Admin can call this function");
         _;
     }
-     modifier CampaignActice(){
-        require(campaignStatus == CampaignStatus.Active, "Campaign is not active");
-        _;
-     }
-     modifier ContributionMinimun(){
-        require(msg.value >= minimumcontribution, "Contribution amount too low");
-        _;
-     }
-    function isCampaignActive() public view returns (bool) {
-        if (campaignStatus == CampaignStatus.Active) {
-            return true;
-        }
-        return false;
-    }
-    function setCampaignActive() public OnlyAdmin   {
+    function setCampaignActive() public OnlyAdmin {
+
         campaignStatus = CampaignStatus.Active;
-       }
-
-    // abdalla 10/2 10:00 AM  this function for Admin.sol
-    function setCampaignStatus(CampaignStatus _status) public {
-            campaignStatus = _status;
-        }
-
-
-
-    
-
-    
-        //update this fun to
-    function contribute() public virtual payable  CampaignActice ContributionMinimun {
-        require(block.timestamp < campaignEndTime, "Campaign has ended");     
-        require(
-            msg.value>= minimumcontribution,
-            "Contribution amount too low"
-        );
-
-        contributors[msg.sender] += msg.value;
-        totalContributions += msg.value;
-        contributorsList.push(msg.sender);
-        emit ContributionReceived(msg.sender, msg.value);
     }
 
+    function setCampaignDenied() external  OnlyAdmin {
+       campaignStatus = CampaignStatus.Denied;    
+    }
+
+
+    function contribute( address sender)     
+         public     
+         payable       
+         virtual
+              
+    {
+        require(block.timestamp < campaignEndTime, "Campaign has ended");
+      
+        contributors[sender] += msg.value;
+        totalContributions += msg.value;
+        contributorsList.push(sender);
+        emit ContributionReceived(sender, address(this) , msg.value , block.timestamp);
+    }
 
     function endCampaign() public virtual restricted {
         require(
@@ -122,8 +89,8 @@ contract BaseCampaign {
             );
         }
     }
-/////////
-    function refundContributors() public {
+
+    function refundContributors() internal {
         uint256 maxRetries = 5;
         for (uint256 i = 0; i < contributorsList.length; i++) {
             uint256 retries = 0;

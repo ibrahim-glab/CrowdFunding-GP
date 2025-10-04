@@ -2,6 +2,14 @@ require("@nomicfoundation/hardhat-toolbox");
 require("hardhat-gas-reporter")
 
 module.exports = {
+  chainlink: {
+    confirmations :1
+  },
+  networks: {
+    hardhat: {      
+        chainId: 1337
+    },
+},
   solidity: "0.8.19",
   gasReporter:{
     enabled :true,
